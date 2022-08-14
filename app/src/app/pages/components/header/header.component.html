@@ -1,0 +1,53 @@
+<header id="main-header" style="overflow:hidden !important">
+    <nav class="navbar navbar-expand-lg" style="padding:0 !important; ">
+        <div class="row" style="padding:0 !important;">
+            <div class="col-12 col-md-3">
+                <img class="p-5" id="logo" src="assets/images/logo-black.png" alt="" style>
+            </div>
+            <div class="col-12 col-md-3">
+
+            </div>
+            <div class="col-12 col-md-4">
+                
+            </div>
+            <div *ngIf="!identity" class="col-12 col-md-2 d-flex align-items-center justify-content-center" style="margin:-25px; padding:0 ">
+                <button class="btn d-flex align-items-center justify-content-center text-white" style="background-color:#0075b0;max-width: 100%; width:100%; margin-top:-30px; padding-bottom:20px; margin-bottom:-20px; margin-right:-20px"><span style="margin-top:20px">Ingresar</span></button>
+            </div>
+  
+            <div *ngIf="identity" class="col-12 col-md-1 d-flex align-items-center justify-content-center" style="margin:-25px; padding:0 ">
+                <button class="btn d-flex align-items-center justify-content-center">
+                    <i class="simple-icon-bell" style="color:#0075b0 !important; font-size:25px"></i>
+                </button>
+            </div>
+            <div *ngIf="identity" class="col-12 col-md-1 d-flex align-items-center justify-content-center" style="padding:0 ">
+                <button class="btn d-flex align-items-center justify-content-center text-white" style="background-color:#0075b0 !important;max-width: 100% !important; width:100%; height:60px;margin-right:-200px !important;">
+                    <i class="simple-icon-menu p-2" style="color:white!important; font-size:25px"></i>
+                </button>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav" style="display: none !important;">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+</header>
+<div id="secondary-nav">
+    <div class="row">
+            <div class="col-3 text-center text-white "><i class="simple-icon-arrow-up-circle"></i> +123.15</div>
+            <div class="col-3 text-center text-white"><i class="simple-icon-arrow-down-circle"></i> -10.43%</div>
+            <div class="col-3 text-center text-white">Total <img style="height:25px;width:25px;" src="assets/images/eom-coin-transparent.png" alt="">1,543,712 </div>
+            <div class="col-3 text-center text-white">En línea <i class="simple-icon-user"></i> 1235</div>
+    </div>
+</div>
