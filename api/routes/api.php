@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +19,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::group([
+    'middleware' => 'api',
+    'namespace' => 'App\Http\Controllers',
+    'prefix' => 'auth'
+], function ( $router ) {
+    Route::post('login', 'AuthController@login');
+    Route::post('register', 'AuthController@register');
+});
+Route::group(['middleware' => ['jwt.verify']], function(){
+    Route::apiResources([
+        'users' => UserController::class,
+        'products' => ProductController::class,
+        'categories' => CategoryController::class,
+    ]);
 });

@@ -11,5 +11,7 @@ export class RegisterPageComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  onSubmit( values ){
+    console.log( values )
+  }
 }
