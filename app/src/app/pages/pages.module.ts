@@ -3,30 +3,36 @@ import { CommonModule } from '@angular/common';
 
 import { PagesRoutingModule } from './pages-routing.module';
 import { PagesComponent } from './pages.component';
-import { IndexPageComponent } from './index-page/index-page.component';
-import { LoginPageComponent } from './login-page/login-page.component';
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { SwiperModule } from 'swiper/angular'
-import { FormsModule } from '@angular/forms';
 import { SliderComponent } from './components/slider/slider.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { LoginPageComponent } from './auth/login-page/login-page.component';
+import { SignUpPageComponent } from './auth/sign-up-page/sign-up-page.component';
+import { IndexPageComponent } from './home/index-page/index-page.component';
+import { PublishProductPageComponent } from './home/publish-product-page/publish-product-page.component';
+import { FormsModule } from '@angular/forms';
+import { SwiperModule } from 'swiper/angular'
 import { HttpClientModule } from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
     PagesComponent,
-    IndexPageComponent,
-    LoginPageComponent,
     HeaderComponent,
+    SliderComponent,
     FooterComponent,
-    SliderComponent
+    LoginPageComponent,
+    SignUpPageComponent,
+    IndexPageComponent,
+    PublishProductPageComponent
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
     FormsModule,
     SwiperModule,
-    HttpClientModule
+    HttpClientModule,
+    NgSelectModule
   ]
 })
 export class PagesModule { }

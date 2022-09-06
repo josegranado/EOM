@@ -1,14 +1,21 @@
-
+@import "~@ng-select/ng-select/themes/default.theme.css";
 body{
     background-color:#ededed !important;
 }
 button{
     border-radius:0 !important;
 }
-.form-control{
+.form-control, .ng-select-container{
     border-radius: 30px !important;
 }
 .btn.btn-primary, .bg-primary{
     background-color: #0d6682 !important;
     background: #0d6682 !important;
+    color: #FFF !important;
+}
+.checkbox{
+    font-size:12px;
+    text-align: left !important;
+    margin-top:-20px;
+    margin-bottom: -10px;
 }

@@ -1,0 +1,133 @@
+<section id="register" class="d-flex align-items-center justify-content-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 bg-white d-flex align-items-center justify-content-center">
+                <img class="mx-auto" src="assets/images/eom-coin-transparent.png" alt="" style="width:66.6%">
+            </div>
+            <div class="col-12 col-md-6 bg-primary p-5 text-center d-flex align-items-center justify-content-center">
+                <form #newClient="ngForm" (ngSubmit)="onSubmit(newClient.value) " style="width:100%">
+                <div *ngIf="step > -1 && step < 1" class="container-fluid">
+                    <h2>Regístrate en tres (3) pasos...</h2>
+                    <h4>y gana monedas al terminar</h4>
+                    <br>
+                    <button (click)="next({}, true)" class="btn btn-block btn-primary">Comenzar  &nbsp; <i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div *ngIf="step > 0.99 && step < 2">
+                    <h2>¡Dínos quién eres!</h2>
+                    <br>
+                    <div class="form-group">
+
+                        <input [(ngModel)]="user.first_name" name="first_name" type="text" class="form-control" placeholder="Nombres" required>
+                    </div>
+                    <div class="form-group">
+
+                        <input  [(ngModel)]="user.last_name" name="last_name" type="text" class="form-control" placeholder="Apellidos" required>
+                    </div>
+                    <div class="form-group">
+             
+                        <input [(ngModel)]="user.ocupation" name="ocupation" type="text" class="form-control" placeholder="Ocupación" required>
+                    </div>
+                    <div class="form-group">
+ 
+                        <input  [(ngModel)]="user.email" name="email" type="text" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+            
+                        <input  [(ngModel)]="user.phone_number" name="phone_number" type="tel" class="form-control" placeholder="Número de teléfono móvil" required>
+                    </div>
+                    <div class="form-group">
+
+                        <input  [(ngModel)]="user.phone_local_number" name="phone_local_number" type="tel" class="form-control" placeholder="Número de teléfono local" required>
+                    </div>
+                    <div class="form-group">
+
+                        <input  [(ngModel)]="user.password" name="password" type="password" class="form-control" placeholder="Contraseña" required>
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="!newClient.valid" (click)="next(newClient.value, true)" class="btn btn-primary btn-block">Siguiente  &nbsp; <i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                    <div *ngIf="step == 2" class="container-fluid">
+                        <h2>Datos de tu empresa</h2>
+                        <div class="form-group">
+                           
+                            <input [(ngModel)]="user.name"type="text" name="name" class="form-control" ngModel required placeholder="Nombre de la empresa">
+                        </div>
+                        <div class="form-group">
+                            
+                            <input [(ngModel)]="user.rfc" type="text" name="rfc" ngModel class="form-control" required placeholder="RFC">
+                        </div>
+                        <div class="form-group">
+                            
+                            <ng-select [(ngModel)]="user.state" placeholder="Selecciona tu estado" required [items]="states" bindLabel="name" name="state"></ng-select>
+                        </div>
+                        <div class="form-group">
+                            
+                            <input [(ngModel)]="user.n_employees" name="n_employees"  type="number" class="form-control" placeholder="Número de empleados" required>
+                        </div>
+                        <div class="form-group">
+                       
+                            <ng-select [(ngModel)]="user.sector" placeholder="Selecciona tu sector" ngModel required [items]="sectors" bindLabel="name" name="sector"></ng-select>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12 col-md-3">
+                                    <button (click)="back()" class="btn btn-primary btn-block"><i class="fa-solid fa-chevron-left"></i></button>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <button [disabled]="!newClient.valid" (click)="next(newClient.value, true)" class="btn btn-primary btn-block">Siguiente  &nbsp; <i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div *ngIf="step > 2.99 && step < 4" class="container-fluid">
+                        <h2>¡El último paso!</h2>
+                        <div class="form-group">
+                            <input [(ngModel)]="user.broker" type="text" class="form-control" name="broker_name" required ngModel placeholder="Nombre del broker">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label" style="font-size:12px;">¿Qué productos o servicios buscas en El Otro Mercado?</label>
+                            <textarea [(ngModel)]="user.question_1" class="form-control"  name="question_1" required ngModel placeholder="Tu respuesta"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label" style="font-size:12px;">¿Con qué productos o servicios cuentas actualmente para vender en El Otro Mercado?</label>
+                            <textarea [(ngModel)]="user.question_2" class="form-control"   name="question_2" required ngModel placeholder="Tu respuesta"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox"><input [(ngModel)]="user.terms" type="checkbox"  name="terms"> Estoy de acuerdo con los términos y condiciones de ELOTROMERCADO.COM</label><br>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox"><input [(ngModel)]="user.offers "type="checkbox"  name="offers"> Estoy de acuerdo con recibir notificaciones de compradores interesados en mis ofertas.</label><br>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox"><input [(ngModel)]="user.notifications" type="checkbox"  name="notifications"> Estoy de acuerdo en recibir notificaciones de ofertas que puedan interesarme.</label><br>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox"><input [(ngModel)]="user.terms_and_privacity" type="checkbox"   name="terms_and_privacity">Acepto que estoy de acuerdo con los <a href="#" style="color:#FFF">Términos y condiciones</a>y la <a href="#" style="color:#FFF">Política de privacidad</a>.</label><br>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12 col-md-3">
+                                    <button (click)="back()" class="btn btn-primary btn-block"><i class="fa-solid fa-chevron-left"></i></button>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <button [disabled]="!newClient.valid" type="submit" class="btn btn-success btn-block">Siguiente &nbsp; <i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="step > 3.99 && step < 5" class="container-fluid">
+                        <div class="form-group text-center">
+                            <img src="assets/images/logo-white.png" alt="" style="width:50%;">
+                        </div>
+                        <h2>¡Bienvenido!</h2>
+                        <p>Gracias por elaborar tu pre-registro con nosotros. Te enviaremos un correo electrónico a tu email registrado para confirmar tu cuenta.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

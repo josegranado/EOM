@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   public identity;
   constructor() { 
-    this.identity = JSON.parse(localStorage.getItem('identity'))
+    this.identity = JSON.parse(localStorage.getItem('identity') as string);
   }
 
   ngOnInit(): void {
