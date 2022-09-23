@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+#login{
+    height: 100vh;
+    background-color:#dadaca;
+}
+
+body{
+    background-color:#ededed !important;
+}
+button{
+    border-radius:0 !important;
+}
+.form-control, .ng-select-container{
+    border-radius: 30px !important;
+}
+.form-control-eom{
+    border-radius: 0px 30px 30px 0px !important;
+}
+.input-group-prepend, .input-group-text{
+    border-radius: 30px 0px 0px 30px !important;
+}
+.btn.btn-primary, .bg-primary{
+    background-color: #0d6682 !important;
+    background: #0d6682 !important;
+    color: #FFF !important;
+}
+.checkbox{
+    font-size:12px;
+    text-align: left !important;
+    margin-top:-20px;
+    margin-bottom: -10px;
+}

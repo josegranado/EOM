@@ -31,18 +31,22 @@ class AuthController {
                     pass: '55f437ee136d46'
                 }
             })
-            const { username, email, password } = request.all();
+            const { username, email, password, terms, notifications, terms_and_privacity, offers } = request.all();
             const user = new User();
-            user.username = username;
+            user.username = email.split('@')[0];
             user.email = email
-            user.role = 2
+            user.role = 3
             user.is_approved = 0;
             user.type = 2;
             user.deleted = 0;
             user.password = password;
+            user.terms = terms;
+            user.notifications = notifications;
+            user.terms_and_privacity = terms_and_privacity;
+            user.offers = offers;
             await user.save();
             
-            const { first_name, last_name, ocupation, phone_number, phone_local_number } = request.all();
+            const { first_name, last_name, ocupation, phone_number, phone_local_number, birthday, gender } = request.all();
             const profile = new Profile();
             profile.first_name = first_name;
             profile.last_name = last_name;
@@ -51,6 +55,9 @@ class AuthController {
             profile.phone_local_number = phone_local_number;
             profile.deleted = 0;
             profile.user_id = user.id;
+            profile.state = state;
+            profile.birthday = birthday;
+            profile.gender = gender;
             await profile.save();
 
             const { name, rfc, state, n_employees, sector } = request.all();
@@ -72,6 +79,18 @@ class AuthController {
             survey.deleted = 0;
             await survey.save();
             return response.json({ status: 201, message: 'Pre-register saved successfully'})
+        }catch(e){
+            console.log( e )
+            return response.json({ status: 500, message: 'Internal Server Error'})
+        }
+    }
+    async approve({ request, response, auth, params }){
+        try{
+            const auth_user = await auth.getUser();
+            if ( auth_user.role > 1) return response.json({ status: 401, message: 'Not authorized'})
+            const user = await User.findBy({ id: params.id, deleted: 0});
+            user.is_approved = 1;
+            
         }catch(e){
             console.log( e )
             return response.json({ status: 500, message: 'Internal Server Error'})

@@ -1,4 +1,5 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
+
 body{
     background-color:#ededed !important;
 }
@@ -7,6 +8,12 @@ button{
 }
 .form-control, .ng-select-container{
     border-radius: 30px !important;
+}
+.form-control-eom{
+    border-radius: 0px 30px 30px 0px !important;
+}
+.input-group-prepend, .input-group-text{
+    border-radius: 30px 0px 0px 30px !important;
 }
 .btn.btn-primary, .bg-primary{
     background-color: #0d6682 !important;

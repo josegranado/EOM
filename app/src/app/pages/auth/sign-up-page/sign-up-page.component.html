@@ -16,32 +16,74 @@
                     <h2>¡Dínos quién eres!</h2>
                     <br>
                     <div class="form-group">
-
-                        <input [(ngModel)]="user.first_name" name="first_name" type="text" class="form-control" placeholder="Nombres" required>
+                        <div class="col-auto">
+                            <div class="input-group mb-2">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fa-regular fa-user" style="padding-right:5px;"></i></div>
+                              </div>
+                              <input [(ngModel)]="user.first_name" name="first_name" type="text" class="form-control form-control-eom" placeholder="Nombres" required>
+                            </div>
+                          </div>
                     </div>
                     <div class="form-group">
-
-                        <input  [(ngModel)]="user.last_name" name="last_name" type="text" class="form-control" placeholder="Apellidos" required>
+                        <div class="col-auto">
+                            <div class="input-group mb-2">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fa-regular fa-user" style="padding-right:5px;"></i></div>
+                              </div>
+                              <input  [(ngModel)]="user.last_name" name="last_name" type="text" class="form-control form-control-eom" placeholder="Apellidos" required>
+                            </div>
+                          </div>
                     </div>
                     <div class="form-group">
-             
-                        <input [(ngModel)]="user.ocupation" name="ocupation" type="text" class="form-control" placeholder="Ocupación" required>
+                        <div class="col-auto">
+                            <div class="input-group mb-2">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="glyph-icon simple-icon-graduation" style="padding-right:5px;"></i></div>
+                              </div>
+                              <input [(ngModel)]="user.ocupation" name="ocupation" type="text" class="form-control form-control-eom" placeholder="Ocupación" required>
+                            </div>
+                          </div>
                     </div>
                     <div class="form-group">
- 
-                        <input  [(ngModel)]="user.email" name="email" type="text" class="form-control" placeholder="Email" required>
+                        <div class="col-auto">
+                            <div class="input-group mb-2">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="glyph-icon iconsminds-envelope"></i></div>
+                              </div>
+                              <input  [(ngModel)]="user.email" name="email" type="text" class="form-control form-control-eom" placeholder="Email" required>
+                            </div>
+                          </div>
                     </div>
                     <div class="form-group">
-            
-                        <input  [(ngModel)]="user.phone_number" name="phone_number" type="tel" class="form-control" placeholder="Número de teléfono móvil" required>
+                        <div class="col-auto">
+                            <div class="input-group mb-2">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="glyph-icon iconsminds-smartphone-4"></i></div>
+                              </div>
+                              <input  [(ngModel)]="user.phone_number" name="phone_number" type="tel" class="form-control form-control-eom" placeholder="Número de teléfono móvil" required>
+                            </div>
+                          </div>
                     </div>
                     <div class="form-group">
-
-                        <input  [(ngModel)]="user.phone_local_number" name="phone_local_number" type="tel" class="form-control" placeholder="Número de teléfono local" required>
+                        <div class="col-auto">
+                            <div class="input-group mb-2">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="glyph-icon iconsminds-old-telephone"></i></div>
+                              </div>
+                              <input  [(ngModel)]="user.phone_local_number" name="phone_local_number" type="tel" class="form-control form-control-eom" placeholder="Número de teléfono local" required>
+                            </div>
+                          </div>
                     </div>
                     <div class="form-group">
-
-                        <input  [(ngModel)]="user.password" name="password" type="password" class="form-control" placeholder="Contraseña" required>
+                        <div class="col-auto">
+                            <div class="input-group mb-2">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="glyph-icon iconsminds-lock-2"></i></div>
+                              </div>
+                              <input  [(ngModel)]="user.password" name="password" type="password" class="form-control form-control-eom" placeholder="Contraseña" required>
+                            </div>
+                          </div>
                     </div>
                     <div class="form-group">
                         <button [disabled]="!newClient.valid" (click)="next(newClient.value, true)" class="btn btn-primary btn-block">Siguiente  &nbsp; <i class="fa-solid fa-chevron-right"></i></button>
@@ -83,7 +125,7 @@
                     <div *ngIf="step > 2.99 && step < 4" class="container-fluid">
                         <h2>¡El último paso!</h2>
                         <div class="form-group">
-                            <input [(ngModel)]="user.broker" type="text" class="form-control" name="broker_name" required ngModel placeholder="Nombre del broker">
+                            <input [(ngModel)]="user.broker_name" type="text" class="form-control" name="broker_name" required ngModel placeholder="Nombre del broker">
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label" style="font-size:12px;">¿Qué productos o servicios buscas en El Otro Mercado?</label>

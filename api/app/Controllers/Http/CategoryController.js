@@ -1,7 +1,5 @@
 'use strict'
 
-const auth = require("../../../config/auth");
-
 const Database = use('Database')
 const Category = use('App/Models/Category');
 const Product = use('App/Models/Product');

@@ -32,4 +32,11 @@ Route.group(() => {
     Route.put(':id', 'CategoryController.update').middleware(['auth:jwt'])
     Route.delete(':id', 'CategoryController.destroy').middleware(['auth:jwt'])
 }).prefix('categories')
+Route.group(() => {
+    Route.get('', 'UserController.index').middleware(['auth:jwt'])
+    Route.post('', 'UserController.store').middleware(['auth:jwt'])
+    Route.get(':id', 'UserController.show').middleware(['auth:jwt'])
+    Route.put(':id', 'UserController.update').middleware(['auth:jwt'])
+    Route.delete(':id', 'UserController.destroy').middleware(['auth:jwt'])
+}).prefix('users')
 Route.on('/').render('welcome')
