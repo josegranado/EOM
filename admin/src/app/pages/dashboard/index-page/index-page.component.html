@@ -3,7 +3,153 @@
     <div class="col-1">
         <app-sidebar></app-sidebar>
     </div>
-    <div class="col-11">
+    <div class="col-11" style="margin-top:80px;">
         <!-- CONTENT -->
+        <div class="row mt-1 mt-1" style="background-color:#2f8dbc;height:250px !important;">
+            <div class="col-12 d-flex align-items-center">
+                <div class="container d-flex- align-items-center justify-content-center text-center">
+                    <h2 class="text-white">Bienvenido <strong>{{ identity.profile.first_name }} {{ identity.profile.last_name}},</strong> ¿Qué vas a consultar hoy?</h2>
+                    <div class="container text-center" style="clear:both;margin:auto;width:70%;">
+                        <input type="text" class="form-control p-4" style="float:left;width:85%;border-radius:0 !important;" placeholder="¿A quién estás buscando?">
+                        <button class="btn bg-white text-primary" style="float:left;width:15%;padding:12px;">Buscar <i class="glyph-icon simple-icon-magnifier"></i></button>
+                    </div>
+  
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-2">
+                <h2>Tu búsqueda</h2>
+                <div class="card text-center" style="max-width: 100%; width:100%;">
+                    <div class="card-body">
+                        <div class="card-title">No hay resultados para mostrar...</div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div id="users" class="col-12 position-relative mt-2 mb-2">
+                <div class="card" style="max-width: 100%; width:100%;">
+                    <div class="card-body">
+                        <h2 class="card-title"><h2>Balance de usuarios</h2></h2>
+                        <ul class="options">
+                            <li>Última semana</li>
+                            <li>Última mes</li>
+                            <li>Última Definir </li>
+                        </ul>
+                        <hr>
+                        <div class="row">
+                            <div id="registers" class="col-12 col-md-4">
+                                <div class="row">
+                                    <div class="col-4 text-center d-flex align-items-center justify-content-center">
+                                        <i class="glyph-icon simple-icon-people text-primary"></i>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="container">
+                                            Usuarios registrados
+                                            <br>
+                                            <span>739</span>
+                                            <br>
+                                            <button class="btn btn-outline-primary">Descargar balance</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="confirmeds" class="col-12 col-md-4">
+                                <div class="row">
+                                    <div class="col-4 d-flex align-items-center justify-content-center">
+                                        <i class="glyph-icon simple-icon-user text-primary" style="width:100%;"></i>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="container">
+                                            Usuarios confirmados
+                                            <br>
+                                            <span>412</span>
+                                            <br>
+                                            <button class="btn btn-outline-primary">Descargar balance</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div id="inactives" class="col-12 col-md-4">
+                                <div class="row">
+                                    <div class="col-4 d-flex align-items-center justify-content-center">
+                                        <i class="glyph-icon simple-icon-user text-secondary"></i>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="container">
+                                            Usuarios inactivos
+                                            <br>
+                                            <span>125</span>
+                                            <br>
+                                            <button class="btn btn-outline-primary">Descargar balance</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="posts" class="col-12 position-relative mt-2 mb-2">
+                <div class="card" style="max-width: 100%; width:100%;">
+                    <div class="card-body">
+                        <h2 class="card-title"><h2>Balance de posts</h2></h2>
+                        <ul class="options">
+                            <li>Última semana</li>
+                            <li>Última mes</li>
+                            <li>Última Definir </li>
+                        </ul>
+                        <hr>
+                        <div class="row">
+                            <div id="sales" class="col-12 col-md-4">
+                                <div class="row">
+                                    <div class="col-4 text-center d-flex align-items-center justify-content-center">
+                                        <i class="glyph-icon iconsminds-dollar text-primary"></i>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="container">
+                                            <h5 class="text-secondary">Ventas</h5>
+                                            <h3 class="text-primary">739</h3>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="boughts" class="col-12 col-md-4">
+                                <div class="row">
+                                    <div class="col-4 d-flex align-items-center justify-content-center">
+                                        <i class="glyph-icon iconsminds-handshake text-primary" style="width:100%;"></i>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="container">
+                                            <h5 class="text-secondary">Ventas</h5>
+                                            <h3 class="text-primary">412</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div id="reports" class="col-12 col-md-4">
+                                <div class="row">
+                                    <div class="col-4 d-flex align-items-center justify-content-center">
+                                        <i class="glyph-icon simple-icon-docs text-secondary"></i>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="container">
+                                            <h5 class="text-secondary">Reportes </h5>
+                                            <h3 class="text-danger">739</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

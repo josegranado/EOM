@@ -6,6 +6,7 @@ const Database = use('Database');
 const Category = use('App/Models/Category');
 const Product = use('App/Models/Product');
 const User = use('App/Models/User');
+const  {  v4 : uuidv4  }  =  require('uuid');
 class ProductController {
     async index({ request, response }){
         try{
@@ -20,10 +21,10 @@ class ProductController {
             return response.json({ status: 500, message: 'Internal Server Error'})
         }
     }
-    async store({ request, response }){
+    async store({ request, response, auth }){
         try{
             const auth_user = await auth.getUser();
-            const { title, category_id, description, is_used, price, duration } = request.all()
+            const { title, category_id, description, is_used, price, duration, gallery } = request.all()
             const product = new Product();
             product.title = title;
             product.user_id = auth_user.id;
@@ -33,11 +34,41 @@ class ProductController {
             product.price = price;
             product.duration = duration;
             product.deleted = 0;
+            let files = [];
+            for(let i = 0; i < 11; i++){
+                let url = './public/files/products/';
+                let input = 'gallery-'+i+1;
+                
+                let file = request.file(input, {
+                    types: ['image'],
+                    size: '4mb',
+                    extname: ['png', 'jpg', 'jpeg']
+                })
+                console.log(file)
+                if ( file ){
+                    let filename = uuidv4() + '.'+request.file(input).subtype;
+                    await file.move(url, {
+                        name: filename,
+                        overwrite: true
+                    });
+                    if (!file.moved())
+                    {
+                            return response.status(422).send({
+                                status: 422,
+                                message: file.error(),
+                                errors: file.error()
+                            })
+                    }
+                    files.push(filename);
+                }
+            }
+            product.gallery = JSON.stringify(files);
+            product.thumbnail = files[0];
             if( !auth_user ) return response.json({ status: 401, message: 'Not authorized'})
             if ( auth_user && await product.save()) return response.json({ status: 201, data: product })
             return response.json({ status: 400, message: 'Bad request' })
         }catch(e){
-            console.log( e )
+            console.log( e.message)
             return response.json({ status: 500, message: 'Internal Server Error'})
         }
     }

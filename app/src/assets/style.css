@@ -7,7 +7,8 @@ button{
     border-radius:0 !important;
 }
 .form-control, .ng-select-container{
-    border-radius: 30px !important;
+    background-color: #eaeaea !important;
+    border-color: #eaeaea !important;
 }
 .form-control-eom{
     border-radius: 0px 30px 30px 0px !important;
@@ -25,4 +26,49 @@ button{
     text-align: left !important;
     margin-top:-20px;
     margin-bottom: -10px;
+}
+
+.fa-solid.fa-bars-filters{
+    content: "\e0ad" !important;
+}
+.list-group{
+    border-radius:0;
+}
+.list-categories .list-group-item{
+    background: transparent;
+    display: flex;
+    align-items: center;
+}
+.list-categories .list-group-item:hover {
+    background: #FFF;
+}
+.list-categories, .list-categories .list-group-item i{
+    display: none;
+}
+.list-categories .list-group-item:hover i{
+    display: block;
+    position: absolute;
+    right:10px;
+}
+.list-title .list-group-item{
+    display: flex;
+    width: 100%;
+}
+.list-title .list-group-item i{
+    display: block;
+    position: absolute;
+    right: 10px;
+}
+.filters .list-group-item{
+    cursor: pointer;
+}
+
+.form-control-register{
+    border-radius: 5px !important;
+    border:0;
+    background-color: #eaeaea !important;
+    border-color: #eaeaea !important;
+}
+.btn-eom{
+    background-color: #0075B0 !important;
 }

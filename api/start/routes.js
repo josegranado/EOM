@@ -35,6 +35,8 @@ Route.group(() => {
 Route.group(() => {
     Route.get('', 'UserController.index').middleware(['auth:jwt'])
     Route.post('', 'UserController.store').middleware(['auth:jwt'])
+    Route.post('avatar', 'UserController.uploadAvatar').middleware(['auth:jwt'])
+    Route.post('cover', 'UserController.uploadCover').middleware(['auth:jwt'])
     Route.get(':id', 'UserController.show').middleware(['auth:jwt'])
     Route.put(':id', 'UserController.update').middleware(['auth:jwt'])
     Route.delete(':id', 'UserController.destroy').middleware(['auth:jwt'])

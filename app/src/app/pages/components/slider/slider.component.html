@@ -1,21 +1,23 @@
 <swiper
     [slidesPerView]="4"
-    [spaceBetween]="30"
-    [slidesPerGroup]="1"
+    [spaceBetween]="28"
+    [slidesPerGroup]="2"
     [loop]="true"
     [loopFillGroupWithBlank]="false"
     [pagination]="{
       clickable: false
     }"
-    [navigation]="false"
+    [navigation]="true"
     class="swiper"
   >
     <ng-template *ngFor="let product of products" swiperSlide >
-        <div class="card">
-            <img class="card-img-top" src="assets/images/product.png">
+        <div class="card" style="width:100%;">
+          <div *ngIf="!product.thumbnail" class="card-img-top" style="height:250px; background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url(assets/images/product.png);width: 100%;"></div>
+          <div *ngIf="product.thumbnail" class="card-img-top" style="height:250px; background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url({{API_ENDPOINT + '/files/products/' + product.thumbnail}});width:100%;"></div>
             <div class="card-body">
                 <h2 class="card-title" style="font-size:18px"><strong>{{ product.title}}</strong></h2>
                 <h6 class="card-subtitle">{{ product.price }}</h6>
+                <p class="card-text"><img style="height:25px;width:25px;margin:auto" src="assets/images/eom-coin-transparent.png" alt=""></p>
             </div>
         </div>
     </ng-template>

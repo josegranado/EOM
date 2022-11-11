@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-white" style="height:100px;">
-    <div class="container">
-        <a class="navbar-brand" href="#"><img src="assets/images/logo-black.png" alt="" style="width:250px"></a>
+<nav class="navbar navbar-expand-lg bg-white" style="height:80px;">
+   
+    <a class="navbar-brand" href="#"><img src="assets/images/logo-black.png" alt="" style="width:250px"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,14 +11,14 @@
           <a (click)="activeMenu()" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="assets/images/avatar.png" alt="" style="width:60px;">
           </a>
-          <div id="dropdown" *ngIf="menu" class="dropdown-menu d-block" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Mi perfil</a>
-            <a class="dropdown-item" href="#">Configuración</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" (click)="onSignOut()" href="#">Cerrar sesión</a>
-          </div>
+          
         </li>
       </ul>
     </div>
+    <div id="dropdown" *ngIf="menu" class="dropdown-menu d-block" aria-labelledby="navbarDropdown">
+      <a class="dropdown-item" href="#">Mi perfil</a>
+      <a class="dropdown-item" href="#">Configuración</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" (click)="onSignOut()" href="#">Cerrar sesión</a>
     </div>
   </nav>

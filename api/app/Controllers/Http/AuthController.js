@@ -13,6 +13,10 @@ class AuthController {
             const user = await User.findBy({
                 email: email
             })
+            const profile = await Profile.findBy({
+                user_id: user.id
+            })
+            user.profile = profile;
             const logged = await auth.attempt(email, password, true )
             if ( logged && user ) return response.json({ status: 201, message: 'Logged Successfully', token: logged, data: user })
             if ( !logged ) return response.json({ status: 401, message: 'Not authorized'})
@@ -55,7 +59,6 @@ class AuthController {
             profile.phone_local_number = phone_local_number;
             profile.deleted = 0;
             profile.user_id = user.id;
-            profile.state = state;
             profile.birthday = birthday;
             profile.gender = gender;
             await profile.save();

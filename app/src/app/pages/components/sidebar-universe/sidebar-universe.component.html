@@ -1,0 +1,58 @@
+<h2> <img src="assets/fonts/flat-icon/filter.png"> Filtros de búsqueda</h2>
+<br>
+                    <ul class="list-title list-group" (click)="listCategories = !listCategories">
+                        <li class="list-group-item">Categorías <i class="glyph-icon simple-icon-arrow-down-circle"></i></li>
+                    </ul>
+                    <ul *ngIf="listCategories" class="list-group list-categories">
+                        <li class="list-group-item" (click)="selectCategory('Tecnología')">Tecnología<i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectCategory('Mascotas')">Mascotas <i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectCategory('Ropa y Calzado')">Ropa y Calzado <i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectCategory('Juguetes y Vídeojuegos')">Juguetes y videojuegos <i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectCategory('Música')">Música<i class="glyph-icon simple-icon-plus"></i> </li>
+                        <li class="list-group-item" (click)="selectCategory('Niños y Bebés')">Niños y Bebés<i class="glyph-icon simple-icon-plus"></i> </li>
+                        <li class="list-group-item" (click)="selectCategory('Deportes')">Deportes<i class="glyph-icon simple-icon-plus"></i> </li>
+                        <li class="list-group-item" (click)="selectCategory('Fotografía')">Fotografía<i class="glyph-icon simple-icon-plus"></i> </li>
+                        <li class="list-group-item" (click)="selectCategory('Hecha a Mano')">Hecho a Mano<i class="glyph-icon simple-icon-plus"></i> </li>
+                        <li class="list-group-item" (click)="selectCategory('Servicios')">Servicios<i class="glyph-icon simple-icon-plus"></i> </li>
+                    </ul>
+                    <ul class="list-title list-group" (click)="ubication = !ubication ">
+                        <li class="list-group-item">Ubicación <i class="glyph-icon simple-icon-arrow-down-circle"></i></li>
+                    </ul>
+                    <ul *ngIf="ubication" class="list-group list-categories">
+                        <li class="list-group-item" style="padding:0"><input type="text" class="form-control" placeholder="Ingresa tu ubicación" style="border-radius:0 !important;" [(ngModel)]="ubicationInput"></li>
+                    </ul>
+                    <ul class="list-title list-group" (click)="price = !price ">
+                        <li class="list-group-item">Precio <i class="glyph-icon simple-icon-arrow-down-circle"></i></li>
+                    </ul>
+                    <ul *ngIf="price" class="list-group list-categories">
+                        <li class="list-group-item" style="padding:0">
+                            <span style="padding-left:10px;padding-right:10px;">De</span>
+                            <input (change)="priceChange()" type="number" class="form-control" placeholder="xxxx" [(ngModel)]="from" style="border-radius:0 !important;">
+                            <span  style="padding-left:10px;padding-right:10px;">Hasta</span>
+                            <input (change)="priceChange()" type="number" class="form-control" placeholder="xxxx" [(ngModel)]="until" style="border-radius:0 !important;">
+                        </li>
+                    </ul>
+                    <ul class="list-title list-group" (click)="type = !type ">
+                        <li class="list-group-item">Tipo <i class="glyph-icon simple-icon-arrow-down-circle"></i></li>
+                    </ul>
+                    <ul *ngIf="type" class="list-group list-categories">
+                        <li class="list-group-item" (click)="selectType('Venta')">Venta<i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectType('Compra')">Compra <i class="glyph-icon simple-icon-plus"></i></li>
+                    </ul>
+                    <ul class="list-title list-group" (click)="use = !use ">
+                        <li class="list-group-item">Uso <i class="glyph-icon simple-icon-arrow-down-circle"></i></li>
+                    </ul>
+                    <ul *ngIf="use" class="list-group list-categories">
+                        <li class="list-group-item" (click)="selectUse('Nuevo')">Nuevo<i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectUse('Seminuevo')">Seminuevo <i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectUse('Segunda Mano')">Segunda Mano <i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectUse('Reciclado')">Reciclado <i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectUse('Materias Primas')">Materias Primas <i class="glyph-icon simple-icon-plus"></i></li>
+                    </ul>
+                    <div class="container mt-3">
+                        <span class="text-center text-white" *ngFor="let item of items" style="background-color:#0d6682; border-radius:30px; padding: 10px;margin: 5px">
+                            {{ item }}
+                        </span>
+                        <br>
+                        <button class="btn text-primary" (click)="clear()">Limpiar filtros</button>
+                    </div>

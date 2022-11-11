@@ -4,6 +4,7 @@ import { SwiperComponent } from "swiper/angular";
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation } from "swiper";
 import { ProductService } from "src/app/services/product.service";
+import { environment } from "src/environments/environment";
 
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
@@ -17,6 +18,7 @@ SwiperCore.use([Pagination, Navigation]);
 export class SliderComponent implements OnInit {
   constructor( private productService: ProductService) { }
   public products = [];
+  public API_ENDPOINT = environment.apiUrl;
   ngOnInit(): void {
     this.productService.index().subscribe( res => {
       console.log( res )

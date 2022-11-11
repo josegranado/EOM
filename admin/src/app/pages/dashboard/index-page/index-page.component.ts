@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index-page.component.scss']
 })
 export class IndexPageComponent implements OnInit {
-
-  constructor() { }
+  public identity;
+  constructor() { 
+    this.identity = JSON.parse(localStorage.getItem('identity'));
+  }
 
   ngOnInit(): void {
   }

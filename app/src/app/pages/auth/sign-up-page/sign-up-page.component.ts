@@ -13,6 +13,10 @@ export class SignUpPageComponent implements OnInit {
    {value: 1, name:"Tecnología"},
    {value: 2, name:"Naturaleza"},
   ]
+  public sector = [];
+  public sedes = [
+    { value : 1, name: 'Cualquiera'}
+  ]
   public states = [
     {
       value: 1, name:"Guanajuato"
@@ -51,13 +55,20 @@ export class SignUpPageComponent implements OnInit {
     terms: null,
     offers: null,
     notificatons: null,
-    terms_and_privacity: null
+    terms_and_privacity: null,
+    confirm_password: null,
+    sector: null,
+    sede: null
   };
+  typePassword: string = 'password';
+  typeConfirmPassword: string = 'password';
+  public valid: boolean = false;
+  public untouched = true;
   constructor(
     private authService: AuthService,
     private router: Router
   ) { }
-  public step:number= 0;
+  public step:number= 1;
   back(){
     this.step == this.step--;
     console.log( this.step )
@@ -94,4 +105,56 @@ export class SignUpPageComponent implements OnInit {
         })
     })
   }
+  public inputStyleEmail = 'background-color: #eaeaea !important;';
+  public inputStylePassword = 'background-color: #eaeaea !important;';
+  public validEmail = false;
+  public msgEmail = false;
+  public msgPass = false;
+  ChangeEmail(){
+    let regex =  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    this.inputStyleEmail = ''
+    if ( regex.test(this.user.email) ){
+      this.inputStyleEmail = 'background-color: rgba(109,190,101, 0.3) !important';
+      this.validEmail = true;
+      this.msgEmail = false;
+    }else{
+      this.inputStyleEmail = 'background-color: rgba(239,60,57, 0.3) !important;'
+      this.validEmail = false;
+      this.msgEmail = true;
+    }
+    console.log(this.validEmail)
+  }
+  public validPassword = false;
+  ConfirmPassword(){
+    let regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    if ( regex.test(this.user.password) && regex.test(this.user.confirm_password) && this.user.password == this.user.confirm_password  ){
+      this.validPassword = true;
+      this.msgPass = false;
+    }else{
+      this.validPassword = false;
+      this.msgPass = true;
+    }
+    console.log(this.validPassword)
+    
+  }
+  passwordType = 'password';
+  passwordTypeConfirm = 'password';
+  viewPassword(){
+    this.passwordType = 'text';
+  }
+  noViewPassword(){
+    this.passwordType = 'password'
+  }
+
+  viewConfirmPassword(){
+    this.passwordTypeConfirm = 'text';
+  }
+  noViewConfirmPassword(){
+    this.passwordTypeConfirm = 'password'
+  }
+  public departaments = [
+    {
+      value: 1, name: 'Developer'
+    }
+  ];
 }

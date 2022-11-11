@@ -1,0 +1,21 @@
+
+.swiper {
+    width: 100%;
+    max-width: 100%;
+  }
+  .swiper-slider .card{
+    float:left;
+  }
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #000000;
+    float:left;
+    width: 5% !important;
+  }
+  .swiper-pagination{
+      display: none !important;
+  }
+  .btn i:hover{
+    font-size:20px;
+  }

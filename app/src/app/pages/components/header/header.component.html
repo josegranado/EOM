@@ -1,7 +1,7 @@
 <header id="main-header" style="overflow:hidden !important">
     <nav class="navbar navbar-expand-lg" style="padding:0 !important; ">
         <div class="row" style="padding:0 !important;">
-            <div class="col-12 col-md-3">
+            <div style="max-width:25% !important;width:100% !important;">
                 <img class="p-5" id="logo" src="assets/images/logo-black.png" alt="" style>
             </div>
             <div class="col-12 col-md-3">
@@ -10,8 +10,8 @@
             <div class="col-12 col-md-4">
                 
             </div>
-            <div *ngIf="!identity" class="col-12 col-md-2 d-flex align-items-center justify-content-center" style="margin:-25px; padding:0 ">
-                <button routerLink="/login" class="btn d-flex align-items-center justify-content-center text-white" style="background-color:#0075b0;max-width: 100%; width:100%; margin-top:-30px; padding-bottom:20px; margin-bottom:-20px; margin-right:-20px"><span style="margin-top:20px">Ingresar</span></button>
+            <div *ngIf="!identity" class="col-12 col-md-2 d-flex align-items-center justify-content-center" style="margin:0px; padding:0 ">
+                <button routerLink="/login" class="btn d-flex align-items-center justify-content-center text-white" style="background-color:#0075b0;max-width: 100%; width:100%;height: 80px !important;"><span style="margin-top:0px">Ingresar</span></button>
             </div>
   
             <div *ngIf="identity" class="col-12 col-md-1 d-flex align-items-center justify-content-center" style="margin:-25px; padding:0 ">
@@ -20,26 +20,17 @@
                 </button>
             </div>
             <div *ngIf="identity" class="float-right col-12 col-md-1 d-flex align-items-center justify-content-center" style="padding:0; margin-right:0;">
-                <button class="btn d-flex align-items-center justify-content-center text-white" style="background-color:#0075b0 !important;max-width: 100% !important; width:100%; height:60px;margin-right:-70px !important;">
+                <button (click)="showMenu()" class="btn d-flex align-items-center justify-content-center text-white" style="background-color:#0075b0 !important;max-width: 100% !important; width:100%; height:80px;margin-right:-50px !important;">
                     <i class="simple-icon-menu p-2" style="color:white!important; font-size:25px"></i>
                 </button>
             </div>
         </div>
-        <div class="collapse navbar-collapse" id="navbarNav" style="display: none !important;">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-          </ul>
+        <div id="dropdown" *ngIf="menu" class="dropdown-menu d-block" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item text-white" routerLink="/publish-product" style="background-color:#6dbe65"> <i class="glyph-icon simple-icon-plus" style="margin-top:10px;"></i> Subir Producto</a>
+          <a class="dropdown-item" routerLink="/">Home</a>
+          <a class="dropdown-item" routerLink="/profile">Perfil</a>
+          <a class="dropdown-item" href="#">Favoritos</a>
+          <a class="dropdown-item" (click)="onSignOut()" href="#">Salir</a>
         </div>
       </nav>
 </header>

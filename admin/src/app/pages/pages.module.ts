@@ -14,6 +14,11 @@ import { FooterComponent } from './components/footer/footer.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { MembersIndexPageComponent } from './members-index-page/members-index-page.component';
+import { RegistersIndexPageComponent } from './registers-index-page/registers-index-page.component';
+import { TransactionsIndexPageComponent } from './transactions-index-page/transactions-index-page.component';
+import { CreditIndexPageComponent } from './credit-index-page/credit-index-page.component';
+import { ReportsIndexPageComponent } from './reports-index-page/reports-index-page.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,12 @@ import { NgSelectModule } from '@ng-select/ng-select';
     UsersPageComponent,
     NavbarComponent,
     SidebarComponent,
-    FooterComponent
+    FooterComponent,
+    MembersIndexPageComponent,
+    RegistersIndexPageComponent,
+    TransactionsIndexPageComponent,
+    CreditIndexPageComponent,
+    ReportsIndexPageComponent
   ],
   imports: [
     CommonModule,

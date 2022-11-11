@@ -1,7 +1,12 @@
 #main-header, #main-header nav{
-    height: 60px;
+    height: 80px;
     padding:0;
     background-color:#FFF;
+    position:fixed;
+    width: 100%; 
+    max-width: 100%;
+    top:0;
+    z-index: 999999;
 }
 
 #logo{
@@ -11,4 +16,51 @@
     background-color:#0d6682;
     color:#FFF;
     padding:15px;
+    margin-bottom:2px;
+    position:fixed;
+    max-width: 100%;
+    width: 100%;
+    top: 80px;
+    z-index: 9999;
+    box-shadow: -1px 2px 14px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 2px 14px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 2px 14px -4px rgba(0,0,0,0.75);
+}
+#content{
+    height: 100vh;
+    width: 100%;
+    max-width: 100%;
+    position:fixed;
+    background-color: #FFF;
+    top:0;
+    z-index: 9999999999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+#content ul{
+    list-style: none;
+    padding:0;
+    margin:0;
+}
+#content ul li{
+    font-size: 25px;
+    font-weight: bold;
+}
+a{
+    text-decoration: none;
+}
+#dropdown{
+    margin-left: 80%;
+    margin-right:0;
+    width:20%;
+    padding:0;
+    text-align: center;
+}
+#dropdown .dropdown-item{
+    padding: 10px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+    border-bottom: 1px solid #b8b8b8;
 }

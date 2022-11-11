@@ -1,0 +1,96 @@
+<eom-header></eom-header>
+<section *ngIf="!identity.profile.cover" id="profile" style="margin-top:130px;height:350px;" class="bg-primary text-white d-flex align-items-center justify-content-center" >
+    <div id="summary" class="container " style="margin:auto;">
+        <div class="row">
+            <div class="col-12 col-md-3 text-center" style="height: 100%; position:relative;">
+                <input (change)="uploadAvatar($event)"  type="file" class="d-none" name="avatar" #avatar>
+                <button (click)="avatar.click();" class="btn btn-success" style="height:50px; width: 50px; border-radius:50% !important;position: absolute; bottom:0; right:60px;"><i class="glyph-icon simple-icon-picture"></i></button>
+                <img *ngIf="identity.profile.avatar" [src]="apiUrl + '/files/avatars/' + identity.profile.avatar" alt="" class="avatar">
+                <img *ngIf="!identity.profile.avatar" src="assets/images/avatar.png" alt="" class="avatar">
+            </div>
+            <div class="col-12 col-md-6">
+                <h1>{{ identity.profile.first_name }} {{ identity.profile.last_name }} </h1>
+                <br>
+                <rating [readonly]="true" name="calification" [max]="5" ngModel></rating> &nbsp;
+                <button class="btn btn-outline-light">Ver reputación</button>
+                <br>
+                <h5>15 publicaciones activas</h5>
+                <img src="assets/images/eom-coin-transparent.png" alt="" style="width:25px;">&nbsp;
+                <span class="btn" style="background-color:#f5f5f5;border-radius:50%;padding:10px">1550</span>&nbsp;<span class="text-white">300 Seguidores</span>&nbsp;<span class="text-white">200 Seguidos</span>
+            </div>
+            <div class="col-12 col-md-3">
+                <input (change)="uploadCover($event )" type="file" class="d-none" #cover name="cover">
+                <button (click)="cover.click();" class="btn btn-outline-light">Editar Portada</button>
+            </div>
+        </div>
+        <hr style="border-color: #FFF;">
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <button (click)="active = 1" class="btn text-white">Privacidad</button>
+            </div>
+            <div class="col-12 col-md-3">
+                <button (click)="active = 2" class="btn text-white">Mis Operaciones</button>
+            </div>
+            <div class="col-12 col-md-3">
+                <button (click)="active = 3"class="btn text-white">Mi Reputación</button>
+            </div>
+            <div class="col-12 col-md-3">
+                <button (click)="active = 4" class="btn text-white">Ayuda</button>
+            </div>
+        </div>
+    </div>
+</section>
+<section *ngIf="identity.profile.cover" id="profile" style="background-repeat: no-repeat; background-position: center; background-size: cover ; background-image:url({{ apiUrl+'/files/covers/'+identity.profile.cover }}); margin-top:130px;height:350px;position:relative;" class="text-white d-flex align-items-center justify-content-center" >
+    <div class="cover-background" style="position:absolute;height:350px;width:100%;z-index:99; background-color: rgba(0,117,176, 0.5)"></div>
+    <div id="summary" class="container " style="margin:auto;z-index:999">
+        <div class="row">
+            <div class="col-12 col-md-3 text-center" style="height: 100%; position:relative; ">
+                <input (change)="uploadAvatar($event)"  type="file" class="d-none" name="avatar" #avatar>
+                <button (click)="avatar.click();" class="btn btn-success" style="height:50px; width: 50px; border-radius:50% !important;position: absolute; bottom:0; right:60px;"><i class="glyph-icon simple-icon-picture"></i></button>
+                <img *ngIf="identity.profile.avatar" [src]="apiUrl + '/files/avatars/' + identity.profile.avatar" alt="" class="avatar">
+                <img *ngIf="!identity.profile.avatar" src="assets/images/avatar.png" alt="" class="avatar">
+            </div>
+            <div class="col-12 col-md-6">
+                <h1>{{ identity.profile.first_name }} {{ identity.profile.last_name }} </h1>
+                <br>
+                <rating [readonly]="true" name="calification" [max]="5" ngModel></rating> &nbsp;
+                <button class="btn btn-outline-light">Ver reputación</button>
+                <br>
+                <h5>15 publicaciones activas</h5>
+                <img src="assets/images/eom-coin-transparent.png" alt="" style="width:25px;">&nbsp;
+                <span class="btn" style="background-color:#f5f5f5;border-radius:50%;padding:10px">1550</span>&nbsp;<span class="text-white">300 Seguidores</span>&nbsp;<span class="text-white">200 Seguidos</span>
+            </div>
+            <div class="col-12 col-md-3">
+                <input (change)="uploadCover($event )" type="file" class="d-none" #cover name="cover">
+                <button (click)="cover.click();" class="btn btn-outline-light">Editar Portada</button>
+            </div>
+        </div>
+        <hr style="border-color: #FFF;">
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <button (click)="active = 1" class="btn text-white">Privacidad</button>
+            </div>
+            <div class="col-12 col-md-3">
+                <button (click)="active = 2" class="btn text-white">Mis Operaciones</button>
+            </div>
+            <div class="col-12 col-md-3">
+                <button (click)="active = 3"class="btn text-white">Mi Reputación</button>
+            </div>
+            <div class="col-12 col-md-3">
+                <button (click)="active = 4" class="btn text-white">Ayuda</button>
+            </div>
+        </div>
+    </div>
+</section>
+<section *ngIf="active == 1" id="privacity">
+    privacity works!
+</section>
+<section *ngIf="active == 2" id="operations">
+    operations works!
+</section>
+<section *ngIf="active == 3" id="reputation">
+    Reputation works!
+</section>
+<section *ngIf="active == 4" id="help">
+    Help works!
+</section>

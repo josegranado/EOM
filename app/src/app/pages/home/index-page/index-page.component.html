@@ -1,5 +1,5 @@
 <eom-header></eom-header>
-<section id="index-page">
+<section id="index-page" style="margin-top:160px !important;">
     <div class="jumbotron" style="height:300px">
         <div class="row d-flex- align-items-center justify-content-center">
             <div class="col-2">
@@ -15,32 +15,47 @@
             <h2><strong>Publicaciones destacadas</strong></h2>
             <br>
         </div>
-        <div class="container-fluid">
+        <div class="container-fluid" style="clear:both;">
             <eom-slider></eom-slider>
         </div>
     </div>
     <main style="padding:50px">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-md-4">
-                    <h2>Filtros de búsqueda</h2>
+                <div class="col-12 col-md-4 filters">
+                    <app-sidebar-universe></app-sidebar-universe>
                 </div>
                 <div class="col-12 col-md-1"></div>
                 <div class="col-12 col-md-7" style="clear:both;">
                     <button *ngIf="identity" routerLink="/publish-product" class="btn btn-success pl-5 pr-5">Publicar Producto</button>
                     
-                    <button class="btn text-secondary" style="float:right;border-radius:50% !important"><i class="simple-icon-list"></i></button>  
-                    <button class="btn btn-primary" style="float:right;border-radius:50% !important"><i class="simple-icon-grid"></i></button>              
+                    <button class="btn text-secondary" style="float:right;border-radius:50% !important" (click)="list = true; grid = false;"><i class="simple-icon-list"></i></button>  
+                    <button class="btn btn-primary" style="float:right;border-radius:50% !important"><i (click)="list = false; grid = true" class="simple-icon-grid"></i></button>              
                     <hr>
                     <br>
                     <h2><strong>Últimas Publicaciones</strong></h2>
                     <br>
-                    <div class="row">
-                        <div *ngFor="let product of products" class="col-12 col-md-4">
-                            <div class="card m-2">
-                                <img src="assets/images/product.png" alt="" class="card-img-top">
+                    <div *ngIf="grid" class="products row">
+                        <div *ngFor="let product of products" class="card" style="margin:0;padding:0; width: calc(33% - 20px) !important; margin: 10px;">
+                                <div *ngIf="!product.thumbnail" class="card-img-top" style="background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url(assets/images/product.png)"></div>
+                                <div *ngIf="product.thumbnail" class="card-img-top" style="background-position: center; background-size: cover; background-repeat: no-repeat; height:200px;background-image: url({{API_ENDPOINT + '/files/products/' + product.thumbnail}})"></div>
                                 <div class="card-body">
                                     <h2 class="card-title" style="font-size:16px"><strong>{{ product.title }}</strong></h2>
+                                    <h6 class="card-subtitle text-center"><img style="height:25px;width:25px;" src="assets/images/eom-coin-transparent.png" alt="">&nbsp;{{ product.price }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="list" class="products row">
+                        <div *ngFor="let product of products" class="card mt-1 mb-1" style="padding:0; max-width:100%;width:100%;">
+                            <div class="row" style="padding:0;margin:0;">
+                                <div *ngIf="product.thumbnail" class="col-4" style="background-position: center; background-size: cover; background-repeat: no-repeat; height:200px;background-image: url({{API_ENDPOINT + '/files/products/' + product.thumbnail}})">
+                                <div *ngIf="!product.thumbnail" class="col-4" style="height: 200px; background-image: url(assets/images/product.png)"></div>
+
+                                </div>
+                                <div class="col-8 card-body">
+                                    <h2 class="card-title" style="font-size:25px"><strong>{{ product.title }}</strong></h2>
+                                    <p class="card-text" style="font-size:20px">{{ product.description}}</p>
+                                    <h6 class="card-subtitle" style="font-size:35px"><img style="height:25px;width:25px;" src="assets/images/eom-coin-transparent.png" alt="">&nbsp;{{ product.price }}</h6>
                                 </div>
                             </div>
                         </div>

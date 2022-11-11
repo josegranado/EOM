@@ -2,7 +2,14 @@
     cursor: pointer;
     pointer-events:none;
 }
-#dropdown {
-    right: 250px !important;
+#dropdown{
     position: absolute !important;
+    margin: auto !important;
+    width: 20% !important;
+    margin-left: 80% !important;
+}
+.navbar{
+    width: 100%;
+    position:fixed;
+    z-index:99999999;
 }

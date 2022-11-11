@@ -1,18 +1,11 @@
-<nav id="sidebar" class="bg-white">
+<nav id="sidebar" class="bg-white d-flex" style="height:100%;">
     <ul style="list-style:none !important;">
-        <li>
-            <a routerLink="/dashboard">
-                <i class="glyph-icon iconsminds-dashboard"></i>
+        <li *ngFor="let menuItem of MenuItems">
+            <a routerLink="{{ menuItem.to }}">
+                <i class="{{ menuItem.icon }}"></i>
+                <br>
                 <span>
-                    Dashboard
-                </span>
-            </a>
-        </li>
-        <li>
-            <a routerLink="/dashboard/users">
-                <i class="glyph-icon simple-icon-user"></i>
-                <span>
-                    Usuarios
+                    {{ menuItem.label }}
                 </span>
             </a>
         </li>

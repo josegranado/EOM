@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-index-page',
@@ -7,9 +8,11 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./index-page.component.scss']
 })
 export class IndexPageComponent implements OnInit {
- 
-  public identity = {};
-  public products = []; 
+  public products;
+  public identity;
+  public list = false;
+  public grid = true;
+  public API_ENDPOINT = environment.apiUrl;
   constructor(private productService: ProductService) { 
     this.identity =  JSON.parse(localStorage.getItem('identity') as string);
   }
@@ -22,5 +25,4 @@ export class IndexPageComponent implements OnInit {
       }
     })
   }
-
 }

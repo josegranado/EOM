@@ -18,6 +18,12 @@ class ProfilesSchema extends Schema {
       table.string('birthday').nullable()
       table.integer('gender').nullable()
       table.integer('deleted').nullable()
+      table.string('avatar').nullable()
+      table.string('cover').nullable();
+      //FIELDS AGREGADOS EN LA ACTUALIZACIÓN DEL PERFIL.
+      table.string('description').nullable()
+      table.string('ubication').nullable();
+
       table.integer('user_id').nullable()
       table.timestamps()
     })

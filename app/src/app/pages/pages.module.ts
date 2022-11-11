@@ -10,11 +10,13 @@ import { LoginPageComponent } from './auth/login-page/login-page.component';
 import { SignUpPageComponent } from './auth/sign-up-page/sign-up-page.component';
 import { IndexPageComponent } from './home/index-page/index-page.component';
 import { PublishProductPageComponent } from './home/publish-product-page/publish-product-page.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SwiperModule } from 'swiper/angular'
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
-
+import { ProfileComponent } from './home/profile/profile.component';
+import { RatingModule } from 'ngx-bootstrap/rating';
+import { SidebarUniverseComponent } from './components/sidebar-universe/sidebar-universe.component';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -24,7 +26,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     LoginPageComponent,
     SignUpPageComponent,
     IndexPageComponent,
-    PublishProductPageComponent
+    PublishProductPageComponent,
+    ProfileComponent,
+    SidebarUniverseComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +36,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     SwiperModule,
     HttpClientModule,
-    NgSelectModule
+    NgSelectModule,
+    RatingModule.forRoot(),
+    ReactiveFormsModule 
   ]
 })
 export class PagesModule { }
