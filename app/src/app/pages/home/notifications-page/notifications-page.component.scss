@@ -1,0 +1,16 @@
+.list-group-item{
+    cursor: pointer;
+}
+.form-control{
+    max-width:80%;
+}
+.btn{
+    max-width:18%;
+    margin-left:2%;
+}
+.form-group *{
+    float:left;
+}
+.form-group{
+    clear:both;
+}

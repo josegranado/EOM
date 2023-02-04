@@ -20,25 +20,25 @@ const data: MenuItem[] = [
     {
         icon: 'glyph-icon simple-icon-people',
         label: 'Registros',
-        to: '/',
+        to: '/dashboard/records',
         roles: []
     },
     {
         icon: 'glyph-icon iconsminds-data-center',
         label: 'Transacciones',
-        to: '/',
+        to: '/dashboard/transactions',
         roles: []
     },
     {
         icon: 'glyph-icon iconsminds-credit-card',
         label: 'Créditos',
-        to: '/',
+        to: '/dashboard/credits',
         roles: []
     },
     {
         icon: 'glyph-icon simple-icon-docs',
         label: 'Incidencias',
-        to: '/',
+        to: '/dashboard/reports',
         roles: []
     }
 ];

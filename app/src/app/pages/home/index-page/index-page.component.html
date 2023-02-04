@@ -36,17 +36,31 @@
                     <h2><strong>Últimas Publicaciones</strong></h2>
                     <br>
                     <div *ngIf="grid" class="products row">
-                        <div *ngFor="let product of products" class="card" style="margin:0;padding:0; width: calc(33% - 20px) !important; margin: 10px;">
-                                <div *ngIf="!product.thumbnail" class="card-img-top" style="background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url(assets/images/product.png)"></div>
-                                <div *ngIf="product.thumbnail" class="card-img-top" style="background-position: center; background-size: cover; background-repeat: no-repeat; height:200px;background-image: url({{API_ENDPOINT + '/files/products/' + product.thumbnail}})"></div>
+                        <div  *ngFor="let product of products" class="card" style="margin:0;padding:0; width: calc(33% - 20px) !important; margin: 10px;">
+                                <div routerLink="/product/{{ product.uuid }}" *ngIf="!product.thumbnail" class="card-img-top" style="background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url(assets/images/product.png)"></div>
+                                <div routerLink="/product/{{ product.uuid }}" *ngIf="product.thumbnail" class="card-img-top" style="background-position: center; background-size: cover; background-repeat: no-repeat; height:200px;background-image: url({{API_ENDPOINT + '/files/products/' + product.thumbnail}})"></div>
                                 <div class="card-body">
-                                    <h2 class="card-title" style="font-size:16px"><strong>{{ product.title }}</strong></h2>
+                                    <h2 class="card-title" style="font-size:12px"><strong>{{ product.title }}</strong></h2>
                                     <h6 class="card-subtitle text-center"><img style="height:25px;width:25px;" src="assets/images/eom-coin-transparent.png" alt="">&nbsp;{{ product.price }}</h6>
+                                    <div id="actions" class="row mt-2">
+                                        <div class="col-md-3 text-center">
+                                            <i class="fa-regular fa-heart text-primary"></i>
+                                        </div>
+                                        <div routerLink="/profile/{{product.user.id }}" class="col-md-3 text-center">
+                                            <i class="fa-regular fa-user text-primary"></i>
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <i class="fa-regular fa-message text-primary"></i>
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <i class="fa-solid fa-share text-primary"></i>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                     </div>
                     <div *ngIf="list" class="products row">
-                        <div *ngFor="let product of products" class="card mt-1 mb-1" style="padding:0; max-width:100%;width:100%;">
+                        <div routerLink="/product/{{ product.uuid }}" *ngFor="let product of products" class="card mt-1 mb-1" style="padding:0; max-width:100%;width:100%;">
                             <div class="row" style="padding:0;margin:0;">
                                 <div *ngIf="product.thumbnail" class="col-4" style="background-position: center; background-size: cover; background-repeat: no-repeat; height:200px;background-image: url({{API_ENDPOINT + '/files/products/' + product.thumbnail}})">
                                 <div *ngIf="!product.thumbnail" class="col-4" style="height: 200px; background-image: url(assets/images/product.png)"></div>
@@ -56,6 +70,20 @@
                                     <h2 class="card-title" style="font-size:25px"><strong>{{ product.title }}</strong></h2>
                                     <p class="card-text" style="font-size:20px">{{ product.description}}</p>
                                     <h6 class="card-subtitle" style="font-size:35px"><img style="height:25px;width:25px;" src="assets/images/eom-coin-transparent.png" alt="">&nbsp;{{ product.price }}</h6>
+                                    <div id="actions" class="row mt-2">
+                                        <div class="col-md-3 text-center">
+                                            <i class="fa-regular fa-heart text-primary"></i>
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <i class="fa-regular fa-user text-primary"></i>
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <i class="fa-regular fa-message text-primary"></i>
+                                        </div>
+                                        <div class="col-md-3 text-center">
+                                            <i class="fa-solid fa-share text-primary"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

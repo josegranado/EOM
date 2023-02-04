@@ -9,6 +9,8 @@ class MessagesSchema extends Schema {
       table.increments()
       table.string('content').nullable();
       table.integer('twin_id').nullable();
+      table.integer('from').nullable();
+      table.integer('state').nullable();
       table.integer('deleted').nullable();
       table.timestamps()
     })

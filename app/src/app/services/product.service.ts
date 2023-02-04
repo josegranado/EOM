@@ -12,7 +12,13 @@ export class ProductService {
   constructor(
     private httpClient: HttpClient
   ) { 
-    this.token = 'Bearer '+ localStorage.getItem('token') as string;
+    this.token = 'Bearer '+ localStorage.getItem('token');
+  }
+  allByUser(id): Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    return this.httpClient.get(environment.apiUrl+'/users/'+id+'/products', { headers })
   }
   index():Observable<any>{
     const headers = new HttpHeaders({
@@ -31,14 +37,24 @@ export class ProductService {
     fd.append('is_used', product.is_used);
     fd.append('price', product.price);
     fd.append('duration', product.duration);
+    console.log( files )
     if ( files ){
       for ( let i = 0; i < files.length; i++ ){
-        let key = 'gallery-'+i+1;
+        let number = i+1;
+        let key = 'gallery-'+number;
         
         fd.append(key, files[i]);
       }
     }
+    console.log( files )
     console.log( fd );
     return this.httpClient.post(environment.apiUrl+'/products', fd, { headers })
+  }
+  show(uuid:string): Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type':'application/json',
+      'Authorization': this.token
+    });
+    return this.httpClient.get(environment.apiUrl+'/products/'+uuid, { headers });
   }
 }

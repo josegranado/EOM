@@ -1,0 +1,115 @@
+<eom-header></eom-header>
+<div class="row mb-2" style="margin-top:150px;">
+    <div (click)="notifications = true; twins = false" class="col-6 text-center" style="border-bottom: 1px solid #CCCCCC; cursor: pointer;">
+        <button class="btn text-primary" (click)="notifications = true; twins = false" >Notificaciones</button>
+    </div>
+    <div (click)="notifications = false; twins = true" class="col-6 text-center" style="border-bottom: 1px solid #CCCCCC; cursor: pointer;">
+        <button class="btn text-primary" (click)="notifications = false; twins = true">Twins</button>
+    </div>
+</div>
+<div *ngIf="notifications" class="container">
+    <div class="col-12">
+        <ul class="list-group">
+            <li class="list-group-item text-secondary">Tus notiicaciones del <span class="text-primary">31/11/2021</span> al <span class="text-primary">31/12/2022</span></li>
+            <li class="list-group-item text-secondary">
+                <img src="assets/images/avatar.png" alt="" style="width:40px;">
+                20/11/2022 - Hora de compra<br>
+                Roberto Cardiel ha comprado tu artículo...
+            </li>
+            <li class="list-group-item text-secondary">
+                <img src="assets/images/avatar.png" alt="" style="width:40px;">
+                20/11/2022 - Hora de compra<br>
+                Roberto Cardiel ha comprado tu artículo...
+            </li>
+            <li class="list-group-item text-secondary">
+                <img src="assets/images/avatar.png" alt="" style="width:40px;">
+                20/11/2022 - Hora de compra<br>
+                Roberto Cardiel ha comprado tu artículo...
+            </li>
+            <li class="list-group-item text-secondary">
+                <img src="assets/images/avatar.png" alt="" style="width:40px;">
+                20/11/2022 - Hora de compra<br>
+                Roberto Cardiel ha comprado tu artículo...
+            </li><li class="list-group-item text-secondary">
+                <img src="assets/images/avatar.png" alt="" style="width:40px;">
+                20/11/2022 - Hora de compra<br>
+                Roberto Cardiel ha comprado tu artículo...
+            </li>
+            <li class="list-group-item text-secondary">
+                <img src="assets/images/avatar.png" alt="" style="width:40px;">
+                20/11/2022 - Hora de compra<br>
+                Roberto Cardiel ha comprado tu artículo...
+            </li>
+        </ul>
+    </div>
+</div>
+<div *ngIf="twins" class="container mt-2 mb-2">
+    <div class="row">
+        <div class="col-4">
+            <ul class="list-group">
+                <li class="list-group-item text-center">
+                    <strong>Twins</strong>
+                </li>
+                <li *ngFor="let twin of twinsData" class="list-group-item"  (click)="openTwin(twin.id);">
+                    <div *ngIf="identity.id == twin.from.id" class="container">
+                        <img *ngIf="!twin.to.profile.avatar" src="assets/images/avatar.png" alt="" style="width:40px;">
+                        <img *ngIf="twin.to.profile.avatar" src="{{ apiUrl + twin.to.profile.avatar }}" alt="" style="width:40px;">
+                        {{ twin.to.profile.first_name }} {{ twin.to.profile.last_name }} <br>
+                        {{ twin.created_at | date: 'dd/MM/yyyy'}}
+                    </div>
+                    <div *ngIf="identity.id == twin.to.id" class="container" (click)="openTwin(twin.id);">
+                        <img *ngIf="!twin.from.profile.avatar" src="assets/images/avatar.png" alt="" style="width:40px;">
+                        <img *ngIf="twin.from.profile.avatar" src="{{ apiUrl + twin.from.profile.avatar }}" alt="" style="width:40px;">
+                        {{ twin.from.profile.first_name }} {{ twin.from.profile.last_name }} <br>
+                        {{ twin.created_at | date: 'dd/MM/yyyy' }}
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+        <div class="col-8">
+            <div *ngIf="twin" class="card">
+                <div class="card-body">
+                    <h4 *ngIf="identity.id == twin.from.id" class="card-title">
+                        {{ twin.to.profile.first_name }} {{ twin.to.profile.last_name }} <br>
+                    </h4>
+                    <h4 *ngIf="identity.id == twin.to.id" class="card-title">
+                        {{ twin.from.profile.first_name }} {{ twin.from.profile.last_name }} <br>
+                    </h4>
+                    <hr style="border-color :#CCCCCC;">
+                    <div class="container" style="clear:both;">
+                        <div *ngFor="let message of messages" class="container-fluid" style="clear:both;">
+                            <div *ngIf="identity.id == twin.to.id" class="row mt-4 mb-4">
+                                <div class="col-1">
+                                    <img *ngIf="!twin.to.profile.avatar" src="{{ apiUrl + twin.from.profile.avatar }}" alt="" style="width: 100%;"> 
+                                    <img *ngIf="!twin.to.profile.avatar" src="assets/images/avatar.png" alt="" style="width: 100%;"> 
+                                </div>
+                                <div class="col-8 p-2" style="background-color:#f5f5f5; border-radius:30px;"><p>{{ message.content }}</p></div>
+                            </div>
+                            <div *ngIf="identity.id == twin.from.id" class="row mt-4 mb-4 ml-auto">
+                               
+                                <div class="col-8 p-2" style="background-color:#d3d3d3; border-radius:30px;">{{ message.content }}</div>
+                                <div class="col-1">
+                                    <img *ngIf="!twin.from.profile.avatar" src="{{ apiUrl + twin.from.profile.avatar }}" alt="" style="width: 100%;"> 
+                                    <img *ngIf="!twin.from.profile.avatar" src="assets/images/avatar.png" alt="" style="width: 100%;"> 
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-12">
+                                <form #sendMessage="ngForm" (ngSubmit)="message(sendMessage.value)" style="width:100% !important;">
+                                    <div class="form-group">
+                                        <input name="content" ngModel type="text" class="form-control" placeholder="Escribe tu mensaje">
+                                        <button type="submit" class="btn btn-primary">ENVIAR</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -10,6 +10,7 @@ class ProductsSchema extends Schema {
       table.string('title', 90).nullable()
       table.string('thumbnail').nullable()
       table.integer('user_id').unsigned().nullable()
+      table.text('uuid').nullable()
       table.integer('category_id').unsigned().nullable()
       table.text('description').nullable()
       table.integer('is_used').nullable()

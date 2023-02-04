@@ -72,3 +72,7 @@ button{
 .btn-eom{
     background-color: #0075B0 !important;
 }
+
+.c-pointer:hover{
+    cursor: pointer !important;
+}

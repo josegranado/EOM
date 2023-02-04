@@ -17,6 +17,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ProfileComponent } from './home/profile/profile.component';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { SidebarUniverseComponent } from './components/sidebar-universe/sidebar-universe.component';
+import { NotificationsPageComponent } from './home/notifications-page/notifications-page.component';
+import { SingleProductPageComponent } from './home/single-product-page/single-product-page.component';
+import { ShowProfileComponent } from './home/show-profile/show-profile.component';
+import { FavoritesPageComponent } from './home/favorites-page/favorites-page.component';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -28,7 +32,11 @@ import { SidebarUniverseComponent } from './components/sidebar-universe/sidebar-
     IndexPageComponent,
     PublishProductPageComponent,
     ProfileComponent,
-    SidebarUniverseComponent
+    SidebarUniverseComponent,
+    NotificationsPageComponent,
+    SingleProductPageComponent,
+    ShowProfileComponent,
+    FavoritesPageComponent
   ],
   imports: [
     CommonModule,

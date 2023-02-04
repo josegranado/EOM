@@ -5,7 +5,12 @@ const Account = use('App/Models/Account')
 class AccountController {
     async index({request, response, auth }){
         try{
-            
+            const auth_user = await auth.getUser();
+            const account = await Account.findBy({
+                user_id: auth_user.id,
+                deleted: 0
+            })
+            return response.json({ status: 201, data: account })
         }catch( e ){
             return response.json({ status: 500, message: 'Internal Server Error', error: e.message() })
         }

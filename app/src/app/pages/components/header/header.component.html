@@ -2,25 +2,30 @@
     <nav class="navbar navbar-expand-lg" style="padding:0 !important; ">
         <div class="row" style="padding:0 !important;">
             <div style="max-width:25% !important;width:100% !important;">
-                <img class="p-5" id="logo" src="assets/images/logo-black.png" alt="" style>
+                <img routerLink="/" class="p-5 c-pointer" id="logo" src="assets/images/logo-black.png" alt="">
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-2">
 
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-2">
                 
             </div>
-            <div *ngIf="!identity" class="col-12 col-md-2 d-flex align-items-center justify-content-center" style="margin:0px; padding:0 ">
+            <div *ngIf="!identity" class="col-12 col-md-4 d-flex align-items-center justify-content-end" style="margin:0px; padding:0 ">
                 <button routerLink="/login" class="btn d-flex align-items-center justify-content-center text-white" style="background-color:#0075b0;max-width: 100%; width:100%;height: 80px !important;"><span style="margin-top:0px">Ingresar</span></button>
             </div>
-  
-            <div *ngIf="identity" class="col-12 col-md-1 d-flex align-items-center justify-content-center" style="margin:-25px; padding:0 ">
-                <button class="btn d-flex align-items-center justify-content-center">
+            <div *ngIf="identity" class="float-right col-12 col-md-3 d-flex align-items-center justify-content-center" style="padding:0; margin-right:0;">
+                <button class="btn d-flex align-items-center justify-content-center text-darken" style="background-color:#CCCCCC !important;max-width: 100% !important; width:100%; height:80px;margin-right:0px !important;">
+                    <img src="assets/images/eom-coin-transparent.png" alt="" style="width:35px">&nbsp;{{ account?.balance }}
+                </button>
+            </div>
+            <div *ngIf="identity" class="float-right col-12 col-md-1 d-flex align-items-center justify-content-center" style="margin:0px; padding:0;margin-left:-10px; ">
+                <button class="btn d-flex align-items-center justify-content-center" routerLink="/notifications">
                     <i class="simple-icon-bell" style="color:#0075b0 !important; font-size:25px"></i>
                 </button>
             </div>
+            
             <div *ngIf="identity" class="float-right col-12 col-md-1 d-flex align-items-center justify-content-center" style="padding:0; margin-right:0;">
-                <button (click)="showMenu()" class="btn d-flex align-items-center justify-content-center text-white" style="background-color:#0075b0 !important;max-width: 100% !important; width:100%; height:80px;margin-right:-50px !important;">
+                <button (click)="showMenu()" class="btn d-flex align-items-center justify-content-center text-white" style="background-color:#0075b0 !important;max-width: 100% !important; width:100%; height:80px;margin-right:0px !important;">
                     <i class="simple-icon-menu p-2" style="color:white!important; font-size:25px"></i>
                 </button>
             </div>

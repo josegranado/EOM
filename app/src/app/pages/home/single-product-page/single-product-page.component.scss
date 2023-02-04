@@ -1,0 +1,27 @@
+#thumbnail{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#actions{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin:-20px;
+    margin-top: 10px;
+}
+#actions div {
+    border: 1px solid #CCC;
+    height:100%;
+    padding:25px;
+    
+}
+#actions i{
+    font-size: 32px;
+
+}
+.gallery-item{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

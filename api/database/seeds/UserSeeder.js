@@ -14,6 +14,7 @@
 const Factory = use('Factory')
 const User = use('App/Models/User')
 const Profile = use('App/Models/Profile')
+const Account = use('App/Models/Account')
 class UserSeeder {
   async run () {
     let user = new User()
@@ -36,6 +37,11 @@ class UserSeeder {
     profile.user_id = user.id
     profile.deleted = 0
     await profile.save()
+    let account = new Account()
+    account.balance = 50000;
+    account.user_id = user.id;
+    account.deleted = 0;
+    await account.save();
     user = new User()
     user.username = 'robertocardiel';
     user.email = 'vicvalsoftware@gmail.com'
@@ -55,6 +61,11 @@ class UserSeeder {
     profile.user_id = user.id
     profile.deleted = 0
     await profile.save()
+    account = new Account()
+    account.balance = 50000;
+    account.user_id = user.id;
+    account.deleted = 0;
+    await account.save();
     user = new User()
     user.username = 'elotromercado';
     user.email = 'somoselotromercado@gmail.com'
@@ -74,6 +85,11 @@ class UserSeeder {
     profile.user_id = user.id
     profile.deleted = 0
     await profile.save()
+    account = new Account()
+    account.balance = 50000;
+    account.user_id = user.id;
+    account.deleted = 0;
+    await account.save();
   }
 }
 

@@ -73,7 +73,6 @@ class UserController {
             user.profile = await Profile.findBy({user_id: params.id, deleted: 0})
             user.enterprise = await Enterprise.findBy({user_id: params.id, deleted: 0})
             user.survey = await Survey.findBy({user_id: params.id, deleted: 0})
-            if ( auth_user.role > 1 ) return response.json({ status: 401, message: 'Not authorized'})
             return response.json({ status: 201, data: user })
         }catch(e){
             console.log( e )

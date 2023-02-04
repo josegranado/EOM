@@ -1,12 +1,12 @@
 'use strict'
-
-const auth = require("../../../config/auth");
-
 const Database = use('Database');
 const Category = use('App/Models/Category');
 const Product = use('App/Models/Product');
 const User = use('App/Models/User');
 const  {  v4 : uuidv4  }  =  require('uuid');
+const Comment = use('App/Models/Comment');
+const Profile = use('App/Models/Profile');
+const Favorite = use('App/Models/Favorite');
 class ProductController {
     async index({ request, response }){
         try{
@@ -34,14 +34,16 @@ class ProductController {
             product.price = price;
             product.duration = duration;
             product.deleted = 0;
+            product.uuid = uuidv4();
             let files = [];
             for(let i = 0; i < 11; i++){
                 let url = './public/files/products/';
-                let input = 'gallery-'+i+1;
+                let number = i+1;
+                let input = 'gallery-'+number;
                 
                 let file = request.file(input, {
                     types: ['image'],
-                    size: '4mb',
+                    size: '20mb',
                     extname: ['png', 'jpg', 'jpeg']
                 })
                 console.log(file)
@@ -74,10 +76,37 @@ class ProductController {
     }
     async show({ request, response, params }){
         try{
-            const product = await Product.findBy({id: params.id, deleted: 0})
+            const product = await Product.findBy({uuid: params.id, deleted: 0})
             product.category = await Category.findBy({id: product.category_id, deleted: 0})
             product.user = await User.findBy({id: product.user_id, deleted: 0})
+            product.user.profile = await Profile.findBy({ user_id: product.user.id, deleted: 0})
+            const comments = await Database.from('comments').where('product_id', product.id).where('deleted', 0);
+            for ( let i = 0; i < comments.length ; i++){
+                comments[i].user = await User.findBy({id: comments[i].user_id, deleted: 0})
+                comments[i].user.profile = await Profile.findBy({user_id: comments[i].user_id, deleted: 0})
+            }
+            product.comments = comments;
             return response.json({ status: 201, data: product })
+        }catch(e){
+            console.log( e )
+            return response.json({ status: 500, message: 'Internal Server Error'})
+        }
+    }
+    async allByUser({ request, response, params }){
+        try{
+            const products = await Database.from('products').where('user_id', params.id ).where('deleted', 0);
+            for( let i = 0; i < products.length; i++){
+                products[i].category = await Category.findBy({id: products[i].category_id, deleted: 0})
+                products[i].user = await User.findBy({id: products[i].user_id, deleted: 0})
+                products[i].user.profile = await Profile.findBy({ user_id: products[i].user_id, deleted: 0})
+                let comments = await Database.from('comments').where('product_id', products[i].id).where('deleted', 0);
+                for ( let y = 0; y < comments.length ; y++){
+                    comments[y].user = await User.findBy({id: comments[y].user_id, deleted: 0})
+                    comments[y].user.profile = await Profile.findBy({user_id: comments[y].user_id, deleted: 0})
+                }
+                products[i].comments = comments;
+            }
+            return response.json({ status: 201, data: products })
         }catch(e){
             console.log( e )
             return response.json({ status: 500, message: 'Internal Server Error'})
@@ -102,7 +131,7 @@ class ProductController {
             return response.json({ status: 500, message: 'Internal Server Error'})
         }
     }
-    async destroy({ request, response }){
+    async destroy({ request, response, auth }){
         try{
             const auth_user = await auth.getUser();
             const product = await Product.findBy({id: params.id, deleted: 0})
@@ -110,6 +139,30 @@ class ProductController {
             if ( product.user_id != auth_user.id || auth_user.role > 2 ) return response.json({ status: 401, message: 'Not authorized'})
             if ( await product.save() ) return response.json({ status: 201, message:'Product deleted successfully'})
             return response.json({ status: 400, message: 'Bad request' })
+        }catch(e){
+            console.log( e )
+            return response.json({ status: 500, message: 'Internal Server Error'})
+        }
+    }
+    async allFavoritesByUser({ request, auth, response }){
+        try{
+            const auth_user = await auth.getUser();
+            const favorites = await Database.from('favorites').where('user_id', auth_user.id)
+            for( let i = 0; i < favorites.length; i++ ){
+                let product = await Product.findBy({
+                    id: favorites[i].product_id,
+                    deleted: 0 
+                })
+                product.category = await Category.findBy({id: product.category_id, deleted: 0})
+                product.user = await User.findBy({id: product.user_id, deleted: 0})
+                product.user.profile = await Profile.findBy({ user_id: product.user_id, deleted: 0})
+                let comments = await Database.from('comments').where('product_id', product.id).where('deleted', 0);
+                for ( let y = 0; y < comments.length ; y++){
+                    comments[y].user = await User.findBy({id: comments[y].user_id, deleted: 0})
+                    comments[y].user.profile = await Profile.findBy({user_id: comments[y].user_id, deleted: 0})
+                }
+                product.comments = comments;
+            }
         }catch(e){
             console.log( e )
             return response.json({ status: 500, message: 'Internal Server Error'})

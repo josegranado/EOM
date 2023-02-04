@@ -8,7 +8,9 @@ class NotificationsSchema extends Schema {
     this.create('notifications', (table) => {
       table.increments()
       table.integer('type').nullable();
-      table.integer('user_id').nullable();
+      table.integer('from').nullable();
+      table.integer('to').nullable();
+      table.integer('state').nullable();
       table.integer('deleted').nullable();
       table.timestamps()
     })

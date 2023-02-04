@@ -12,12 +12,26 @@
   >
     <ng-template *ngFor="let product of products" swiperSlide >
         <div class="card" style="width:100%;">
-          <div *ngIf="!product.thumbnail" class="card-img-top" style="height:250px; background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url(assets/images/product.png);width: 100%;"></div>
-          <div *ngIf="product.thumbnail" class="card-img-top" style="height:250px; background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url({{API_ENDPOINT + '/files/products/' + product.thumbnail}});width:100%;"></div>
+          <div routerLink="/product/{{ product.uuid }}" *ngIf="!product.thumbnail" class="card-img-top" style="height:250px; background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url(assets/images/product.png);width: 100%;"></div>
+          <div routerLink="/product/{{ product.uuid }}"  *ngIf="product.thumbnail" class="card-img-top" style="height:250px; background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url({{API_ENDPOINT + '/files/products/' + product.thumbnail}});width:100%;"></div>
             <div class="card-body">
                 <h2 class="card-title" style="font-size:18px"><strong>{{ product.title}}</strong></h2>
                 <h6 class="card-subtitle">{{ product.price }}</h6>
                 <p class="card-text"><img style="height:25px;width:25px;margin:auto" src="assets/images/eom-coin-transparent.png" alt=""></p>
+                <div id="actions" class="row">
+                  <div class="col-md-3 text-center">
+                      <i class="fa-regular fa-heart text-primary"></i>
+                  </div>
+                  <div routerLink="/profile/{{product.user.id }}" class="col-md-3 text-center">
+                      <i class="fa-regular fa-user text-primary"></i>
+                  </div>
+                  <div class="col-md-3 text-center">
+                      <i class="fa-regular fa-message text-primary"></i>
+                  </div>
+                  <div class="col-md-3 text-center">
+                      <i class="fa-solid fa-share text-primary"></i>
+                  </div>
+              </div>
             </div>
         </div>
     </ng-template>

@@ -12,7 +12,13 @@ export class UserService {
   constructor(
     private httpClient: HttpClient
   ) { 
-    this.token = 'Bearer '+ localStorage.getItem('token') as string;
+    this.token = 'Bearer '+ localStorage.getItem('token');
+  }
+  public show(id):Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    return this.httpClient.get(environment.apiUrl+'/users/'+id, { headers })
   }
   public uploadAvatar( avatar: File ): Observable<any>{
     const headers = new HttpHeaders({

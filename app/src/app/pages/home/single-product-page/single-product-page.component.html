@@ -1,0 +1,93 @@
+
+
+
+<eom-header></eom-header>
+<section *ngIf="product" id="single-product-page" style="margin-top:150px; ">
+    <div class="container">
+        <div id="summary-product" class="row" style="height:90vh;">
+            <div class="col-md-2">
+                <div class="row">
+                    <div (click)="changeItemGallery(pic)" *ngFor="let pic of gallery" style="cursor:pointer;background-image:url({{ API_ENDPOINT + '/files/products/' + pic}});width: calc(50% - 20px);margin:5px;height: 80px" class="col-auto gallery-item">
+                    </div>
+                </div>
+            </div>
+            <div id="thumbnail"  class="col-md-5" style="background-image:url({{ API_ENDPOINT + '/files/products/' + itemSelected}})"></div>
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-subtitle" style="font-size:18px">
+                            <span *ngIf="product?.is_used == 0">NUEVO</span>
+                            <span *ngIf="product?.is_used == 1">USADO</span>
+                        </h4>
+                        <h1 class="card-title" style="font-size:25px">{{ product?.title }}</h1>
+                        <ul style="list-style:none; margin:0; padding:0">
+                            <li routerLink="/profile/{{product?.user.id }}" style="cursor:pointer">
+                                <img *ngIf="!product?.user.profile.avatar" src="assets/images/avatar.png" alt="" style="width:50px; height:50px">
+                                <img *ngIf="product?.user.profile.avatar" src="{{ API_ENDPOINT + '/files/avatars/' + product?.user.profile.avatar }}" alt="" style="width:50px; height:50px">
+                                &nbsp;<span><strong>@{{ product?.user.username }}</strong></span></li>
+                        </ul>
+                        <p class="card-text" style="font-size:12px">
+                        {{ product?.description }}
+                        </p>
+                        <ul style="list-style:none; margin:0; padding:0">
+                            <li><img src="assets/images/eom-coin-transparent.png" alt="" style="width:50px; height:50px">&nbsp;<span style="font-size:25px"><strong>T {{ product?.price }}</strong></span></li>
+                        </ul>
+                        <br>
+                        <button *ngIf="product.user_id != identity.id" (click)="buy()" class="btn btn-primary ">COMPRAR PRODUCTO</button>
+                        <div id="actions" class="row mt-5">
+                            <div class="col-md-3 text-center">
+                                <i class="fa-regular fa-heart text-primary"></i>
+                            </div>
+                            <div routerLink="/profile/{{product.user.id }}" class="col-md-3 text-center">
+                                <i class="fa-regular fa-user text-primary"></i>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <i class="fa-regular fa-message text-primary"></i>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <i class="fa-solid fa-share text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3 mb-3">
+            <h2 class="text-primary"><strong>Comentarios recientes</strong></h2>
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <div *ngIf="comments.length == 0" class="row text-center">
+                        <p class="text-center">No hay comentarios en este producto...</p>
+                    </div>
+                    <div routerLink="/profile/{{comment.user.id }}" *ngFor="let comment of comments; let i = index" class="row" style="cursor:pointer">
+                        <div class="avatar col-md-1">
+                            <img *ngIf="!comment.user.profile.avatar" src="assets/images/avatar.png" alt="" style="width:100%;">
+                            <img *ngIf="comment.user.profile.avatar" src="{{ API_ENDPOINT + '/files/avatars/' + comment.user.profile.avatar }}" alt="" style="width:100%;">
+                        </div>
+                        <div class="comment col-md-11 p-3" style="border:1px solid #ccc; border-radius:30px;">
+                            <strong>@{{comment.user.username}}</strong>
+                            <p>{{ comment.content }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-1">
+                            <img *ngIf="!identity.profile.avatar" src="assets/images/avatar.png" alt="" style="width:100%;">
+                            <img *ngIf="identity.profile.avatar" src="{{ API_ENDPOINT + '/files/avatars/' + identity.profile.avatar }}" alt="" style="width:100%;">
+                        </div>
+                        <div class="col-11">
+                            <form #newComment="ngForm" (ngSubmit)="publishComment(newComment.value)">
+                                <input ngModel name="content" #content  style="border-radius:30px;" type="text" class="form-control" placeholder="Escribe un comentario">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h2 class="text/primary"><strong>Publicaciones relacionadas</strong></h2>
+        </div>
+    </div>
+</section>

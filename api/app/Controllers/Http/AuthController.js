@@ -3,7 +3,8 @@ const Database = use('Database')
 const User = use('App/Models/User')
 const Profile = use('App/Models/Profile')
 const Enterprise = use('App/Models/Enterprise')
-const Survey = use('App/Models/Survey')
+const Survey = use('App/Models/Survey');
+const Account = use('App/Models/Account');
 const nodemailer = require('nodemailer');
 
 class AuthController {
@@ -16,6 +17,11 @@ class AuthController {
             const profile = await Profile.findBy({
                 user_id: user.id
             })
+            const account = await Account.findBy({
+                user_id: user.id
+            })
+            console.log( account )
+            user.account = account;
             user.profile = profile;
             const logged = await auth.attempt(email, password, true )
             if ( logged && user ) return response.json({ status: 201, message: 'Logged Successfully', token: logged, data: user })
@@ -81,6 +87,11 @@ class AuthController {
             survey.user_id = user.id;
             survey.deleted = 0;
             await survey.save();
+            const account = new Account();
+            account.user_id = user.id;
+            account.deleted = 0;
+            account.balance = 0;
+            account.save();
             return response.json({ status: 201, message: 'Pre-register saved successfully'})
         }catch(e){
             console.log( e )
@@ -93,7 +104,14 @@ class AuthController {
             if ( auth_user.role > 1) return response.json({ status: 401, message: 'Not authorized'})
             const user = await User.findBy({ id: params.id, deleted: 0});
             user.is_approved = 1;
-            
+            await user.save();
+            const account = await Account.findBy({
+                user_id: user.id
+            })
+            account.balance = 100;
+            await account.save();
+            return response.json({ status: 200, message: 'The user was approved'});
+
         }catch(e){
             console.log( e )
             return response.json({ status: 500, message: 'Internal Server Error'})
