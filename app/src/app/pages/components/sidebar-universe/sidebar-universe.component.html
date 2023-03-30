@@ -4,22 +4,22 @@
                         <li class="list-group-item">Categorías <i class="glyph-icon simple-icon-arrow-down-circle"></i></li>
                     </ul>
                     <ul *ngIf="listCategories" class="list-group list-categories">
-                        <li class="list-group-item" (click)="selectCategory('Tecnología')">Tecnología<i class="glyph-icon simple-icon-plus"></i></li>
-                        <li class="list-group-item" (click)="selectCategory('Mascotas')">Mascotas <i class="glyph-icon simple-icon-plus"></i></li>
-                        <li class="list-group-item" (click)="selectCategory('Ropa y Calzado')">Ropa y Calzado <i class="glyph-icon simple-icon-plus"></i></li>
-                        <li class="list-group-item" (click)="selectCategory('Juguetes y Vídeojuegos')">Juguetes y videojuegos <i class="glyph-icon simple-icon-plus"></i></li>
-                        <li class="list-group-item" (click)="selectCategory('Música')">Música<i class="glyph-icon simple-icon-plus"></i> </li>
-                        <li class="list-group-item" (click)="selectCategory('Niños y Bebés')">Niños y Bebés<i class="glyph-icon simple-icon-plus"></i> </li>
-                        <li class="list-group-item" (click)="selectCategory('Deportes')">Deportes<i class="glyph-icon simple-icon-plus"></i> </li>
-                        <li class="list-group-item" (click)="selectCategory('Fotografía')">Fotografía<i class="glyph-icon simple-icon-plus"></i> </li>
-                        <li class="list-group-item" (click)="selectCategory('Hecha a Mano')">Hecho a Mano<i class="glyph-icon simple-icon-plus"></i> </li>
-                        <li class="list-group-item" (click)="selectCategory('Servicios')">Servicios<i class="glyph-icon simple-icon-plus"></i> </li>
+                        <li class="list-group-item" (click)="selectCategory({value: 1, name: 'Tecnología'})">Tecnología<i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectCategory({value: 2 ,name: 'Mascotas'})">Mascotas <i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectCategory({value: 3, name: 'Ropa y Calzado'})">Ropa y Calzado <i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectCategory({value: 4, name: 'Juguetes y videojuegos'})">Juguetes y videojuegos <i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectCategory({value: 5, name: 'Música'})">Música<i class="glyph-icon simple-icon-plus"></i> </li>
+                        <li class="list-group-item" (click)="selectCategory({value: 6, name: 'Niños y Bebés'})">Niños y Bebés<i class="glyph-icon simple-icon-plus"></i> </li>
+                        <li class="list-group-item" (click)="selectCategory({value: 7, name: 'Deportes'})">Deportes<i class="glyph-icon simple-icon-plus"></i> </li>
+                        <li class="list-group-item" (click)="selectCategory({value: 8, name: 'Fotografía'})">Fotografía<i class="glyph-icon simple-icon-plus"></i> </li>
+                        <li class="list-group-item" (click)="selectCategory({value: 9, name: 'Hecho a Mano'})">Hecho a Mano<i class="glyph-icon simple-icon-plus"></i> </li>
+                        <li class="list-group-item" (click)="selectCategory({value: 10, name: 'Servicios'})">Servicios<i class="glyph-icon simple-icon-plus"></i> </li>
                     </ul>
                     <ul class="list-title list-group" (click)="ubication = !ubication ">
                         <li class="list-group-item">Ubicación <i class="glyph-icon simple-icon-arrow-down-circle"></i></li>
                     </ul>
                     <ul *ngIf="ubication" class="list-group list-categories">
-                        <li class="list-group-item" style="padding:0"><input type="text" class="form-control" placeholder="Ingresa tu ubicación" style="border-radius:0 !important;" [(ngModel)]="ubicationInput"></li>
+                    <ng-select (change)="setUbication()" class="list-group-item form-control" style="padding:0;" ngModel placeholder="Selecciona la categoría" [(ngModel)]="ubicationInput" required [items]="states" bindLabel="name" name="ubication"></ng-select>
                     </ul>
                     <ul class="list-title list-group" (click)="price = !price ">
                         <li class="list-group-item">Precio <i class="glyph-icon simple-icon-arrow-down-circle"></i></li>
@@ -43,14 +43,14 @@
                         <li class="list-group-item">Uso <i class="glyph-icon simple-icon-arrow-down-circle"></i></li>
                     </ul>
                     <ul *ngIf="use" class="list-group list-categories">
-                        <li class="list-group-item" (click)="selectUse('Nuevo')">Nuevo<i class="glyph-icon simple-icon-plus"></i></li>
-                        <li class="list-group-item" (click)="selectUse('Seminuevo')">Seminuevo <i class="glyph-icon simple-icon-plus"></i></li>
-                        <li class="list-group-item" (click)="selectUse('Segunda Mano')">Segunda Mano <i class="glyph-icon simple-icon-plus"></i></li>
-                        <li class="list-group-item" (click)="selectUse('Reciclado')">Reciclado <i class="glyph-icon simple-icon-plus"></i></li>
-                        <li class="list-group-item" (click)="selectUse('Materias Primas')">Materias Primas <i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectUse({name:'Nuevo', value: 1})">Nuevo<i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectUse({name:'Seminuevo', value: 2})">Seminuevo <i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectUse({name:'Segunda Mano', value: 3})">Segunda Mano <i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectUse({name:'Reciclado', value: 4})">Reciclado <i class="glyph-icon simple-icon-plus"></i></li>
+                        <li class="list-group-item" (click)="selectUse({name:'Materias Primas', value: 5})">Materias Primas <i class="glyph-icon simple-icon-plus"></i></li>
                     </ul>
                     <div class="container mt-3">
-                        <span class="text-center text-white" *ngFor="let item of items" style="background-color:#0d6682; border-radius:30px; padding: 10px;margin: 5px">
+                        <span class="text-center text-white" *ngFor="let item of selectedItems" style="background-color:#0d6682; border-radius:30px; padding: 10px;margin: 5px">
                             {{ item }}
                         </span>
                         <br>

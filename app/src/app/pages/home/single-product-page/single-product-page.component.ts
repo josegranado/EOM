@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentService } from 'src/app/services/comment.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { ProductService } from 'src/app/services/product.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { environment } from 'src/environments/environment';
@@ -21,7 +22,8 @@ export class SingleProductPageComponent implements OnInit {
     private router: Router,
     private activated: ActivatedRoute,
     private commentService: CommentService,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private notificationService: NotificationService
     ) { 
       this.identity = JSON.parse(localStorage.getItem('identity'))
     }
@@ -59,6 +61,11 @@ export class SingleProductPageComponent implements OnInit {
       saler_id: this.product.user_id,
       amount: this.product.price,
       product_id: this.product.id
+    };
+    let notification = {
+      from: this.identity.id,
+      to: this.product.user_id,
+      type: 1 
     }
     this.transactionService.store(transaction).subscribe( res => {
       console.log( res )
@@ -69,12 +76,28 @@ export class SingleProductPageComponent implements OnInit {
         console.log( identity )
         localStorage.removeItem('identity');
         localStorage.setItem('identity', JSON.stringify(identity));
+        this.notificationService.emit('send-notification', notification );
         Swal.fire({
           icon: 'success',
           title: '!Felicidades por comprar este producto!',
           text: 'Te invitamos a esperar a que el vendedor sea notificado de tu compra y tendrás respuesta sobre la entrega de tu producto',
         })
+        this.router.navigate(['/'])
         
+      }
+    })
+  }
+  favorite(id){
+    let notification = {
+      identity: this.identity,
+      to: this.product.user_id,
+      type: 2 
+    }
+    this.productService.favorite(id).subscribe( res => {
+      console.log( res )
+      if ( res.status == 201 ){
+        this.notificationService.emit('send-notification', notification );
+        this.router.navigate(['/favorites'])
       }
     })
   }

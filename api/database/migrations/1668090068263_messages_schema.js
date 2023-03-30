@@ -10,6 +10,7 @@ class MessagesSchema extends Schema {
       table.string('content').nullable();
       table.integer('twin_id').nullable();
       table.integer('from').nullable();
+      table.integer('to').nullable();
       table.integer('state').nullable();
       table.integer('deleted').nullable();
       table.timestamps()

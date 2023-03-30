@@ -27,16 +27,16 @@
                         <input (change)="ConfirmPassword()" [(ngModel)]="user.password" name="password" type="{{ passwordType }}" class="form-control form-control-register" placeholder="Contraseña*" required>
                     </div>
                     <div class="form-group">
-                        <p class="text-secondary text-left" style="font-size:10px;">Mínimo 8 carácteres. Incluye: letras, núermos y  símbolos especiales. <br> <strong>¡Guarda tu contraseña en un lugar seguro!</strong></p>
+                        <p class="text-secondary text-left" style="font-size:10px;">Mínimo 8 carácteres. Incluye: letras, números y  símbolos especiales. <br> <strong>¡Guarda tu contraseña en un lugar seguro!</strong></p>
                     </div>
                     <div class="form-group" style="position: relative;">
                         <img (click)="noViewConfirmPassword();" *ngIf="passwordTypeConfirm == 'text' " src="assets/images/no-eyes.png" alt="" style="width:20px;position:absolute;font-size:20px;right:10px;top:8px;">
                         <i *ngIf="passwordTypeConfirm == 'password' " (click)="viewConfirmPassword()" class="glyph-icon simple-icon-eye" style="position:absolute;font-size:20px;right:10px;top:8px;"></i>
                         <input (change)="ConfirmPassword()"  [(ngModel)]="user.confirm_password" name="confirm_password" type="{{ passwordTypeConfirm }}" class="form-control form-control-register" placeholder="Confirmar contraseña*" required>
-                        <p *ngIf="msgPass" style="font-size:10px; color: rgb(239,60,57)" class="text-left">Las contraseñas no coinciden</p> 
+                        <p *ngIf="msgPass" style="font-size:10px; color: rgb(239,60,57)" class="text-left">Las contraseñas no coinciden ó no cumple con lo requerido.</p> 
                     </div>
                     <div class="form-group">
-                        <button [disabled]="!validPassword" (click)="next(newClient.value, true)" class="btn btn-primary btn-block btn-eom">Comenzar</button>
+                        <button (click)="next(newClient.value, newClient.valid)" class="btn btn-primary btn-block btn-eom">Comenzar</button>
                     </div>
                 </div>
                     <div *ngIf="step == 2" class="container-fluid" style="width:35%; margin:auto; text-center">
@@ -58,7 +58,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-12 col-md-12">
-                                    <button [disabled]="!newClient.valid" (click)="next(newClient.value, true)" class="btn btn-primary btn-block btn-eom">Comenzar</button>
+                                    <button (click)="next(newClient.value, newClient.valid)" class="btn btn-primary btn-block btn-eom">Comenzar</button>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                             <div class="row">
                                 
                                 <div class="col-12 col-md-12">
-                                    <button [disabled]="!newClient.valid" (click)="next(newClient.value, true)" class="btn btn-primary btn-block">Siguiente  &nbsp; <i class="fa-solid fa-chevron-right"></i></button>
+                                    <button (click)="next(newClient.value, newClient.valid)" class="btn btn-primary btn-block">Siguiente  &nbsp; <i class="fa-solid fa-chevron-right"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                             <div class="row">
                                
                                 <div class="col-12 col-md-12">
-                                    <button [disabled]="!newClient.valid" type="submit" class="btn btn-primary btn-block btn-eom">Finalizar</button>
+                                    <button type="submit" class="btn btn-primary btn-block btn-eom">Finalizar</button>
                                 </div>
                             </div>
                         </div>
@@ -133,6 +133,8 @@
                         <br>
                         <button class="btn btn-primary btn-eom mt-4">Conoce más beneficios</button>
                     </div>
+                    <img style="cursor:pointer;" (click)="step = 1" class="mt-2 mb-2" src="assets/images/step-1.png" alt="" style="width:5%">
+                   
                 </form>
             </div>
         </div>

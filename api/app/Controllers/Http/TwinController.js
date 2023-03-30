@@ -51,6 +51,24 @@ class TwinController {
             });
             
             const messages = await Database.from('messages').where('twin_id', twin.id);
+            for(let i = 0; i < messages.length; i++){
+                messages[i].from = await User.findBy({
+                    id: messages[i].from,
+                    deleted: 0
+                })
+                messages[i].from.profile = await Profile.findBy({
+                    user_id: messages[i].from.id,
+                    deleted: 0
+                })
+                messages[i].to = await User.findBy({
+                    id: messages[i].to,
+                    deleted: 0
+                })
+                messages[i].to.profile = await Profile.findBy({
+                    user_id: messages[i].to.id,
+                    deleted: 0
+                })
+            }
             twin.messages = messages;
             if ( twin.from.id == auth_user.id || twin.to.id == auth_user.id ){
                 

@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+<section id="main">
+    <div class="row">
+        <div class="col-1">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-11 mt-2 p-2">
+            <h1>Lista de pregistrros</h1>
+            <hr>
+            <button class="btn btn-primary">AGREGAR USUARIO</button>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-stripped">
+                        <thead>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombres</th>
+                            <th scope="col">Apellidos</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">¿Esta aprobado?</th>
+                            <th scope="col">Acciones</th>
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of users">
+                                <td>{{ user.id }} </td>
+                                <td> {{ user.profile.first_name }} </td>
+                                <td>{{ user.profile.last_name }}</td>
+                                <td>{{ user.username }}</td>
+                                <td> {{ user.email }}</td>
+                                <td> <span *ngIf="user.is_approved == 1">Sí.</span>
+                                    <span *ngIf="user.is_approved == 0">No.</span></td>
+                                <td>
+                                    <button (click)="is_approved(user.id)" *ngIf="user.is_approved == 0" class="btn btn-primary">APROBAR REGISTRO</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

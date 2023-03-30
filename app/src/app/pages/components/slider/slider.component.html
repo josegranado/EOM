@@ -19,13 +19,13 @@
                 <h6 class="card-subtitle">{{ product.price }}</h6>
                 <p class="card-text"><img style="height:25px;width:25px;margin:auto" src="assets/images/eom-coin-transparent.png" alt=""></p>
                 <div id="actions" class="row">
-                  <div class="col-md-3 text-center">
+                  <div class="col-md-3 text-center" (click)="favorite(product)">
                       <i class="fa-regular fa-heart text-primary"></i>
                   </div>
                   <div routerLink="/profile/{{product.user.id }}" class="col-md-3 text-center">
                       <i class="fa-regular fa-user text-primary"></i>
                   </div>
-                  <div class="col-md-3 text-center">
+                  <div (click)="openTwin(product.user.id)" class="col-md-3 text-center">
                       <i class="fa-regular fa-message text-primary"></i>
                   </div>
                   <div class="col-md-3 text-center">

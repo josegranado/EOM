@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
+import { io } from 'socket.io-client';
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
   public token;
+  public socket = io(environment.apiUrl)
   constructor(
     private httpClient: HttpClient
   ) { 
@@ -36,5 +37,18 @@ export class NotificationService {
       'Authorization': this.token
     })
     return this.httpClient.put(environment.apiUrl+'/notifications/'+id, { headers })
+  }
+  listen(eventName: string):Observable<any>
+  {
+    return new Observable((Subscriber) => {
+      this.socket.on(eventName, (data) =>{
+        Subscriber.next(data)
+      })
+    })
+  }
+  emit(eventName:string, data:any)
+  {
+    console.log(data)
+    this.socket.emit(eventName, data)
   }
 }

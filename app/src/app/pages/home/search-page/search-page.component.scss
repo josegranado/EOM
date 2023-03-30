@@ -1,0 +1,20 @@
+.card:hover {
+    cursor: pointer;
+}
+.actions{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin:-20px;
+    margin-top: 10px;
+}
+.actions div {
+    border: 1px solid #CCC;
+    height:100%;
+    padding:10px;
+    
+}
+.actions i{
+    font-size: 18px;
+
+}

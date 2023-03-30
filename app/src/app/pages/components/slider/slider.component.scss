@@ -70,7 +70,11 @@
   border: 1px solid #CCC;
   height:100%;
   padding:15px;
-  
+}
+#actions div:hover, #actions div:hover i{
+  cursor: pointer !important;
+  background-color: #0275d8 !important;
+  color: #FFF !important;
 }
 #actions i{
   font-size: 25px;

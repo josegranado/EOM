@@ -25,11 +25,11 @@ export class CalificationService {
     })
     return this.httpClient.get(environment.apiUrl+'/califications/'+id, {headers})
   }
-  public store(calification):Observable<any>{
+  public update(product_id, calification):Observable<any>{
     const headers = new HttpHeaders({
       'Authorization': this.token
     })
-    return this.httpClient.post(environment.apiUrl+'/califications', calification, { headers })
+    return this.httpClient.put(environment.apiUrl+'/products/'+product_id+'/califications', calification, { headers })
   }
   public delete(id):Observable<any>{
     const headers = new HttpHeaders({

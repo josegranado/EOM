@@ -223,7 +223,7 @@
                                 <div class="col-8">
                                     <h4 class="card-subtitle">Saldo Actual</h4>
                                     <br>
-                                    <span class="bg-primary p-2 text-white ml-2" style="border-radius:30px;">T. 2,200</span>
+                                    <span class="bg-primary p-2 text-white ml-2" style="border-radius:30px;">T. {{ account.balance }}</span>
                                 </div>
                             </div>
                         </div>     
@@ -237,7 +237,7 @@
                                 <div class="col-8">
                                     <h4 class="card-subtitle">Compras</h4>
                                     <br>
-                                    <span class="bg-primary p-2 text-white ml-2" style="border-radius:30px;">T. 2,200</span>
+                                    <span class="bg-primary p-2 text-white ml-2" style="border-radius:30px;">T. {{ boughts.balance }}</span>
                                 </div>
                             </div>
                         </div>     
@@ -251,7 +251,7 @@
                                 <div class="col-8">
                                     <h4 class="card-subtitle">Ventas</h4>
                                     <br>
-                                    <span class="bg-primary p-2 text-white ml-2" style="border-radius:30px;">T. 2,200</span>
+                                    <span class="bg-primary p-2 text-white ml-2" style="border-radius:30px;">T. {{ sales.balance }}</span>
                                 </div>
                             </div>
                         </div>     
@@ -274,82 +274,71 @@
                         <div class="card-body">
                             <h3 class="card-title text-secondary">Tus compras del <span class="text-primary">31/11/2022</span> al <span class="text-primary">31/12/2022</span></h3>
                             <hr style="border-color:#CCC;">
-                            <div *ngFor="let bought of boughts" class="row d-flex align-items-center">
-                                <div class="col-6">
+                            <p *ngIf="boughts_data.length < 1" class="text-center text-secondary">Aún no has hecho compras en la plataforma.</p>
+                            <div *ngFor="let bought of boughts_data" class="container-fluid">
+                                <form *ngIf="bought.product.display" #calificationForm="ngForm" (ngSubmit)="calification(bought.product, calificationForm.value )">
                                     <div class="row">
-                                        <div class="col-3">
-                                            <img src="assets/images/avatar.png" alt="" style="width:100%;">
+                                        <div class="col-3 text-center d-flex align-items-center">
+                                            <div>
+                                                <h5 class="text-center text-darken">¿Cómo calificas al vendedor</h5>
+                                                <rating ngModel name="buyer_points" [max]="5"></rating> &nbsp;
+                                            </div>
                                         </div>
-                                        <div class="col-9 d-flex align-items-center">
-                                            <p>
-                                                <span><strong class="text-darken">{{ bought.product.title }}</strong></span>
-                                            <br>
-                                            <span class="text-secondary">16/11/2022 | 15:02 p.m.</span>
-                                            </p>
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <img *ngIf="bought.product.buyer.profile.avatar" [src]="apiUrl + '/files/avatars/' + bought.product.buyer.profile.avatar">
+                                                    <img *ngIf="!bought.product.buyer.profile.avatar" src="assets/images/avatar.png" alt="" style="width:100%;">
+                                                </div>
+                                                <div class="col-9 d-flex align-items-center">
+                                                    <input ngModel name="buyer_comment" type="text" class="form-control form-control-eom" placeholder="Escribe tu reseña del producto">
+                                                </div>
+                                                
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <button class="btn w-100 text-primary" style="border-right: 1px solid #CCC; border-left: 1px solid #CCC;">Calificar a Vendedor</button>
-                                </div>
-                                <div class="col-3">
-                                    <button class="btn w-100 text-primary" style=" border-right: 1px solid #CCC;">Abrir Caso</button>
-                                </div>
-                                <div class="col-12">
-                                    <hr style="border-color:#CCC;">
-                                </div>
-                            </div>
-                            <div class="row" style="display:none;">
-                                <div class="col-3 text-center d-flex align-items-center">
-                                    <div>
-                                        <h5 class="text-center text-darken">¿Cómo calificas al vendedor</h5>
-                                        <rating [readonly]="true" name="calification" [max]="5"></rating> &nbsp;
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <img class="w-100" src="assets/images/avatar.png" alt="">
+                                        <div class="col-3 d-flex align-items-center">
+                                            <button type="submit" class="btn w-100 btn-success text-white">Calificar</button>
                                         </div>
-                                        <div class="col-9 d-flex align-items-center">
-                                            <input type="text" class="form-control form-control-eom" placeholder="Escribe tu reseña del producto">
+                                        <div class="col-12">
+                                            <hr style="border-color:#CCC;">
                                         </div>
-                                        
-                                    </div>
-                                </div>
-                                <div class="col-3 d-flex align-items-center">
-                                    <button class="btn w-100 btn-success text-white">Calificar</button>
-                                </div>
-                                <div class="col-12">
-                                    <hr style="border-color:#CCC;">
-                                </div>
-                            </div>
-                            <div *ngFor="let bought of boughts" class="row d-flex align-items-center">
-                                <div class="col-6">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <img src="assets/images/avatar.png" alt="" style="width:100%;">
-                                        </div>
-                                        <div class="col-9 d-flex align-items-center">
-                                            <p>
-                                                <span><strong class="text-darken">{{ bought.product.title }}</strong></span>
-                                            <br>
-                                            <span class="text-secondary">16/11/2022 | 15:02 p.m.</span>
-                                            </p>
+                                    </div> 
+                                </form>
+                                  
+                                <div *ngIf="!bought.product.display" class="row d-flex align-items-center">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <img *ngIf="bought.product.seller.profile.avatar" [src]="apiUrl + '/files/avatars/' + bought.product.seller.profile.avatar">
+                                                <img *ngIf="!bought.product.seller.profile.avatar" src="assets/images/avatar.png" alt="" style="width:100%;">
+                                            </div>
+                                            <div class="col-9 d-flex align-items-center">
+                                                <p>
+                                                    <span><strong class="text-darken">{{ bought.product.title }}</strong></span>
+                                                <br>
+                                                <span class="text-secondary">{{ bought.product.created_at | date: 'medium'}}</span>
+                                                <br>
+                                                </p>
+                                                <br>
+                                                &nbsp;
+                                                <h1><rating *ngIf="bought.product.calification.buyer_points" [(ngModel)]="bought.product.calification.buyer_points" name="buyer_points" [max]="5"></rating></h1>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="col-3">
+                                        <button *ngIf="!bought.product.calification.buyer_points" (click)="bought.product.display = true " class="btn w-100 text-primary" style="border-right: 1px solid #CCC; border-left: 1px solid #CCC;">Calificar a Vendedor</button>
+                                        <p *ngIf="bought.product.calification.buyer_points" class="text-center">
+                                            "{{ bought.product.calification.buyer_comment }}"
+                                        </p>
+                                    </div>
+                                    <div class="col-3">
+                                        <button class="btn w-100 text-primary" style=" border-right: 1px solid #CCC;">Abrir Caso</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <hr style="border-color:#CCC;">
+                                    </div>
                                 </div>
-                                <div class="col-3">
-                                    <button class="btn w-100 text-primary" style="border-right: 1px solid #CCC; border-left: 1px solid #CCC;">Calificar a Vendedor</button>
-                                </div>
-                                <div class="col-3">
-                                    <button class="btn w-100 text-primary" style=" border-right: 1px solid #CCC;">Abrir Caso</button>
-                                </div>
-                                <div class="col-12">
-                                    <hr style="border-color:#CCC;">
-                                </div>
-                            </div>
-                            
+                            </div>                            
                         </div>
                     </div>
                 </div>
@@ -362,82 +351,72 @@
                         <div class="card-body">
                             <h3 class="card-title text-secondary">Tus ventas del <span class="text-primary">31/11/2022</span> al <span class="text-primary">31/12/2022</span></h3>
                             <hr style="border-color:#CCC;">
-                            <div class="row d-flex align-items-center">
-                                <div class="col-6">
+                            <p *ngIf="sales_data.length < 1" class="text-center text-secondary">Aún no has hecho ventas en la plataforma.</p>
+                            <div *ngFor="let sale of sales_data" class="container-fluid">
+                                <form *ngIf="sale.product.display" #calificationForm="ngForm" (ngSubmit)="calification(sale.product, calificationForm.value )">
                                     <div class="row">
-                                        <div class="col-3">
-                                            <img src="assets/images/avatar.png" alt="" style="width:100%;">
+                                        <div class="col-3 text-center d-flex align-items-center">
+                                            <div>
+                                                <h5 class="text-center text-darken">¿Cómo calificas al comprador?</h5>
+                                                <rating ngModel name="saler_points" [max]="5"></rating> &nbsp;
+                                            </div>
                                         </div>
-                                        <div class="col-9 d-flex align-items-center">
-                                            <p>
-                                                <span><strong class="text-darken">Nombre de producto</strong></span>
-                                            <br>
-                                            <span class="text-secondary">16/11/2022 | 15:02 p.m.</span>
-                                            </p>
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <img *ngIf="sale.product.buyer.profile.avatar" [src]="apiUrl + '/files/avatars/' + sale.product.buyer.profile.avatar">
+                                                    <img *ngIf="!sale.product.buyer.profile.avatar" src="assets/images/avatar.png" alt="" style="width:100%;">
+                                                </div>
+                                                <div class="col-9 d-flex align-items-center">
+                                                    <input ngModel name="saler_comment" type="text" class="form-control form-control-eom" placeholder="Escribe tu reseña del producto">
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-3 d-flex align-items-center">
+                                            <button type="submit" class="btn w-100 btn-success text-white">Calificar</button>
+                                        </div>
+                                        <div class="col-12">
+                                            <hr style="border-color:#CCC;">
+                                        </div>
+                                    </div> 
+                                </form>
+                                <div *ngIf="!sale.product.display" class="row d-flex align-items-center">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <img *ngIf="sale.product.buyer.profile.avatar" [src]="apiUrl + '/files/avatars/' + sale.product.buyer.profile.avatar">
+                                                <img *ngIf="!sale.product.buyer.profile.avatar" src="assets/images/avatar.png" alt="" style="width:100%;">
+                                            </div>
+                                            <div class="col-9 d-flex align-items-center">
+                                                <p>
+                                                    <span><strong class="text-darken">{{ sale.product.title }}</strong></span>
+                                                <br>
+                                                <span class="text-secondary">{{ sale.product.created_at | date: 'medium'}}</span>
+                                                <br>
+                                                <rating *ngIf="sale.product.calification.saler_points" [(ngModel)]="sale.product.calification.saler_points" name="saler_points" [max]="5"></rating>
+                                                </p>
+                                                <br>
+                                                &nbsp;
+                                                
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-3">
-                                    <button class="btn w-100 text-primary" style="border-right: 1px solid #CCC; border-left: 1px solid #CCC;">Calificar a Vendedor</button>
-                                </div>
-                                <div class="col-3">
-                                    <button class="btn w-100 text-primary" style=" border-right: 1px solid #CCC;">Abrir Caso</button>
-                                </div>
-                                <div class="col-12">
-                                    <hr style="border-color:#CCC;">
+                                    <div class="col-3">
+                                        <button *ngIf="!sale.product.calification.saler_points" (click)="sale.product.display = true " class="btn w-100 text-primary" style="border-right: 1px solid #CCC; border-left: 1px solid #CCC;">Calificar a Comprador</button>
+                                        <p *ngIf="sale.product.calification.saler_points" class="text-center">
+                                            "{{ sale.product.calification.saler_comment }}"
+                                        </p>
+                                    </div>
+                                    <div class="col-3">
+                                        <button class="btn w-100 text-primary" style=" border-right: 1px solid #CCC;">Abrir Caso</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <hr style="border-color:#CCC;">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-3 text-center d-flex align-items-center">
-                                    <div>
-                                        <h5 class="text-center text-darken">¿Cómo calificas al vendedor</h5>
-                                        <rating [readonly]="true" name="calification" [max]="5"></rating> &nbsp;
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <img class="w-100" src="assets/images/avatar.png" alt="">
-                                        </div>
-                                        <div class="col-9 d-flex align-items-center">
-                                            <input type="text" class="form-control form-control-eom" placeholder="Escribe tu reseña del producto">
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <div class="col-3 d-flex align-items-center">
-                                    <button class="btn w-100 btn-success text-white">Calificar</button>
-                                </div>
-                                <div class="col-12">
-                                    <hr style="border-color:#CCC;">
-                                </div>
-                            </div>
-                            <div *ngFor="let i of [1,2,3]" class="row d-flex align-items-center">
-                                <div class="col-6">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <img src="assets/images/avatar.png" alt="" style="width:100%;">
-                                        </div>
-                                        <div class="col-9 d-flex align-items-center">
-                                            <p>
-                                                <span><strong class="text-darken">Nombre de producto</strong></span>
-                                            <br>
-                                            <span class="text-secondary">16/11/2022 | 15:02 p.m.</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <button class="btn w-100 text-primary" style="border-right: 1px solid #CCC; border-left: 1px solid #CCC;">Calificar a Vendedor</button>
-                                </div>
-                                <div class="col-3">
-                                    <button class="btn w-100 text-primary" style=" border-right: 1px solid #CCC;">Abrir Caso</button>
-                                </div>
-                                <div class="col-12">
-                                    <hr style="border-color:#CCC;">
-                                </div>
-                            </div>
-                            
+                                                        
                         </div>
                     </div>
                 </div>

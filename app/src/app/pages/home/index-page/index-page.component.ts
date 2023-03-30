@@ -22,13 +22,42 @@ export class IndexPageComponent implements OnInit {
   }
   public account;
   public apiUrl = environment.apiUrl;
+  public allProducts;
   ngOnInit(): void {
     this.productService.index().subscribe( res => {
       console.log( res )
       if ( res.status == 201){
         this.products = res.data;
-        
+        this.allProducts = res.data;
       }
     })
+  }
+  favorite(id){
+    this.productService.favorite(id).subscribe( res => {
+      console.log( res )
+      if ( res.status == 201 ){
+        location.reload();
+      }
+    })
+  }
+  filterEvent(filter){
+    console.log(filter)
+    this.products = this.allProducts;
+    if (filter.category ){
+      this.products = this.products.filter( product => product.category_id == filter.category.value )
+    }
+  
+    if ( filter.from_price ){
+      this.products = this.products.filter( product => product.price > filter.from_price )
+    }
+    if ( filter.to_price ){
+      this.products = this.products.filter( product => product.price < filter.to_price )
+    }
+    if ( filter.ubication ){
+      this.products = this.products.filter(product => product.ubication == filter.ubication )
+    }
+    if ( filter.use ){
+      this.products = this.products.filter( product => product.is_used == filter.use )
+    }
   }
 }

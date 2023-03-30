@@ -5,6 +5,8 @@ import { SwiperComponent } from "swiper/angular";
 import SwiperCore, { Pagination, Navigation } from "swiper";
 import { ProductService } from "src/app/services/product.service";
 import { environment } from "src/environments/environment";
+import { TwinService } from "src/app/services/twin.service";
+import { Router } from "@angular/router";
 
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
@@ -16,7 +18,12 @@ SwiperCore.use([Pagination, Navigation]);
   encapsulation: ViewEncapsulation.None,
 })
 export class SliderComponent implements OnInit {
-  constructor( private productService: ProductService) { }
+  public identity;
+  constructor( 
+    private productService: ProductService,
+    private twinService: TwinService,
+    private router: Router  
+  ) { }
   public products = [];
   public API_ENDPOINT = environment.apiUrl;
   ngOnInit(): void {
@@ -28,5 +35,28 @@ export class SliderComponent implements OnInit {
     }
     )
   }
-
+  favorite(product ){
+    let notification = {
+      identity: this.identity,
+      to: product.user_id,
+      type: 4
+    }
+    this.productService.favorite(product.id).subscribe( res => {
+      console.log( res )
+      if ( res.status == 201 ){
+        location.reload();
+      }
+    })
+  }
+  openTwin(id){
+    let twin = {
+      to: id,
+    }
+    this.twinService.store(twin).subscribe( res => {
+      console.log( res )
+      if ( res.status == 201){
+        this.router.navigate(['/twins']);
+      }
+    })
+  }
 }

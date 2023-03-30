@@ -25,3 +25,8 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+#actions div:hover, #actions div:hover i{
+    cursor: pointer !important;
+    background-color: #0275d8 !important;
+    color: #FFF !important;
+  }

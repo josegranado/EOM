@@ -17,6 +17,7 @@ class ProductsSchema extends Schema {
       table.float('price', 25, 2).nullable()
       table.integer('duration').unsigned().nullable()
       table.text('gallery').nullable()
+      table.integer('ubication').nullable();
       table.integer('deleted').nullable()
       table.timestamps()
     })

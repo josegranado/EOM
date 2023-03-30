@@ -37,6 +37,7 @@ export class ProductService {
     fd.append('is_used', product.is_used);
     fd.append('price', product.price);
     fd.append('duration', product.duration);
+    fd.append('ubication_id', product.ubication_id);
     console.log( files )
     if ( files ){
       for ( let i = 0; i < files.length; i++ ){
@@ -56,5 +57,18 @@ export class ProductService {
       'Authorization': this.token
     });
     return this.httpClient.get(environment.apiUrl+'/products/'+uuid, { headers });
+  }
+  favorites(): Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type':'application/json',
+      'Authorization': this.token
+    });
+    return this.httpClient.get(environment.apiUrl+'/products/favorites', { headers });
+  }
+  favorite(id): Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    return this.httpClient.get(environment.apiUrl+'/products/'+id+'/favorites', { headers });
   }
 }

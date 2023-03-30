@@ -21,6 +21,8 @@ import { NotificationsPageComponent } from './home/notifications-page/notificati
 import { SingleProductPageComponent } from './home/single-product-page/single-product-page.component';
 import { ShowProfileComponent } from './home/show-profile/show-profile.component';
 import { FavoritesPageComponent } from './home/favorites-page/favorites-page.component';
+import { TwinsPageComponent } from './home/twins-page/twins-page.component';
+import { SearchPageComponent } from './home/search-page/search-page.component';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -36,7 +38,9 @@ import { FavoritesPageComponent } from './home/favorites-page/favorites-page.com
     NotificationsPageComponent,
     SingleProductPageComponent,
     ShowProfileComponent,
-    FavoritesPageComponent
+    FavoritesPageComponent,
+    TwinsPageComponent,
+    SearchPageComponent
   ],
   imports: [
     CommonModule,

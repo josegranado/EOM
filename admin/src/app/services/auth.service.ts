@@ -9,7 +9,7 @@ export class AuthService {
   public identity:any;
   public token:any;
   constructor(private httpClient: HttpClient) {
-
+    this.token = localStorage.getItem('token');
   }
   login(user:any):Observable<any>
   {
@@ -23,6 +23,12 @@ export class AuthService {
       'Content-Type':'application/json'
     });
     return this.httpClient.post(environment.apiUrl+'/register', user, { headers: headers } )
+  }
+  approve(id):Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    return this.httpClient.get(environment.apiUrl+'/users/'+id+'/approve', { headers: headers } )
   }
 }
 

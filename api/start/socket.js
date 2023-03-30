@@ -12,7 +12,7 @@ io.listen('3000');
 io.on('connection', async (socket) => {
     socket.on('view-notification', async (data) => {
         try{
-            const id = data.user_id;
+            const id = data.id;
             const notifications = await Database.from('notifications').where('to', id).where('deleted', 0);
             for (let i = 0; i < notifications.length; i++){
                 let notification = await Notification.findBy({
@@ -22,8 +22,8 @@ io.on('connection', async (socket) => {
                 await notification.save();
 
             }
-            socket.emit('notification-event', notifications );
-            socket.broadcast.emit('notification-event', notifications);
+            socket.emit('notification-event', [] );
+            socket.broadcast.emit('notification-event', []);
         }catch(e){
             console.log(e)
         }
@@ -41,8 +41,8 @@ io.on('connection', async (socket) => {
                 await message.save();
 
             }
-            socket.emit('notification-event', notifications );
-            socket.broadcast.emit('notification-event', notifications);
+            socket.emit('message-event', [] );
+            socket.broadcast.emit('message-event', []);
         }catch(e ){
             console.log( e )
         }
@@ -51,15 +51,14 @@ io.on('connection', async (socket) => {
     socket.on('send-notification', async (data) => {
         try{
             const notification = new Notification();
-            notification.from = data.identity.id;
-            notification.to = data.user.id;
+            notification.from = data.from;
+            notification.to = data.to;
             notification.state = 0;
-            notification.deleted = 1;
+            notification.deleted = 0;
             notification.type = data.type;
             await notification.save();
-            const notifications = await Database.from('notifications').where('to', data.user.id).where('from', data.identity.id).where('deleted', 0);
-            socket.emit('notification-event', notifications);
-            socket.broadcast.emit('notification-event', notifications);
+            socket.emit('notification-event', []);
+            socket.broadcast.emit('notification-event', []);
         }catch( e ){
             console.log( e )
         }
@@ -71,13 +70,16 @@ io.on('connection', async (socket) => {
             message.twin_id = data.twin_id
             message.content = data.content;
             message.deleted = 0;
+            message.to = data.to;
             message.state = 0;
             await message.save();
-            const messages = await Database.from('messages').where('to', data.user.id).where('from', data.identity.id).where('deleted', 0);
-            socket.emit('message-event', messages);
-            socket.broadcast.emit('message-event', messages );
+            socket.emit('message-event', []);
+            socket.broadcast.emit('message-event', [] );
         }catch(e){
             console.log( e )
         }
     });
+    socket.on('end', function (){
+        socket.disconnect(0);
+    })
 })

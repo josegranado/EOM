@@ -35,7 +35,7 @@
                         <br>
                         <button *ngIf="product.user_id != identity.id" (click)="buy()" class="btn btn-primary ">COMPRAR PRODUCTO</button>
                         <div id="actions" class="row mt-5">
-                            <div class="col-md-3 text-center">
+                            <div (click)="favorite(product.id)" class="col-md-3 text-center">
                                 <i class="fa-regular fa-heart text-primary"></i>
                             </div>
                             <div routerLink="/profile/{{product.user.id }}" class="col-md-3 text-center">
@@ -55,7 +55,7 @@
         <div class="row mt-3 mb-3">
             <h2 class="text-primary"><strong>Comentarios recientes</strong></h2>
             <br>
-            <div class="card">
+            <div class="card col-12">
                 <div class="card-body">
                     <div *ngIf="comments.length == 0" class="row text-center">
                         <p class="text-center">No hay comentarios en este producto...</p>
@@ -87,7 +87,10 @@
             </div>
         </div>
         <div class="row">
-            <h2 class="text/primary"><strong>Publicaciones relacionadas</strong></h2>
+            <h2 class="text-primary"><strong>Publicaciones relacionadas</strong></h2>
+            <div class="col-12">
+                <eom-slider></eom-slider>
+            </div>
         </div>
     </div>
 </section>

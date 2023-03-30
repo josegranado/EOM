@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentService } from 'src/app/services/comment.service';
+import { FollowService } from 'src/app/services/follow.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { ProductService } from 'src/app/services/product.service';
 import { TwinService } from 'src/app/services/twin.service';
 import { UserService } from 'src/app/services/user.service';
@@ -22,9 +24,13 @@ export class ShowProfileComponent implements OnInit {
     private commentService: CommentService,
     private activated: ActivatedRoute,
     private twinService: TwinService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService,
+    private followService: FollowService
     ) { 
+      this.identityStorage = JSON.parse(localStorage.getItem('identity') as string)
   }
+  public identityStorage;
   public comments;
   publishComment(product_id, value){
     console.log( value )
@@ -36,6 +42,8 @@ export class ShowProfileComponent implements OnInit {
     })
   }
   public id;
+  public follows;
+  public followers;
   ngOnInit(): void {
     this.id = this.activated.snapshot.params['id'];
     this.userService.show(this.id).subscribe( res => {
@@ -46,11 +54,26 @@ export class ShowProfileComponent implements OnInit {
           console.log(res )
           if ( res.status == 201){
             this.products = res.data;
+            this.followService.index( this.id ).subscribe( res => {
+              console.log( res )
+              if ( res.status == 201){
+                this.follows = res.data;
+                this.followers = res.data.followers._followers;
+                this.followeds = res.data.followeds._followeds,
+                this.count_followeds = res.data.followeds.count;
+                this.count_followers = res.data.followers.count;
+                console.log(this.count_followeds)
+                console.log(this.count_followers)
+              }
+            })
           }
         })
       }
     })
   }
+  public count_followers;
+  public count_followeds;
+  public followeds;
   public active = 1;
   public avatar: File;
   public avatarSelected;
@@ -64,6 +87,28 @@ export class ShowProfileComponent implements OnInit {
       console.log( res )
       if ( res.status == 201){
         this.router.navigate(['/notifications']);
+      }
+    })
+  }
+  follow(){
+    let notification = {
+      from: this.identityStorage.id,
+      to: this.identity.id,
+      type: 3
+    }
+    this.followService.store(this.identity.id).subscribe( res => {
+      console.log( res )
+      if ( res.status == 201){
+        this.notificationService.emit('send-notification', notification);
+        location.reload();
+      }
+    })
+  }
+  unfollow(){
+    this.followService.delete( this.identity.id ).subscribe( res =>{
+      console.log( res )
+      if ( res.status == 201){
+        location.reload();
       }
     })
   }

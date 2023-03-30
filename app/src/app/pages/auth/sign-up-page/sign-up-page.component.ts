@@ -74,11 +74,17 @@ export class SignUpPageComponent implements OnInit {
     console.log( this.step )
   }
   next(values, status){
-    this.step == this.step++;
+    console.log( values );
+    console.log( status );
+    if ( this.ConfirmPassword() && status ){
+      this.step == this.step++;
+    }
   }
   ngOnInit(): void {
   }
   onSubmit(values: any){
+    console.log( values )
+    console.log(this.user);
     this.authService.register(this.user).subscribe( res => {
       console.log( res )
       if ( res.status == 201){
@@ -135,7 +141,7 @@ export class SignUpPageComponent implements OnInit {
       this.msgPass = true;
     }
     console.log(this.validPassword)
-    
+    return this.validPassword;
   }
   passwordType = 'password';
   passwordTypeConfirm = 'password';

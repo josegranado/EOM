@@ -4,24 +4,37 @@
             <div style="max-width:25% !important;width:100% !important;">
                 <img routerLink="/" class="p-5 c-pointer" id="logo" src="assets/images/logo-black.png" alt="">
             </div>
-            <div class="col-12 col-md-2">
-
+            <div *ngIf="identity" class="col-12 col-md-4 d-flex align-items-center">
+                <form #formSearch="ngForm" style="width:100%;">
+                    <div class="row d-flex align-items-center">
+                        <div *ngIf="search" class="col-10 d-flex align-items-center">
+                            <input  (change)="searching(formSearch.value)" name="search" ngModel  type="text" class="form-control" placeholder="¿Qué estás buscando?" style="border:0; border-bottom: 2px solid #0075b0">
+                        </div>
+                        <div class="col-2 d-flex align-items-center">
+                            <button type="submit" (click)="search = true; searching(formSearch.value)" class="btn text-primary" style="font-size:25px;">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="col-12 col-md-2">
-                
-            </div>
-            <div *ngIf="!identity" class="col-12 col-md-4 d-flex align-items-center justify-content-end" style="margin:0px; padding:0 ">
+            <div *ngIf="!identity" class="col-md-7"></div>
+            <div *ngIf="!identity" class="col-12 col-md-2 d-flex align-items-center justify-content-end" style="margin:0px; padding:0 ">
                 <button routerLink="/login" class="btn d-flex align-items-center justify-content-center text-white" style="background-color:#0075b0;max-width: 100%; width:100%;height: 80px !important;"><span style="margin-top:0px">Ingresar</span></button>
             </div>
-            <div *ngIf="identity" class="float-right col-12 col-md-3 d-flex align-items-center justify-content-center" style="padding:0; margin-right:0;">
-                <button class="btn d-flex align-items-center justify-content-center text-darken" style="background-color:#CCCCCC !important;max-width: 100% !important; width:100%; height:80px;margin-right:0px !important;">
-                    <img src="assets/images/eom-coin-transparent.png" alt="" style="width:35px">&nbsp;{{ account?.balance }}
+            <div class="col-md-2"></div>
+            <div *ngIf="identity" class="float-right col-12 col-md-1 d-flex align-items-center justify-content-center" style="margin:0px; padding:0;margin-left:-10px; ">
+                <button routerLink="/twins" class="btn d-flex align-items-center justify-content-center">
+                    <i class="fa-regular fa-message text-primary" style="color:#0075b0 !important; font-size:25px"></i>
+                 
                 </button>
             </div>
-            <div *ngIf="identity" class="float-right col-12 col-md-1 d-flex align-items-center justify-content-center" style="margin:0px; padding:0;margin-left:-10px; ">
+            <div *ngIf="identity" class="float-right col-12 col-md-1 d-flex align-items-center justify-content-center" style="position:relative;margin:0px; padding:0;margin-left:-10px; ">
                 <button class="btn d-flex align-items-center justify-content-center" routerLink="/notifications">
                     <i class="simple-icon-bell" style="color:#0075b0 !important; font-size:25px"></i>
+                    <div *ngIf="notifications > 0" class="d-flex align-items-center justify-content-center bg-warning text-darken" style="position:absolute; bottom:40px; right:25px; z-index:9999999; border-radius:50%;width:30px;height:30px;color:#000000"><span>{{ notifications }}</span></div>
                 </button>
+               
             </div>
             
             <div *ngIf="identity" class="float-right col-12 col-md-1 d-flex align-items-center justify-content-center" style="padding:0; margin-right:0;">
@@ -34,7 +47,7 @@
           <a class="dropdown-item text-white" routerLink="/publish-product" style="background-color:#6dbe65"> <i class="glyph-icon simple-icon-plus" style="margin-top:10px;"></i> Subir Producto</a>
           <a class="dropdown-item" routerLink="/">Home</a>
           <a class="dropdown-item" routerLink="/profile">Perfil</a>
-          <a class="dropdown-item" href="#">Favoritos</a>
+          <a class="dropdown-item" routerLink="/favorites">Favoritos</a>
           <a class="dropdown-item" (click)="onSignOut()" href="#">Salir</a>
         </div>
       </nav>

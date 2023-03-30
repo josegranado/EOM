@@ -12,6 +12,8 @@ class TransactionsSchema extends Schema {
       table.integer('quanty').nullable()
       table.integer('product_id').nullable();
       table.float('amount', 22,5).nullable();
+      table.string('uuid').nullable();
+      table.integer('state').nullable(); //1 COMPRA O VENTA SIN CALIFICAR 2. COMPRA O VENTA CALIFICADA POR LOS DOS USUARIOS
       table.integer('deleted').nullable();
       table.integer('account_id').nullable();
       table.timestamps()

@@ -24,7 +24,7 @@ class ProductController {
     async store({ request, response, auth }){
         try{
             const auth_user = await auth.getUser();
-            const { title, category_id, description, is_used, price, duration, gallery } = request.all()
+            const { title, category_id, description, is_used, price, duration, gallery, ubication_id, ubication } = request.all()
             const product = new Product();
             product.title = title;
             product.user_id = auth_user.id;
@@ -33,6 +33,8 @@ class ProductController {
             product.is_used = is_used;
             product.price = price;
             product.duration = duration;
+            product.ubication = ubication_id;
+            console.log(ubication_id)
             product.deleted = 0;
             product.uuid = uuidv4();
             let files = [];
@@ -46,7 +48,7 @@ class ProductController {
                     size: '20mb',
                     extname: ['png', 'jpg', 'jpeg']
                 })
-                console.log(file)
+
                 if ( file ){
                     let filename = uuidv4() + '.'+request.file(input).subtype;
                     await file.move(url, {
@@ -144,10 +146,30 @@ class ProductController {
             return response.json({ status: 500, message: 'Internal Server Error'})
         }
     }
+    async store_favorite({ request, auth, response, params}){
+        try{
+            const auth_user = await auth.getUser();
+            const exit_favorite = await Favorite.findBy({
+                user_id: auth_user.id,
+                product_id: params.id,
+                deleted: 0
+            })
+            const favorite = new Favorite();
+            favorite.user_id = auth_user.id;
+            favorite.product_id = params.id;
+            favorite.deleted = 0;
+            favorite.save();
+            return response.json({ status: 201, message: 'Favorite Saved Successfully'})
+        }catch( e ){
+            console.log( e )
+            return response.json({ status: 500, message: 'Internal Server Error'})
+        }
+    }
     async allFavoritesByUser({ request, auth, response }){
         try{
             const auth_user = await auth.getUser();
             const favorites = await Database.from('favorites').where('user_id', auth_user.id)
+            const products = [];
             for( let i = 0; i < favorites.length; i++ ){
                 let product = await Product.findBy({
                     id: favorites[i].product_id,
@@ -162,7 +184,9 @@ class ProductController {
                     comments[y].user.profile = await Profile.findBy({user_id: comments[y].user_id, deleted: 0})
                 }
                 product.comments = comments;
+                products.push(product);
             }
+            return response.json({ status: 201, data: products })
         }catch(e){
             console.log( e )
             return response.json({ status: 500, message: 'Internal Server Error'})
