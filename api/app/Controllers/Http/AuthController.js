@@ -8,6 +8,27 @@ const Account = use('App/Models/Account');
 const nodemailer = require('nodemailer');
 
 class AuthController {
+    async loginByToken({ request, response, auth }){
+        try{
+            const auth_user = await auth.getUser();
+            const user = await User.findBy({
+                email: auth_user.email
+            })
+            const profile = await Profile.findBy({
+                user_id: user.id
+            })
+            const account = await Account.findBy({
+                user_id: user.id
+            })
+            user.profile = profile;
+            user.account = account;
+            if ( user ) return response.json({ status: 201, message: 'Logged Successfully', data: user })
+            if ( !user ) return response.json({ status: 401, message: 'Not authorized'})
+        }catch( e ){
+            console.log( e )
+            return response.json({ status: 500, message: 'Internal Server Error'})
+        }
+    }
     async login({ request, response, auth  }){
         try{
             const { email, password } = request.all()

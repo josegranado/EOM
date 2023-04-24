@@ -33,7 +33,7 @@ class ProductController {
             product.is_used = is_used;
             product.price = price;
             product.duration = duration;
-            product.ubication = ubication_id;
+            product.ubication = parseInt(ubication_id);
             console.log(ubication_id)
             product.deleted = 0;
             product.uuid = uuidv4();
@@ -72,7 +72,7 @@ class ProductController {
             if ( auth_user && await product.save()) return response.json({ status: 201, data: product })
             return response.json({ status: 400, message: 'Bad request' })
         }catch(e){
-            console.log( e.message)
+            console.log( e)
             return response.json({ status: 500, message: 'Internal Server Error'})
         }
     }

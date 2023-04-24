@@ -142,9 +142,39 @@ class UserController {
             const auth_user = await auth.getUser();
             const user = await User.findBy({ id: auth_user.id , deleted: 0});
             const profile  = await Profile.findBy({user_id: auth_user.id, deleted: 0})
-            let { first_name, last_name, ocupation, phone_number, phone_local_number, birthday, gender } = request.all();
+            let {  gallery, city, state, first_name, last_name, ocupation, phone_number, phone_local_number, birthday, gender, description } = request.all();
             let url = './public/files/avatars/'; 
-            let url_cover =  './public/files/covers/';            
+            let url_cover =  './public/files/covers/';          
+            if ( first_name ){
+                profile.first_name = first_name;
+            }
+            if ( last_name ){
+                profile.last_name = last_name;
+            }
+            if ( ocupation ){
+                profile.ocupation = ocupation;
+            }
+            if ( phone_number ){
+                profile.phone_number = phone_number;
+            }
+            if ( phone_local_number ){
+                profile.phone_local_number = phone_local_number;
+            }
+            if ( birthday ){
+                profile.birthday = birthday;
+            }
+            if ( gender ){
+                profile.gender = gender;
+            }
+            if ( description ){
+                profile.description = description;
+            }
+            if ( state ){
+                profile.state = state;
+            }
+            if ( city ){
+                profile.city = city;
+            }
             let file = request.file('avatar', {
                 types: ['image'],
                 size: '20mb',
@@ -190,6 +220,77 @@ class UserController {
                         })
                 }
             }
+            let files = [];
+            if ( profile?.gallery ){
+                files = JSON.parse(profile.gallery)
+            }else{
+                files = [];
+            }
+            if ( gallery ){
+                if ( files.length > 0 ){
+                    
+                    for(let i = 0; i < 10; i++){
+                        let url = './public/files/papers/';
+                        let number = i+1;
+                        let input = 'gallery-'+number;
+                        
+                        let file = request.file(input, {
+                            types: ['image'],
+                            size: '20mb',
+                            extname: ['png', 'jpg', 'jpeg']
+                        })
+        
+                        if ( file ){
+                            let filename = uuidv4() + '.'+request.file(input).subtype;
+                            await file.move(url, {
+                                name: filename,
+                                overwrite: true
+                            });
+                            
+                            if (!file.moved())
+                            {
+                                    return response.status(422).send({
+                                        status: 422,
+                                        message: file.error(),
+                                        errors: file.error()
+                                    })
+                            }
+                            files[i] = filename;
+                        }
+                    }
+                }else{
+                    for(let i = 0; i < 11; i++){
+                        let url = './public/files/papers/';
+                        let number = i+1;
+                        let input = 'gallery-'+number;
+                        
+                        let file = request.file(input, {
+                            types: ['image'],
+                            size: '20mb',
+                            extname: ['png', 'jpg', 'jpeg']
+                        })
+        
+                        if ( file ){
+                            let filename = uuidv4() + '.'+request.file(input).subtype;
+                            await file.move(url, {
+                                name: filename,
+                                overwrite: true
+                            });
+                            if (!file.moved())
+                            {
+                                    return response.status(422).send({
+                                        status: 422,
+                                        message: file.error(),
+                                        errors: file.error()
+                                    })
+                            }
+                            files.push(filename);
+                        }
+                    }
+                }
+                profile.gallery = JSON.stringify(files);
+            }
+            
             if ( auth_user.id == user.id || auth_user.role < 2 ){
                 await profile.save();
                 user.profile = profile;

@@ -14,12 +14,14 @@ class ProfilesSchema extends Schema {
       table.string('phone_number').nullable()
       table.string('phone_local_number').nullable()
       table.integer('postal_code').nullable()
+      table.string('city').nullable();
       table.integer('state').nullable()
       table.string('birthday').nullable()
       table.integer('gender').nullable()
       table.integer('deleted').nullable()
       table.string('avatar').nullable()
       table.string('cover').nullable();
+      table.text('gallery').nullable();
       //FIELDS AGREGADOS EN LA ACTUALIZACIÓN DEL PERFIL.
       table.string('description').nullable()
       table.string('ubication').nullable();

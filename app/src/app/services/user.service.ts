@@ -40,4 +40,30 @@ export class UserService {
     }
     return this.httpClient.post(environment.apiUrl + '/users/cover', fd, { headers })
   }
+  public update( profile, files ): Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    const fd = new FormData();
+    if ( profile?.description ){
+      fd.append('description', profile.description);
+    }
+    if ( profile?.city ){
+      fd.append('city', profile.city);
+    }
+    if ( profile?.state ){
+      fd.append('state', profile.state)
+    }
+    
+    if ( files ){
+      fd.append('gallery', '1');
+      for ( let i = 0; i < files.length; i++ ){
+        let number = i+1;
+        let key = 'gallery-'+number;
+        
+        fd.append(key, files[i]);
+      }
+    }
+    return this.httpClient.put(environment.apiUrl  + '/users', fd, { headers } )
+  }
 }

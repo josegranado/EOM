@@ -18,6 +18,10 @@ const Route = use('Route')
 
 Route.post('login', 'AuthController.login');
 Route.post('register', 'AuthController.register');
+Route.get('loginByToken', 'AuthController.loginByToken').middleware(['auth:jwt']);
+Route.group(() => {
+    Route.put('', 'UserController.update').middleware(['auth:jwt']);
+}).prefix('users')
 Route.group(() => {
     Route.get('', 'ProductController.index')
     Route.get('favorites', 'ProductController.allFavoritesByUser')

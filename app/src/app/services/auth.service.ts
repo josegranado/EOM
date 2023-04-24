@@ -9,7 +9,14 @@ export class AuthService {
   public identity:any;
   public token:any;
   constructor(private httpClient: HttpClient) {
+    this.token = 'Bearer '+ localStorage.getItem('token');
 
+  }
+  loginByToken(): Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    })
+    return this.httpClient.get(environment.apiUrl+'/loginByToken', { headers: headers })
   }
   login(user:any):Observable<any>
   {

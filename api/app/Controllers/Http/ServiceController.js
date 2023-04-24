@@ -49,10 +49,10 @@ class ServiceController {
             service.title = title;
             service.duration = duration;
             service.ubication = ubication;
-            product.uuid = uuidv4();
+            service.uuid = uuidv4();
             let files = [];
             for(let i = 0; i < 11; i++){
-                let url = './public/files/products/';
+                let url = './public/files/services/';
                 let number = i+1;
                 let input = 'gallery-'+number;
                 
@@ -81,6 +81,7 @@ class ServiceController {
             }
             service.gallery = JSON.stringify(files);
             service.thumbnail = files[0];
+            service.deleted = 0;
             if( !auth_user ) return response.json({ status: 401, message: 'Not authorized'})
             if ( auth_user && await product.save()) return response.json({ status: 201, data: service })
             return response.json({ status: 400, message: 'Bad request' })

@@ -85,41 +85,183 @@
 <section *ngIf="active == 1" id="privacity">
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-4 p-4 mb-5">
-                <h4 class="text-secondary mt-5 mb-4">Info <span class="text-primary"><i class="glyph-icon simple-icon-pencil"></i>Editar</span></h4>
-                <textarea name="info" class="form-control m-2 mb-2" style="background-color: #FFF !important;" placeholder="Texto de la introducción del perfil. 4 líneas de texto o h asta 100 caracteres"></textarea>
-                <h6 class="text-secondary text-right">65/100</h6>
-                <button class="btn text-primary w-40">Cancelar</button>
-                <button class="btn btn-success w-60">Guardar</button>
+            <div class="col-12 col-md-4 p-4 mb-5" style="clear:both;">
+                <h4 class="text-secondary mt-5 mb-4">Info</h4>
+                <button (click)="formInfo = true" class="text-primary text-right mt-5 btn" style="position:absolute; top:25px; right:25px;"><i class="glyph-icon simple-icon-pencil"></i> &nbsp;Editar</button>
+                <p *ngIf="!profile?.description && !formInfo">No hay información disponible de este usuario.</p>
+                <p *ngIf="profile?.description && !formInfo">{{ profile.description }}</p>
+                <form *ngIf="formInfo">
+                    <textarea [(ngModel)]="description" (change)="setDescription();" name="description" class="form-control m-2 mb-2" style="background-color: #FFF !important;" placeholder="Texto de la introducción del perfil. 4 líneas de texto o h asta 100 caracteres"></textarea>
+                    <h6 *ngIf="length_description <= 100" class="text-secondary text-right">{{length_description}}/100</h6>
+                    <h6 *ngIf="length_description > 100" class="text-danger text-right">{{length_description}}/100</h6>
+                    <button (click)="formInfo = false;" class="btn text-primary w-40">Cancelar</button>
+                    <button (click)="onUpDescription()" class="btn btn-success w-60">Guardar</button>
+                    
+                </form>
+                
+                
                 <hr style="border-color:#CCCCCC">
-                <h4 class="text-primary mt-4 mb-4"><i class="iconsminds-map-marker-2"></i>Benito Juarez, Q. Roo</h4>
+                <div class="container" style="position:relative;">
+                    <button (click)="formUbication = true" class="text-primary text-right btn" style="position:absolute; top:-15px; right:0;"><i class="glyph-icon simple-icon-pencil"></i> &nbsp;Editar</button>
+                    <h5 *ngIf="!formUbication && profile?.state && profile?.city" class="text-primary mt-4 mb-4"><i class="iconsminds-map-marker-2"></i> {{ city }}, {{ state.name }}</h5>
+                    <h5 *ngIf="!formUbication && !profile?.state && !profile?.city" class="text-primary mt-4 mb-4"><i class="iconsminds-map-marker-2"></i>No hay ubicación disponible</h5>
+                    <form *ngIf="formUbication">
+                        <input class="form-control" type="text" name="city" placeholder="Ingresa tu ciudad" [(ngModel)]="city">
+                        <ng-select class="form-control mt-2 mb-2" style="padding:0;" [(ngModel)]="state" placeholder="Selecciona tu estado" required [items]="states" bindLabel="name" name="state"></ng-select>
+                        <button (click)="formUbication = false;" class="btn text-primary w-40">Cancelar</button>
+                        <button (click)="onUpUbication();" class="btn btn-success w-60">Guardar</button>
+                        
+                    </form>
+                </div>
                 <hr style="border-color:#CCCCCC">
                 <h6 class="mt-3 mb-3" style="color:#444444">Papelito habla</h6>
-                <div class="row">
-                    <div class="col-12 col-md-4">
-                        <div class="card" style="background-image:url(assets/images/0.jpg); height:80px;">
-                            <div class="card-body">
-                                <i class="fa-solid fa-circle-xmark text-white" style="position: absolute; top:0;right:0; margin: 3px;"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="card" style="background-image:url(assets/images/1.jpg); height:80px;">
-                            <div class="card-body">
-                                <i class="fa-solid fa-circle-xmark text-white" style="position: absolute; top:0;right:0; margin: 3px;"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="card" style="background-image:url(assets/images/0.jpg); height:80px;">
-                            <div class="card-body">
-                                <i class="fa-solid fa-circle-xmark text-white" style="position: absolute; top:0;right:0; margin: 3px;"></i>
+                <div *ngIf="filesSelected && valFiles" class="form-group mt-2 mb-2" style="padding:0;margin:0">
+                    <div  class="container-fluid">
+                        <div class="row">
+                            <div id="upload-form" *ngFor="let image of filesSelected; let i = index ;" style="padding:0;width:30%;margin:1%;cursor:pointer;">
+                                <input #upload type="file" class="d-none" (change)="onThumbnailSelected($event, i)">
+                                <div *ngIf="i + 1 === 1 " class="card" style="border-radius:0;padding:0; background-image: url({{ filesSelected[i] || 'assets/images/0.jpg'}});">
+                                    <button (click)="clear(i)" class="btn text-white" style="position:absolute; top:0; right:0;"><i class="fa-solid fa-circle-xmark"></i></button>
+                                    <div  (click)="upload.click()" class="card-body">
+                                        <span class="text-white" style="position:absolute; bottom:5px;left:0; right:0"><i class="fa-sharp fa-solid fa-circle text-primary">&nbsp;</i><strong>Principal</strong></span>
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+ 1 === 2" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative; text-center">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+ 1 === 3 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/0.jpg'}}); background-position: center; width: 100%; max-width:100%;height:125px; background-size: cover ;">
+                                    <div class="card-body">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+ 1 === 4" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative;">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+ 1 === 5 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/0.jpg'}}); background-position: center; width: 100%; max-width:100%;height:125px; background-size: cover ;">
+                                    <div class="card-body">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+ 1 === 6" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative; text-center">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+ 1 === 7 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] ||  filesSelected[i] || 'assets/images/0.jpg'}}); background-position: center; width: 100%; max-width:100%;height:125px; background-size: cover ;">
+                                    <div class="card-body">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+ 1 === 8" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative; text-center">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+ 1 === 9" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/0.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative; text-center">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+ 1 === 10" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative; text-center;">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+ 1 === 11" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative; text-center;">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="btn text-primary w-100 mt-3 mb-3"><i class="glyph-icon iconsminds-camera-3"></i> Subir Fotos 3/10</button>
-                <app-sidebar-universe></app-sidebar-universe>
+                <div *ngIf="!valFiles" class="form-group mt-2 mb-2" style="padding:0;margin:0">
+                    <div  class="container-fluid">
+                        <div class="row">
+                            <div id="upload-form" *ngFor="let i of [1, 2,3,4, 5, 6, 7, 8 , 9 , 10, 11]" style="padding:0;width:30%;margin:1%;cursor:pointer;">
+                                <input #upload type="file" class="d-none" (change)="onThumbnailSelectedGallery($event, i)">
+                                <div *ngIf="i + 1=== 1 " class="card" style="border-radius:0;padding:0; background-image: url({{ filesSelected[i] || 'assets/images/0.jpg'}});">
+                                    <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                    <div (click)="upload.click() " class="card-body">
+                                        
+                                        <span class="text-white" style="position:absolute; bottom:5px;left:0; right:0"><i class="fa-sharp fa-solid fa-circle text-primary">&nbsp;</i><strong>Principal</strong></span>
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+1 === 2" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative; text-center">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+1 === 3 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/0.jpg'}}); background-position: center; width: 100%; max-width:100%;height:125px; background-size: cover ;">
+                                    <div class="card-body">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+1 === 4" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative;">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+1 === 5 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/0.jpg'}}); background-position: center; width: 100%; max-width:100%;height:125px; background-size: cover ;">
+                                    <div class="card-body">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+1 === 6" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative; text-center">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+1 === 7 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/0.jpg'}}); background-position: center; width: 100%; max-width:100%;height:125px; background-size: cover ;">
+                                    <div class="card-body">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+1 === 8" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative; text-center">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+1 === 9" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/0.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative; text-center">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+1 === 10" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative; text-center;">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
+                                <div (click)="upload.click() " *ngIf="i+1 === 11" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[i] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                    <div class="card-body text-center" style="position:relative; text-center;">
+                                        <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button (click)="uploadPapers()" class="btn text-primary w-100 mt-3 mb-3"><i class="glyph-icon iconsminds-camera-3"></i> Subir Fotos {{ cont_files }}/10</button>
+                <app-sidebar-universe (filterEvent)="filterEvent($event)"></app-sidebar-universe>
             </div>
             <div class="col-12 col-md-1"></div>
             <div class="col-12 col-md-7 mt-5">

@@ -32,7 +32,5 @@ export class SearchPageComponent implements OnInit {
       }
     })
   }
-  filterEvent(filter){
-    console.log(filter)
-  }
+  
 }

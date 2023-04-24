@@ -53,12 +53,13 @@ export class PublishProductPageComponent implements OnInit {
   }
   onSubmit( values:any ){
     console.log( values )
+    console.log
     let product = {
       duration: this.duration,
       is_used: values.used.value,
       ...values,
       category_id: values.category.value,
-      ubication_id: values.ubication.value,
+      ubication_id: values.ubication.value
     }
     console.log( product )
     this.productService.store(product, this.files).subscribe( res => {

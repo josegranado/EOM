@@ -40,12 +40,15 @@ export class ProductService {
     fd.append('ubication_id', product.ubication_id);
     console.log( files )
     if ( files ){
+      fd.append('gallery', '1')
       for ( let i = 0; i < files.length; i++ ){
         let number = i+1;
         let key = 'gallery-'+number;
         
         fd.append(key, files[i]);
       }
+    }else{
+      fd.append('gallery', '0')
     }
     console.log( files )
     console.log( fd );
