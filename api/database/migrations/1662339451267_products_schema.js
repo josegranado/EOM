@@ -18,7 +18,8 @@ class ProductsSchema extends Schema {
       table.integer('duration').unsigned().nullable()
       table.text('gallery').nullable()
       table.integer('ubication').nullable();
-      table.integer('deleted').nullable()
+      table.integer('deleted').nullable();
+      table.integer('type').nullable();
       table.timestamps()
     })
   }

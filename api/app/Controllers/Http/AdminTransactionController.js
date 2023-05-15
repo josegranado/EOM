@@ -5,7 +5,7 @@ const Database = use('Database');
 const Transaction = use('App/Models/Transaction')
 const Account = use('App/Models/Account')
 class AdminTransactionController {
-    async index({ request, response, auth}){
+    async index({ request, response, auth, params}){
         try{
             const auth_user = await auth.getUser();
             if ( auth_user.role > 1 ) return response.json({ status: 401, message: 'Unathourize Access'})

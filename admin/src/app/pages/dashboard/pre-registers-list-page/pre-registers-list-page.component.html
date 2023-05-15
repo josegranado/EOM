@@ -4,10 +4,9 @@
         <div class="col-1">
             <app-sidebar></app-sidebar>
         </div>
-        <div class="col-11 mt-2 p-2">
-            <h1>Lista de pregistrros</h1>
+        <div class="col-11 p-2" style="margin-top:100px;">
+            <h1><strong>Lista de pregistros</strong></h1>
             <hr>
-            <button class="btn btn-primary">AGREGAR USUARIO</button>
             <div class="card">
                 <div class="card-body">
                     <table class="table table-stripped">
@@ -22,17 +21,22 @@
 
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of users">
-                                <td>{{ user.id }} </td>
-                                <td> {{ user.profile.first_name }} </td>
-                                <td>{{ user.profile.last_name }}</td>
-                                <td>{{ user.username }}</td>
-                                <td> {{ user.email }}</td>
-                                <td> <span *ngIf="user.is_approved == 1">Sí.</span>
-                                    <span *ngIf="user.is_approved == 0">No.</span></td>
-                                <td>
-                                    <button (click)="is_approved(user.id)" *ngIf="user.is_approved == 0" class="btn btn-primary">APROBAR REGISTRO</button>
-                                </td>
+                            <tr *ngFor="let user of users" >
+                                <ng-container *ngIf ="user.is_approved == 0">
+                                    <td>{{ user.id }} </td>
+                                    <td> {{ user.profile.first_name }} </td>
+                                    <td>{{ user.profile.last_name }}</td>
+                                    <td>{{ user.username }}</td>
+                                    <td> {{ user.email }}</td>
+                                    <td> <span *ngIf="user.is_approved == 1">Sí.</span>
+                                        <span *ngIf="user.is_approved == 0">No.</span></td>
+                                    <td>
+                                        <button (click)="is_approved(user.id)" *ngIf="user.is_approved == 0" class="btn btn-primary">APROBAR REGISTRO</button>&nbsp;
+                                        <button class="btn btn-success" (click)="openModal(showEnterprise, user) "> VER EMPRESA</button>&nbsp;
+                                        <button class="btn btn-warning" (click)="openModal(showSurvey, user) ">VER ENCUESTA</button>&nbsp;
+                                    </td>
+                                </ng-container>
+                                
                             </tr>
                         </tbody>
                     </table>
@@ -42,3 +46,74 @@
         </div>
     </div>
 </section>
+<ng-template #showUser>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title text-center">Eliminar usuario</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>{{ 'Estas seguro?' | translate }}</p>
+        <div class="container-buttons">
+            <button class="btn bg-white btn-lg btn-shadow pull-right">CANCELAR</button>
+            <button class="btn btn-danger pull-right btn-shadow">ELIMINAR</button>
+        </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #showEnterprise>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title text-center">VER EMPRESA</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="" class="control-label">NOMBRE DE LA EMPRESA</label>
+                    <input type="text" name="name" class="form-control" readonly [(ngModel)]="user.enterprise.name">
+                </div>
+                <div class="form-group">
+                    <label for="" class="control-label">RFC</label>
+                    <input type="text" name="rfc" class="form-control" readonly [(ngModel)]="user.enterprise.rfc">
+                </div>
+                <div class="form-group">
+                    <label for="" class="control-label">NúMERO DE EMPLEADOS</label>
+                    <input type="number" name="n_employees" class="form-control" readonly [(ngModel)]="user.enterprise.n_employees">
+                </div>
+                
+            </form>   
+        </div>
+    </div>
+</ng-template>
+<ng-template #showSurvey>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title text-center">VER ENCUESTA</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="" class="control-label">NOMBRE DEL BROKER</label>
+                    <input type="text" name="broker_name" class="form-control" readonly [(ngModel)]="user.survey.broker_name">
+                </div>
+                <div class="form-group">
+                    <label for="" class="control-label">PREGUNTA #1</label>
+                    <textarea name="question_1" id="" class="form-control" readonly [(ngModel)]="user.survey.question_1" name="question_1"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="" class="control-label">PREGUNTA #2</label>
+                    <textarea name="question_2" id="" class="form-control" readonly [(ngModel)]="user.survey.question_2" name="question_2"></textarea>
+                </div>
+                
+            </form>  
+        </div>
+    </div>
+</ng-template>

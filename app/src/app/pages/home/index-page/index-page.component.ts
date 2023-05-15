@@ -46,7 +46,7 @@ export class IndexPageComponent implements OnInit {
     if (filter.category ){
       this.products = this.products.filter( product => product.category_id == filter.category.value )
     }
-  
+    
     if ( filter.from_price ){
       this.products = this.products.filter( product => product.price > filter.from_price )
     }
@@ -58,6 +58,9 @@ export class IndexPageComponent implements OnInit {
     }
     if ( filter.use ){
       this.products = this.products.filter( product => product.is_used == filter.use )
+    }
+    if ( filter.type ){
+      this.products = this.products.filter( product => product.type == filter.type )
     }
   }
 }

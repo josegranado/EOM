@@ -32,6 +32,8 @@ export class PublishProductPageComponent implements OnInit {
     { value: 5, name: 'MATERIAS PRIMAS'},
   ]
   public duration:number = 5 ;
+  productF: boolean = true;
+  serviceF: boolean = false;
   constructor(
     private categoryService: CategoryService,
     private productService: ProductService,
@@ -51,15 +53,28 @@ export class PublishProductPageComponent implements OnInit {
   setDuration(value: number){
     this.duration =  value;
   }
-  onSubmit( values:any ){
+  showForm(type){
+    if ( type == 'S'){
+      this.productF = false;
+      this.serviceF = true;
+    }else{
+      this.serviceF = false;
+      this.productF = true;
+    }
+  }
+  onSubmit( values:any, type ){
     console.log( values )
-    console.log
     let product = {
       duration: this.duration,
-      is_used: values.used.value,
+      is_used: values?.used?.value,
       ...values,
-      category_id: values.category.value,
-      ubication_id: values.ubication.value
+      category_id: values?.category?.value,
+      ubication_id: values?.ubication?.value
+    }
+    if ( type == 'S'){
+      product.type = 2;
+    }else{
+      product.type = 1;
     }
     console.log( product )
     this.productService.store(product, this.files).subscribe( res => {

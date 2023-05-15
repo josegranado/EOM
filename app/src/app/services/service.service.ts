@@ -17,7 +17,7 @@ export class ServiceService {
     const headers = new HttpHeaders({
       'Authorization': this.token
     })
-    return this.httpClient.get(environment.apiUrl+'/califications', {headers} )
+    return this.httpClient.get(environment.apiUrl+'/services', {headers} )
   }
   public show(id):Observable<any>{
     const headers = new HttpHeaders({

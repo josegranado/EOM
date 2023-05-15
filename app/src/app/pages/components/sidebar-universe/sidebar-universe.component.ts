@@ -78,7 +78,12 @@ selectType( type: any){
   if ( !this.types){
     this.types = true;
     this.items.type = type;
-    this.selectedItems.push(type)
+    if ( type == 1 ){
+      this.selectedItems.push('Productos')
+    }else{
+      this.selectedItems.push('Servicios')
+    }
+    
     this.filterEvent.emit( this.items );
   }
   console.log(this.items)

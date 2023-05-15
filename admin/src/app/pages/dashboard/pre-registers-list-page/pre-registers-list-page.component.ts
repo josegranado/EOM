@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,9 +10,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class PreRegistersListPageComponent implements OnInit {
   public users;
+  modalRef: any;
+  user: any;
   constructor(
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -29,5 +33,9 @@ export class PreRegistersListPageComponent implements OnInit {
         location.reload();
       }
     })
+  }
+  openModal(modal: TemplateRef<any>, user: any ): void {
+    this.user = user;
+    this.modalRef = this.modalService.show(modal);
   }
 }

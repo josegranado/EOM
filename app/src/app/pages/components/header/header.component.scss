@@ -33,7 +33,7 @@
     position:fixed;
     background-color: #FFF;
     top:0;
-    z-index: 9999999999999;
+    z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,3 +64,21 @@ a{
     padding-right: 15px;
     border-bottom: 1px solid #b8b8b8;
 }
+@media only screen and (max-width: 719px) {
+    #main-header, #main-header nav{
+        height: auto !important;   
+    }
+    #secondary-nav{
+        top: 343px;
+        font-size: 12px;
+        z-index: 9999999999999;
+    }
+    #dropdown{
+        margin-left: 0 !important;
+        margin-right:0;
+        width:100%;
+        padding:0;
+        text-align: center;
+        top: 433px;
+    }
+  }

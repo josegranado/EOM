@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild, OnInit } from "@angular/core";
+import { Component, ViewEncapsulation, ViewChild, OnInit, Input } from "@angular/core";
 import { SwiperComponent } from "swiper/angular";
 
 // import Swiper core and required modules
@@ -19,21 +19,15 @@ SwiperCore.use([Pagination, Navigation]);
 })
 export class SliderComponent implements OnInit {
   public identity;
+  @Input() products;
   constructor( 
     private productService: ProductService,
     private twinService: TwinService,
     private router: Router  
   ) { }
-  public products = [];
+
   public API_ENDPOINT = environment.apiUrl;
   ngOnInit(): void {
-    this.productService.index().subscribe( res => {
-      console.log( res )
-      if (res.status == 201){
-        this.products = res.data;
-      } 
-    }
-    )
   }
   favorite(product ){
     let notification = {

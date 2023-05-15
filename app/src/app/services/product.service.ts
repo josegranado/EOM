@@ -31,14 +31,30 @@ export class ProductService {
       'Authorization': this.token
     });
     const fd = new FormData();
-    fd.append('title', product.title);
-    fd.append('description', product.description);
-    fd.append('category_id', product.category_id)
-    fd.append('is_used', product.is_used);
-    fd.append('price', product.price);
-    fd.append('duration', product.duration);
-    fd.append('ubication_id', product.ubication_id);
-    console.log( files )
+    if ( product.title ){
+      fd.append('title', product.title);
+    }
+    if ( product.description){
+      fd.append('description', product.description);
+    }
+    if ( product.category_id ){
+      fd.append('category_id', product.category_id)
+    }
+    if ( product.is_used){
+      fd.append('is_used', product.is_used);
+    }
+    if ( product.price ){
+      fd.append('price', product.price);
+    }
+    if ( product.duration ){
+      fd.append('duration', product.duration);
+    }
+    if ( product.ubication_id ){
+      fd.append('ubication_id', product.ubication_id);
+    }
+    if ( product.type ){
+      fd.append('type', product.type )
+    }
     if ( files ){
       fd.append('gallery', '1')
       for ( let i = 0; i < files.length; i++ ){

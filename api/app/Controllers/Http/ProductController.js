@@ -24,19 +24,33 @@ class ProductController {
     async store({ request, response, auth }){
         try{
             const auth_user = await auth.getUser();
-            const { title, category_id, description, is_used, price, duration, gallery, ubication_id, ubication } = request.all()
+            const { type, title, category_id, description, is_used, price, duration, gallery, ubication_id, ubication } = request.all()
             const product = new Product();
-            product.title = title;
+            if ( title ){
+                product.title = title;
+            }
+            if (category_id ){
+                product.category_id = category_id;
+            }
+            if ( description ){
+                product.description = description;
+            }
+            if ( is_used ){
+                product.is_used = is_used;
+            }
+            if ( duration ){
+                product.duration = duration;
+            }   
+            if ( ubication_id ){
+                product.ubication = parseInt(ubication_id);
+            }
+            if ( price ){
+                product.price = price;
+            }
             product.user_id = auth_user.id;
-            product.category_id = category_id;
-            product.description = description;
-            product.is_used = is_used;
-            product.price = price;
-            product.duration = duration;
-            product.ubication = parseInt(ubication_id);
-            console.log(ubication_id)
             product.deleted = 0;
             product.uuid = uuidv4();
+            product.type = type;
             let files = [];
             for(let i = 0; i < 11; i++){
                 let url = './public/files/products/';

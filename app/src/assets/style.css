@@ -76,3 +76,8 @@ button{
 .c-pointer:hover{
     cursor: pointer !important;
 }
+@media only screen and (max-width: 719px) {
+    #content {
+        margin-top: 400px;
+    }
+}

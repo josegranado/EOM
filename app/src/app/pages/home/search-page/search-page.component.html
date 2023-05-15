@@ -25,57 +25,15 @@
     <div class="row p-4">
         <div class="col-12"><h1><strong>Productos</strong></h1></div>
         <div *ngIf="!products || products.length == 0" class="col-12 mt-3 mb-3"><h3>No hay resultados para mostrar</h3></div>
-        <div *ngFor="let product of products" class="col-3">
-            <div  class="card" style="margin:0;padding:0; width: calc(100% - 20px) !important; margin: 10px;">
-                <div routerLink="/product/{{ product.uuid }}" *ngIf="!product.thumbnail" class="card-img-top" style="background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url(assets/images/product.png)"></div>
-                <div routerLink="/product/{{ product.uuid }}" *ngIf="product.thumbnail" class="card-img-top" style="background-position: center; background-size: cover; background-repeat: no-repeat; height:200px;background-image: url({{api + '/files/products/' + product.thumbnail}})"></div>
-                <div class="card-body">
-                    <h2 class="card-title" style="font-size:12px"><strong>{{ product.title }}</strong></h2>
-                    <h6 class="card-subtitle text-center"><img style="height:25px;width:25px;" src="assets/images/eom-coin-transparent.png" alt="">&nbsp;{{ product.price }}</h6>
-                    <div id="actions" class="actions row mt-2">
-                        <div class="col-md-3 text-center">
-                            <i class="fa-regular fa-heart text-primary"></i>
-                        </div>
-                        <div routerLink="/profile/{{product.user.id }}" class="col-md-3 text-center">
-                            <i class="fa-regular fa-user text-primary"></i>
-                        </div>
-                        <div class="col-md-3 text-center">
-                            <i class="fa-regular fa-message text-primary"></i>
-                        </div>
-                        <div class="col-md-3 text-center">
-                            <i class="fa-solid fa-share text-primary"></i>
-                        </div>
-                    </div>
-            </div>
-        </div>
+        <div class="container-fluid" style="clear:both;">
+            <eom-slider *ngIf="products" [products]="products"></eom-slider>
         </div>
     </div>
     <div class="row p-4">
         <div class="col-12"><h1><strong>Servicios</strong></h1></div>
         <div *ngIf="!services || services.length == 0" class="col-12 mt-3 mb-3"><h3>No hay resultados para mostrar</h3></div>
-        <div *ngFor="let product of services" class="col-3">
-            <div  class="card" style="margin:0;padding:0; width: calc(100% - 20px) !important; margin: 10px;">
-                <div routerLink="/product/{{ product.uuid }}" *ngIf="!product.thumbnail" class="card-img-top" style="background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url(assets/images/product.png)"></div>
-                <div routerLink="/product/{{ product.uuid }}" *ngIf="product.thumbnail" class="card-img-top" style="background-position: center; background-size: cover; background-repeat: no-repeat; height:200px;background-image: url({{api + '/files/products/' + product.thumbnail}})"></div>
-                <div class="card-body">
-                    <h2 class="card-title" style="font-size:12px"><strong>{{ product.title }}</strong></h2>
-                    <h6 class="card-subtitle text-center"><img style="height:25px;width:25px;" src="assets/images/eom-coin-transparent.png" alt="">&nbsp;{{ product.price }}</h6>
-                    <div id="actions" class="actions row mt-2">
-                        <div class="col-md-3 text-center">
-                            <i class="fa-regular fa-heart text-primary"></i>
-                        </div>
-                        <div routerLink="/profile/{{product.user.id }}" class="col-md-3 text-center">
-                            <i class="fa-regular fa-user text-primary"></i>
-                        </div>
-                        <div class="col-md-3 text-center">
-                            <i class="fa-regular fa-message text-primary"></i>
-                        </div>
-                        <div class="col-md-3 text-center">
-                            <i class="fa-solid fa-share text-primary"></i>
-                        </div>
-                    </div>
-            </div>
-        </div>
+        <div class="container-fluid" style="clear:both;">
+            <eom-slider *ngIf="services" [products]="services"></eom-slider>
         </div>
     </div>
 </section>

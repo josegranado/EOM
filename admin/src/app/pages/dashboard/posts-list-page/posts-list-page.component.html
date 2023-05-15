@@ -1,1 +1,38 @@
-<p>posts-list-page works!</p>
+<app-navbar></app-navbar>
+<section id="main">
+    <div class="row">
+        <div class="col-1">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-11 p-2" style="margin-top:100px;">
+            <h1><strong>Lista de productos y servicios</strong></h1>
+            <hr>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-stripped">
+                        <thead class="text-center">
+                            <th scope="col"></th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Título</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Acciones</th>
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of products" class="text-center">
+                               <td> <img src="{{ api + '/files/products/' + product.thumbnail}}" alt="" style="width:40px;"></td>
+                               <td>{{ product.id }}</td>
+                               <td>{{ product.title }}</td>
+                               <td> 
+                                    <span *ngIf="product.type == 1">Producto</span>
+                                    <span *ngIf="product.type == 2">Servicio</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

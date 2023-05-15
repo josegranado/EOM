@@ -27,8 +27,9 @@ export class SearchPageComponent implements OnInit {
         this.results = res.data;
         this.users = res.data.users;
         this.products = res.data.products;
-        console.log( this.products. length)
         this.services = res.data.services;
+        console.log(this.products)
+        console.log(this.services )
       }
     })
   }

@@ -185,7 +185,14 @@ export class ProfileComponent implements OnInit {
     this.formInfo = true;
   }
   setDescription(){
-    this.length_description = this.description.length;
+    
+    let desc = this.description.split(' ');
+    desc.filter((word) => {
+      if ( word.length > 23){
+        this.description = '';
+        this.length_description = this.description.length;
+      }
+    })
   }
   public description = '';
   public length_description = 0;
@@ -237,6 +244,9 @@ export class ProfileComponent implements OnInit {
     }
     if ( filter.use ){
       this.products = this.products.filter( product => product.is_used == filter.use )
+    }
+    if ( filter.type ){
+      this.products = this.products.filter( product => product.type == filter.type )
     }
   }
   onThumbnailSelected( event, i ):void{

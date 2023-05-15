@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UsersPageComponent implements OnInit {
   public users: any;
-  public modalRef: any;
+  public modalRef: BsModalRef;
   constructor(
     private userService: UserService,
     private modalService: BsModalService

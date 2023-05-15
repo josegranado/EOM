@@ -2,7 +2,7 @@
 const Database = use('Database');
 const Product = use('App/Models/Product');
 class AdminProductController {
-    async index({ request, response, auth}){
+    async index({ request, response, auth, params }){
         try{
             const auth_user = await auth.getUser();
             if ( auth_user.role > 1 ) return response.json({ status: 401, message: 'Unathourize Access'})

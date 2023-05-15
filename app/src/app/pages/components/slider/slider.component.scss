@@ -73,7 +73,7 @@
 }
 #actions div:hover, #actions div:hover i{
   cursor: pointer !important;
-  background-color: #0275d8 !important;
+  background-color: #0d6682 !important;
   color: #FFF !important;
 }
 #actions i{
@@ -82,4 +82,8 @@
 }
 .card-img-top:hover{
   cursor:pointer !important;
+}
+.bg-primary{
+  background-color:#0d6682 !important;
+  background: #0d6682 !important;
 }

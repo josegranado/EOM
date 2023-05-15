@@ -9,9 +9,21 @@
     border: 1px solid #CCC;
     height:100%;
     padding:10px;
-    
+    background-color:#FFF;
 }
 #actions i{
     font-size: 18px;
 
+}
+#index-page{
+    margin-top:160px;
+}
+.bg-primary{
+    background-color:#0d6682 !important;
+    background: #0d6682 !important;
+}
+@media only screen and (max-width: 719px) {
+    #index-page{
+        margin-top:400px;
+    }
 }

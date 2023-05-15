@@ -31,12 +31,13 @@ class SearchController {
                 user.profile = profiles[i];
                 users.push(user)
             }
-            const services = await Database.from('services')
+            const services = await Database.from('products')
                 .where(
                     'title',
                     'LIKE',
                     '%'+search+'%'
                 ).where('deleted', 0)
+                .where('type', 2)
             for ( let i = 0; i < services.length; i++){
                 services[i].user = await User.findBy({
                     id: services[i].user_id,
@@ -57,6 +58,7 @@ class SearchController {
                     'LIKE',
                     '%'+search+'%'
                 ).where('deleted', 0)
+                .where('type', 1)
             for ( let i = 0; i < products.length; i++){
                 products[i].user = await User.findBy({
                     id: products[i].user_id,

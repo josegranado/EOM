@@ -74,7 +74,7 @@ const routes: Routes = [
     canActivate: [ AuthGuard ]
   },
   {
-    path: 'dashboard/records/members', component: MemberListPageComponent,
+    path: 'dashboard/members/list', component: MemberListPageComponent,
     canActivate: [ AuthGuard ]
   },
   {
@@ -100,7 +100,7 @@ const routes: Routes = [
   {
     path: 'dashboard/members/brokers', component: BrokerListPageComponent,
     canActivate: [ AuthGuard ]
-  }
+  },
 ];
 
 @NgModule({
