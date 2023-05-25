@@ -12,6 +12,9 @@ export class AuthService {
     this.token = 'Bearer '+ localStorage.getItem('token');
 
   }
+  getBrokers():Observable<any>{
+    return this.httpClient.get(environment.apiUrl+'/brokers')
+  }
   loginByToken(): Observable<any>{
     const headers = new HttpHeaders({
       'Authorization': this.token

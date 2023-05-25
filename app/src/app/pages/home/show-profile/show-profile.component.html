@@ -2,37 +2,34 @@
 <section *ngIf="!identity?.profile.cover" id="profile" style="margin-top:130px;height:350px;" class="bg-primary text-white d-flex align-items-center justify-content-center" >
     <div id="summary" class="container " style="margin:auto;">
         <div class="row">
-            <div class="col-12 col-md-3 text-center" style="height: 100%; position:relative;">
-                <img *ngIf="identity?.profile.avatar" [src]="apiUrl + '/files/avatars/' + identity?.profile.avatar" alt="" class="avatar">
-                <img *ngIf="!identity?.profile.avatar" src="assets/images/avatar.png" alt="" class="avatar">
+            <div class="col-12 col-md-3 text-center" style="height: 100%; position:relative;" >
+                <div *ngIf="identity?.profile.avatar" class="avatar" style="height:200px;width:200px;background-image: url({{apiUrl + '/files/avatars/' + identity?.profile.avatar}})" >
+
+                </div>
+                <div *ngIf="!identity?.profile.avatar" class="avatar" style="height:200px;width:200px;background-image: url(assets/images/avatar.png)">
+
+                </div>
             </div>
             <div class="col-12 col-md-6">
                 <h1>{{ identity?.profile.first_name }} {{ identity?.profile.last_name }} </h1>
+                <div class="row mt-1">
+                    <div class="col-12">
+                        <rating [readonly]="true" name="calification" [max]="5" ngModel></rating> &nbsp;
+                    </div>
+                </div>
                 <br>
-                <rating [readonly]="true" name="calification" [max]="5" ngModel></rating> &nbsp;
-                <button class="btn btn-outline-light">Ver reputación</button>&nbsp;
-                <button *ngIf="identity?.id != identityStorage?.id && followers?.indexOf(identityStorage?.id) == -1" (click)="follow()" class="btn btn-success">Seguir</button>&nbsp;
-                <button *ngIf="identity?.id != identityStorage?.id && followers?.indexOf(identityStorage?.id) != -1" (click)="unfollow()" class="btn btn-outline-light">Dejar de Seguir</button>&nbsp;
-                <button *ngIf="identity?.id != identityStorage?.id" (click)="openTwin();" class="btn btn-primary">Twin</button>&nbsp;
+                <div class="row mt-1">
+                    <div class="col-12">
+                        <button class="btn btn-outline-light">Ver reputación</button>&nbsp;
+                    <button *ngIf="identity?.id != identityStorage?.id && followers?.indexOf(identityStorage?.id) == -1" (click)="follow()" class="btn btn-success">Seguir</button>&nbsp;
+                    <button *ngIf="identity?.id != identityStorage?.id && followers?.indexOf(identityStorage?.id) != -1" (click)="unfollow()" class="btn btn-outline-light">Dejar de Seguir</button>&nbsp;
+                    <button *ngIf="identity?.id != identityStorage?.id" (click)="openTwin();" class="btn btn-primary">Twin</button>&nbsp;
+                    </div>    
+                </div>
                 
                 <br>
-                <h5>{{ products?.length }} publicaciones activas</h5>
+                <h5 class="mt-1 mb-2">{{ products?.length }} publicaciones activas</h5>
                 <span class="text-white"><a class="text-white" href="#" style="text-decoration:none !important;">{{ count_followers  }} Seguidores</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-white"><a href="#" class="text-white" style="text-decoration:none !important;">{{ count_followeds }} Seguidos</a></span>
-            </div>
-        </div>
-        <hr style="border-color: #FFF;">
-        <div class="row">
-            <div class="col-12 col-md-3">
-                <button (click)="active = 1" class="btn text-white">Privacidad</button>
-            </div>
-            <div class="col-12 col-md-3">
-                <button (click)="active = 2" class="btn text-white">Mis Operaciones</button>
-            </div>
-            <div class="col-12 col-md-3">
-                <button (click)="active = 3"class="btn text-white">Mi Reputación</button>
-            </div>
-            <div class="col-12 col-md-3">
-                <button (click)="active = 4" class="btn text-white">Ayuda</button>
             </div>
         </div>
     </div>
@@ -59,59 +56,30 @@
                 <span class="text-white"><a class="text-white" href="#" style="text-decoration:none !important;">{{ count_followers  }} Seguidores</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-white"><a href="#" class="text-white" style="text-decoration:none !important;">{{ count_followeds }} Seguidos</a></span>
             </div>
             
-        </div>
-        <hr style="border-color: #FFF;">
-        <div class="row d-none">
-            <div class="col-12 col-md-3">
-                <button (click)="active = 1" class="btn text-white">Privacidad</button>
-            </div>
-            <div class="col-12 col-md-3">
-                <button (click)="active = 2" class="btn text-white">Mis Operaciones</button>
-            </div>
-            <div class="col-12 col-md-3">
-                <button (click)="active = 3"class="btn text-white">Mi Reputación</button>
-            </div>
-            <div class="col-12 col-md-3">
-                <button (click)="active = 4" class="btn text-white">Ayuda</button>
-            </div>
-        </div>
+        </div>       
     </div>
 </section>
-<section *ngIf="active == 1" id="privacity">
-    <div class="container">
+<section id="privacity">
+    <div id="papers" class="container">
         <div class="row">
             <div class="col-12 col-md-4 p-4 mb-5">
-                <h4 class="text-secondary mt-5 mb-4">Info</h4>
-                <p> {{ identity?.profile.info }}</p>
+                <h4 class="text-secondary mt-5 mb-4">Información</h4>
+                <p> {{ identity?.profile.description }}</p>
                 <hr style="border-color:#CCCCCC">
                 <h4 class="text-primary mt-4 mb-4"><i class="iconsminds-map-marker-2"></i>Benito Juarez, Q. Roo</h4>
                 <hr style="border-color:#CCCCCC">
-                <h6 class="mt-3 mb-3" style="color:#444444">Papelito habla</h6>
-                <div class="row">
-                    <div class="col-12 col-md-4">
-                        <div class="card" style="background-image:url(assets/images/0.jpg); height:80px;">
+                <h6 *ngIf="papers" class="mt-3 mb-3" style="color:#444444">Papelito habla</h6>
+                <div *ngIf="papers" class="row">
+                    <div *ngFor="let paper of papers" class="col-12 col-md-4">
+                        <div class="paper card m-1" style="background-image:url({{ apiUrl + '/files/papers/' + paper }});">
                             <div class="card-body">
-                                <i class="fa-solid fa-circle-xmark text-white" style="position: absolute; top:0;right:0; margin: 3px;"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="card" style="background-image:url(assets/images/1.jpg); height:80px;">
-                            <div class="card-body">
-                                <i class="fa-solid fa-circle-xmark text-white" style="position: absolute; top:0;right:0; margin: 3px;"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="card" style="background-image:url(assets/images/0.jpg); height:80px;">
-                            <div class="card-body">
-                                <i class="fa-solid fa-circle-xmark text-white" style="position: absolute; top:0;right:0; margin: 3px;"></i>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
                 <button class="btn text-primary w-100 mt-3 mb-3"><i class="glyph-icon iconsminds-camera-3"></i> Subir Fotos 3/10</button>
-                <app-sidebar-universe></app-sidebar-universe>
+                <app-sidebar-universe (filterEvent)="filterEvent($event)"></app-sidebar-universe>
             </div>
             <div class="col-12 col-md-1"></div>
             <div class="col-12 col-md-7 mt-5">

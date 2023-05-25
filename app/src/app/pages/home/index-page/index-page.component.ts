@@ -32,8 +32,13 @@ export class IndexPageComponent implements OnInit {
       }
     })
   }
-  favorite(id){
-    this.productService.favorite(id).subscribe( res => {
+  favorite(product ){
+    let notification = {
+      identity: this.identity,
+      to: product.user_id,
+      type: 4
+    }
+    this.productService.favorite(product.id).subscribe( res => {
       console.log( res )
       if ( res.status == 201 ){
         location.reload();
@@ -63,4 +68,5 @@ export class IndexPageComponent implements OnInit {
       this.products = this.products.filter( product => product.type == filter.type )
     }
   }
+  
 }

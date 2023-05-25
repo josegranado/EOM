@@ -18,6 +18,7 @@ export class ShowProfileComponent implements OnInit {
   public apiUrl = environment.apiUrl;
   public API_ENDPOINT = environment.apiUrl;
   public products;
+  papers: any;
   constructor(
     private userService: UserService,
     private productService: ProductService,
@@ -43,17 +44,44 @@ export class ShowProfileComponent implements OnInit {
   }
   public id;
   public follows;
-  public followers;
+  public followers; 
+  public allProducts;
+  filterEvent(filter){
+    console.log(filter)
+    this.products = this.allProducts;
+    if (filter.category ){
+      this.products = this.products.filter( product => product.category_id == filter.category.value )
+    }
+  
+    if ( filter.from_price ){
+      this.products = this.products.filter( product => product.price > filter.from_price )
+    }
+    if ( filter.to_price ){
+      this.products = this.products.filter( product => product.price < filter.to_price )
+    }
+    if ( filter.ubication ){
+      this.products = this.products.filter(product => product.ubication == filter.ubication )
+    }
+    if ( filter.use ){
+      this.products = this.products.filter( product => product.is_used == filter.use )
+    }
+    if ( filter.type ){
+      this.products = this.products.filter( product => product.type == filter.type )
+    }
+  }
   ngOnInit(): void {
     this.id = this.activated.snapshot.params['id'];
     this.userService.show(this.id).subscribe( res => {
       console.log( res )
       if ( res.status == 201){
         this.identity = res.data;
+        this.papers = JSON.parse(res.data.profile.gallery)
+        console.log(this.papers)
         this.productService.allByUser(this.identity.id).subscribe( res =>{
           console.log(res )
           if ( res.status == 201){
             this.products = res.data;
+            this.allProducts = this.products;
             this.followService.index( this.id ).subscribe( res => {
               console.log( res )
               if ( res.status == 201){

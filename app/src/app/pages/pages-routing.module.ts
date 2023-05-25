@@ -27,6 +27,8 @@ const routes: Routes = [
   },
   {
     path: 'search', component: SearchPageComponent
+  },{
+    path: 'search/:search', component: SearchPageComponent
   }
 ];
 

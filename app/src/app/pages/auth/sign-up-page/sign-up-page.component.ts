@@ -14,6 +14,7 @@ export class SignUpPageComponent implements OnInit {
    {value: 2, name:"Naturaleza"},
   ]
   public sector = [];
+  public brokers;
   public sedes = [
     { value : 1, name: 'Cualquiera'}
   ]
@@ -52,10 +53,10 @@ export class SignUpPageComponent implements OnInit {
     broker_name: '',
     question_1: '',
     question_2: '',
-    terms: null,
-    offers: null,
-    notificatons: null,
-    terms_and_privacity: null,
+    terms: true,
+    offers: true,
+    notificatons: true,
+    terms_and_privacity: true,
     confirm_password: null,
     sector: null,
     sede: null
@@ -74,13 +75,21 @@ export class SignUpPageComponent implements OnInit {
     console.log( this.step )
   }
   next(values, status){
-    console.log( values );
-    console.log( status );
+    this.user = {
+      ...this.user,
+      ...values
+    }
     if ( this.ConfirmPassword() && status ){
       this.step == this.step++;
     }
   }
   ngOnInit(): void {
+    this.authService.getBrokers().subscribe( res => {
+      console.log( res )
+      if ( res.status == 201){
+        this.brokers = res.data;
+      }
+    })
   }
   onSubmit(values: any){
     console.log( values )

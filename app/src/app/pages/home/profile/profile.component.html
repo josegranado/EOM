@@ -101,12 +101,12 @@
                 
                 
                 <hr style="border-color:#CCCCCC">
-                <div class="container" style="position:relative;">
+                <div class="container  pt-3" style="position:relative;">
                     <button (click)="formUbication = true" class="text-primary text-right btn" style="position:absolute; top:-15px; right:0;"><i class="glyph-icon simple-icon-pencil"></i> &nbsp;Editar</button>
                     <h5 *ngIf="!formUbication && profile?.state && profile?.city" class="text-primary mt-4 mb-4"><i class="iconsminds-map-marker-2"></i> {{ city }}, {{ state.name }}</h5>
                     <h5 *ngIf="!formUbication && !profile?.state && !profile?.city" class="text-primary mt-4 mb-4"><i class="iconsminds-map-marker-2"></i>No hay ubicación disponible</h5>
                     <form *ngIf="formUbication">
-                        <input class="form-control" type="text" name="city" placeholder="Ingresa tu ciudad" [(ngModel)]="city">
+                        <input class="form-control mt-4" type="text" name="city" placeholder="Ingresa tu ciudad" [(ngModel)]="city">
                         <ng-select class="form-control mt-2 mb-2" style="padding:0;" [(ngModel)]="state" placeholder="Selecciona tu estado" required [items]="states" bindLabel="name" name="state"></ng-select>
                         <button (click)="formUbication = false;" class="btn text-primary w-40">Cancelar</button>
                         <button (click)="onUpUbication();" class="btn btn-success w-60">Guardar</button>
@@ -260,7 +260,7 @@
                         </div>
                     </div>
                 </div>
-                <button (click)="uploadPapers()" class="btn text-primary w-100 mt-3 mb-3"><i class="glyph-icon iconsminds-camera-3"></i> Subir Fotos {{ cont_files }}/10</button>
+                <button (click)="uploadPapers()" class="btn text-primary w-100 mt-3 mb-3"><i class="glyph-icon iconsminds-camera-3"></i> Subir Fotos</button>
                 <app-sidebar-universe (filterEvent)="filterEvent($event)"></app-sidebar-universe>
             </div>
             <div class="col-12 col-md-1"></div>

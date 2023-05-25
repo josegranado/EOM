@@ -8,11 +8,11 @@
                 <div class="container" style="background-color:#f5f5f5;">
                     <form #formSearch="ngForm" style="width:100%;">
                         <div class="row d-flex align-items-center">
-                            <div *ngIf="search" class="col-9 col-md-10 d-flex align-items-center">
-                                <input  (change)="searching(formSearch.value)" name="search" ngModel  type="text" class="form-control" placeholder="¿Qué estás buscando?" style="border:0; border-bottom: 2px solid #0075b0">
+                            <div class="col-9 col-md-10 d-flex align-items-center">
+                                <input required name="search" ngModel  type="text" class="form-control" placeholder="¿Qué estás buscando?" style="background-color:#f5f5f5;border:none;">
                             </div>
                             <div class="col-1 col-md-2 d-flex align-items-center">
-                                <button type="submit" (click)="search = true; searching(formSearch.value)" class="btn text-primary" style="font-size:25px;">
+                                <button type="submit" [disabled]="formSearch.invalid" (click)="searching(formSearch.value)" class="btn text-primary" style="font-size:25px;">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </button>
                             </div>

@@ -185,12 +185,12 @@ export class ProfileComponent implements OnInit {
     this.formInfo = true;
   }
   setDescription(){
-    
+    this.length_description = this.description.length;
     let desc = this.description.split(' ');
     desc.filter((word) => {
       if ( word.length > 23){
         this.description = '';
-        this.length_description = this.description.length;
+        
       }
     })
   }

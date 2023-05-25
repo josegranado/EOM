@@ -100,7 +100,7 @@
                         <h2><strong>¡El último paso!</strong></h2>
                         <br>
                         <div class="form-group">
-                            <input [(ngModel)]="user.broker_name" type="text" class="form-control form-control-register" name="broker_name" required ngModel placeholder="Nombre del broker">
+                            <ng-select required class="form-control" style="padding:0;" ngModel placeholder="Selecciona la categoría" ngModel required [items]="brokers" bindLabel="email" name="ubication"></ng-select>
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label" style="font-size:12px;">¿Qué productos o servicios buscas en El Otro Mercado?</label>
@@ -111,10 +111,10 @@
                             <textarea [(ngModel)]="user.question_2" class="form-control form-control-register"   name="question_2" required ngModel placeholder="Tu respuesta"></textarea>
                         </div>
                         <div class="form-group">
-                            <label class="checkbox"><input [(ngModel)]="user.terms" type="checkbox"  name="terms"> Estoy de acuerdo con los términos y condiciones de ELOTROMERCADO.COM</label><br>
+                            <label class="checkbox"><input required [(ngModel)]="user.terms" type="checkbox"  name="terms"> Estoy de acuerdo con los términos y condiciones de ELOTROMERCADO.COM</label><br>
                         </div>
                         <div class="form-group">
-                            <label class="checkbox"><input [(ngModel)]="user.terms_and_privacity" type="checkbox"   name="terms_and_privacity">Acepto que estoy de acuerdo con los <a href="#" style="color:#FFF">Términos y condiciones</a>&nbsp;y la <a href="#" style="color:#FFF">Política de privacidad</a>.</label><br>
+                            <label class="checkbox"><input required [(ngModel)]="user.terms_and_privacity" type="checkbox"   name="terms_and_privacity">Acepto que estoy de acuerdo con los <a href="#" style="color:#FFF">Términos y condiciones</a>&nbsp;y la <a href="#" style="color:#FFF">Política de privacidad</a>.</label><br>
                         </div>
                         <div class="form-group">
                             <div class="row">
@@ -133,8 +133,6 @@
                         <br>
                         <button class="btn btn-primary btn-eom mt-4">Conoce más beneficios</button>
                     </div>
-                    <img style="cursor:pointer;" (click)="step = 1" class="mt-2 mb-2" src="assets/images/step-1.png" alt="" style="width:5%">
-                   
                 </form>
             </div>
         </div>
