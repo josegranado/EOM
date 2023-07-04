@@ -14,7 +14,7 @@ import { PagesModule } from './pages/pages.module';
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     PagesModule,
     HttpClientModule,
     NgSelectModule,
