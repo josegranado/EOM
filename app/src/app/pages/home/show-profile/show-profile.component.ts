@@ -19,6 +19,9 @@ export class ShowProfileComponent implements OnInit {
   public API_ENDPOINT = environment.apiUrl;
   public products;
   papers: any;
+  city: any;
+  state: any;
+  description: any;
   constructor(
     private userService: UserService,
     private productService: ProductService,
@@ -69,6 +72,35 @@ export class ShowProfileComponent implements OnInit {
       this.products = this.products.filter( product => product.type == filter.type )
     }
   }
+  public profile;
+  public states: any = [
+    {value: 1, name:'Aguascalientes'},
+    {value: 2, name:'Baja California'},
+    {value: 3, name:'Baja California Sur'},
+    {value: 4, name:'Campeche'},
+    {value: 5, name:'Coahuila'},
+    {value: 6, name:'Colima'},
+    {value: 7, name:'Chiapas'},
+    {value: 8, name:'Chihuahua'},
+    {value: 9, name:'Durango'},
+    {value: 10, name:'Distrito Federal'},
+    {value: 11, name:'Guanajuato'},
+    {value: 12, name:'Guerrero'},
+    {value: 13, name:'Hidalgo'},
+    {value: 14, name:'Jalisco'},
+    {value: 15, name:'México'},
+    {value: 16, name:'Michoacán'},
+    {value: 17, name:'Morelos'},
+    {value: 18, name:'Nayarit'},
+    {value: 19, name:'Nuevo León'},
+    {value: 20, name:'Oaxaca'},
+    {value: 21, name:'Puebla'},
+    {value: 22, name:'Querétaro'},
+    {value: 23, name:'Quintana Roo'},
+    {value: 24, name:'San Luis Potosí'},
+    {value: 25, name:'Yucatán'},
+    {value: 26, name:'Zacatecas'}
+  ];
   ngOnInit(): void {
     this.id = this.activated.snapshot.params['id'];
     this.userService.show(this.id).subscribe( res => {
@@ -76,6 +108,18 @@ export class ShowProfileComponent implements OnInit {
       if ( res.status == 201){
         this.identity = res.data;
         this.papers = JSON.parse(res.data.profile.gallery)
+        this.profile = res.data.profile;
+        if ( this.profile?.description ){
+          this.description = this.profile?.description;
+        }
+        if ( this.profile?.state ){
+          this.state = this.states.filter( (state ) => state.value === this.profile?.state );
+          this.state = this.state[0];
+          console.log(this.state)
+        }
+        if ( this.profile?.city){
+          this.city = this.profile?.city;
+        }
         console.log(this.papers)
         this.productService.allByUser(this.identity.id).subscribe( res =>{
           console.log(res )
