@@ -312,7 +312,7 @@ class UserController {
     }
     async destroy({ request, response, params, auth  }){
         try{
-            const auth_user = await auth.gerUser();
+            const auth_user = await auth.getUser();
             const user = await User.findBy({ id: params.id, deleted: 0});
             const profile  = await Profile.findBy({user_id: params.id, deleted: 0})
             user.deleted = 1;

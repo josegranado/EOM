@@ -16,14 +16,7 @@
           <div routerLink="/product/{{ product.uuid }}"  *ngIf="product.thumbnail" class="card-img-top" style="height:250px; background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url({{API_ENDPOINT + '/files/products/' + product.thumbnail}});width:100%;"></div>
             <div class="card-body">
                 <h2 class="card-title" style="font-size:18px"><strong>{{ product.title}}</strong></h2>
-                <div *ngIf="product.type == 1" class="row d-flex align-items-center justify-content-center">
-                  <div class="col-1">
-                    <img style="height:25px;width:25px" src="assets/images/eom-coin-transparent.png" alt="">
-                  </div>
-                  <div class="col-3">
-                    <span>{{ product.price }}</span>
-                  </div>
-                </div>
+                <h6 class="card-subtitle text-center">{{ product.price }}<img style="height:25px;width:25px; margin:auto;" src="assets/images/eom-coin-transparent.png" alt=""></h6>
                 <div id="actions" class="row" style="position:absolute; bottom:20px;width:100%;">
                   <div class="col-md-3 text-center" (click)="favorite(product)">
                       <i class="fa-regular fa-heart text-primary"></i>

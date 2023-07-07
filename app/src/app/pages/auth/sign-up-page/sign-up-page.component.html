@@ -77,22 +77,22 @@
                         </div>
                         <div class="form-group">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="option_sector" [(ngModel)]="user.option_sector" required value="P" >
+                                <input class="form-check-input" type="radio" name="sector_option" [(ngModel)]="user.sector_option" required value="P" >
                                 <label class="form-check-label" for="inlineRadio1">Primario</label>
                               </div>
                               <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="option_sector" [(ngModel)]="user.option_sector" required  value="I">
+                                <input class="form-check-input" type="radio" name="sector_option" [(ngModel)]="user.sector_option" required  value="I">
                                 <label class="form-check-label" for="inlineRadio2">Industrias</label>
                               </div>
                               <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="option_sector" [(ngModel)]="user.option_sector" required  value="S">
+                                <input class="form-check-input" type="radio" name="sector_option" [(ngModel)]="user.sector_option" required  value="S">
                                 <label class="form-check-label" for="inlineRadio2">Servicios</label>
                               </div>
                         </div>
                         <div class="form-group">
-                            <ng-select *ngIf="user.option_sector == 'P'" [(ngModel)]="user.sector" placeholder="¿A qué sector pertenece?*" ngModel required [items]="primary" bindLabel="name" name="sector" required></ng-select>
-                            <ng-select *ngIf="user.option_sector == 'I'" [(ngModel)]="user.sector" placeholder="¿A qué sector pertenece?*" ngModel required [items]="industries" bindLabel="name" name="sector" required></ng-select>
-                            <ng-select *ngIf="user.option_sector == 'S'" [(ngModel)]="user.sector" placeholder="¿A qué sector pertenece?*" ngModel required [items]="services" bindLabel="name" name="sector" required></ng-select>
+                            <ng-select *ngIf="user.sector_option == 'P'" [(ngModel)]="user.sector" placeholder="¿A qué sector pertenece?*" required [items]="primary" bindLabel="name" name="sector" required></ng-select>
+                            <ng-select *ngIf="user.sector_option == 'I'" [(ngModel)]="user.sector" placeholder="¿A qué sector pertenece?*" required [items]="industries" bindLabel="name" name="sector" required></ng-select>
+                            <ng-select *ngIf="user.sector_option == 'S'" [(ngModel)]="user.sector" placeholder="¿A qué sector pertenece?*" required [items]="services" bindLabel="name" name="sector" required></ng-select>
                         </div>
                         <div class="form-group">
                             

@@ -358,7 +358,7 @@ export class ProfileComponent implements OnInit {
     this.productService.dislike(id).subscribe( res => {
       console.log(res)
       if ( res.status == 201){
-        //location.reload();
+        location.reload();
       }
     })
   }

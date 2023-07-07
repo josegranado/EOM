@@ -134,6 +134,12 @@ class AdminUserController {
             account.deleted = 1,
             enterprise.deleted = 1;
             survey.deleted = 1;
+            user.deleted = 1;
+            await survey.save();
+            await enterprise.save();
+            await account.save();
+            await profile.save();
+            await user.save();
             return response.json({ status: 201, message: 'User deleted Successfully'})
         }catch(e){
             console.log( e )

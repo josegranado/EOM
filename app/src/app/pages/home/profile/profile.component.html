@@ -14,7 +14,7 @@
                 <rating [readonly]="true" name="calification" [max]="5" ngModel></rating> &nbsp;
                 <button class="btn btn-outline-light">Ver reputación</button>
                 <br>
-                <h5>{{ allProducts.length }} publicaciones activas</h5>
+                <h5>{{ allProducts?.length }} publicaciones activas</h5>
                 <span class="text-white"><a class="text-white" href="#" style="text-decoration:none !important;">{{ count_followers  }} Seguidores</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-white"><a href="#" class="text-white" style="text-decoration:none !important;">{{ count_followeds }} Seguidos</a></span>
             </div>
             <div class="col-12 col-md-3">
@@ -294,6 +294,11 @@
                                 <p style="color:#444444">{{ product.description }}</p>
                                 <img *ngIf="!product.thumbnail" src="assets/images/product.png" alt="" style="width:100%;">
                                 <img *ngIf="product.thumbnail" [src]="apiUrl + '/files/products/' + product.thumbnail" alt="" style="width:100%;">
+                                <div *ngIf="product.likers.length > 0" class="row">
+                                    <div class="col-12">
+                                        <h6><strong>{{ product.likers.length }} </strong><span *ngIf="product.likers.length === 1">Me gusta</span> <span *ngIf="product.likers.length > 1">Me gustas</span></h6>
+                                    </div>
+                                </div>
                                 <hr style="color:#444444">
                                 <div class="row">
                                     <button *ngIf="product.likers.indexOf(identity?.id) == -1" class="btn w-23 text-primary" (click)="like(product.id)"><i class="glyph-icon simple-icon-heart"></i> Me gusta</button>

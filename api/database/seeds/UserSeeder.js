@@ -90,6 +90,30 @@ class UserSeeder {
     account.user_id = user.id;
     account.deleted = 0;
     await account.save();
+    user = new User()
+    user.username = 'jose.granado2014';
+    user.email = 'jose.granado2014@gmail.com'
+    user.role = 2;
+    user.is_approved = 1
+    user.type = 0
+    user.deleted = 0;
+    user.password = 'alfonzo97'
+    await user.save()
+    profile = new Profile()
+    profile.first_name = 'Jose Alfonso';
+    profile.last_name = 'Granado Luis'
+    profile.ocupation = 'Broker';
+    profile.departament = 0;
+    profile.phone_number = '584242032761'
+    profile.phone_local_number = '582124511691'
+    profile.user_id = user.id
+    profile.deleted = 0
+    await profile.save()
+    account = new Account()
+    account.balance = 50000;
+    account.user_id = user.id;
+    account.deleted = 0;
+    await account.save();
   }
 }
 

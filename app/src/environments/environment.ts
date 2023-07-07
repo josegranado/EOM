@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://api.elotromercado.com'
+  apiUrl: 'http://api.elotromercado.com'
 };
 
 /*

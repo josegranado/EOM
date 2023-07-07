@@ -12,30 +12,30 @@ export class SignUpPageComponent implements OnInit {
   public primary = [
     {value: 1, name:"Agricultura"},
     {value: 2, name:"Ganaderia"},
-    {value: 1, name:"Pesca"},
-    {value: 2, name:"Mineria"},
-    {value: 1, name:"Otro"}
+    {value: 3, name:"Pesca"},
+    {value: 4, name:"Mineria"},
+    {value: 5, name:"Otro"}
   ]
   public industries = [
     {value: 1, name:"Alimentos y bebidas"},
     {value: 2, name:"Automótriz y transporte terrestre"},
-    {value: 1, name:"Aviacion"},
-    {value: 2, name:"Comercio"},
-    {value: 1, name:"Construcción"},
-    {value: 2, name:"Diseño y manufactura de productos"},
-    {value: 1, name:"Energía, petróleo y gas"},
-    {value: 2, name:"Impresión"},
-    {value: 1, name:"Industria química"},
-    {value: 2, name:"Ganaderia"},
-    {value: 1, name:"Madera"},
-    {value: 2, name:"Metal"},
-    {value: 1, name:"Muebles"},
-    {value: 2, name:"Papel"},
-    {value: 1, name:"Tabaco"},
-    {value: 2, name:"Tecnología"},
-    {value: 1, name:"Textil"},
-    {value: 2, name:"Transporte y distribución"},
-    {value: 1, name:"Otra"},
+    {value: 3, name:"Aviacion"},
+    {value: 4, name:"Comercio"},
+    {value: 5, name:"Construcción"},
+    {value: 6, name:"Diseño y manufactura de productos"},
+    {value: 7, name:"Energía, petróleo y gas"},
+    {value: 8, name:"Impresión"},
+    {value: 9, name:"Industria química"},
+    {value: 10, name:"Ganaderia"},
+    {value: 11, name:"Madera"},
+    {value: 12, name:"Metal"},
+    {value: 13, name:"Muebles"},
+    {value: 14, name:"Papel"},
+    {value: 15, name:"Tabaco"},
+    {value: 16, name:"Tecnología"},
+    {value: 17, name:"Textil"},
+    {value: 18, name:"Transporte y distribución"},
+    {value: 19, name:"Otra"},
   ];
   public services = [
     {value: 1, name:"Aerocomercial"},
@@ -66,16 +66,13 @@ export class SignUpPageComponent implements OnInit {
     {value: 1, name:"Otros"},
   ];
   public departaments = [
-    {value: 0, name: "Ventas - Comercial"},
-    {value: 0, name: "Gestor de almacén"},
-    {value: 0, name: "Marketing"},
-    {value: 0, name: "Finanzas"},
-    {value: 0, name: "Dirección General"},
-    {value: 0, name: "Operaciones"},
-    {value: 0, name: "Comprador"},
-    {value: 0, name: "Ventas - Comercial "},
-    {value: 0, name: "Ventas - Comercial "},
-    {value: 0, name: "Ventas - Comercial "},
+    {value: 1, name: "Ventas - Comercial"},
+    {value: 2, name: "Gestor de almacén"},
+    {value: 3, name: "Marketing"},
+    {value: 4, name: "Finanzas"},
+    {value: 5, name: "Dirección General"},
+    {value: 6, name: "Operaciones"},
+    {value: 7, name: "Comprador"}
   ]
   public brokers;
   public ocupations = [

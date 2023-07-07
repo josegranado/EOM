@@ -173,7 +173,7 @@ class AuthController {
             }
             await transport.sendMail(mailOptions, (err, info) =>{
                 if (err){
-                    return console.log(error);
+                    return err;
                 }
                 
             })
@@ -265,6 +265,24 @@ class AuthController {
             console.log( e )
             return response.json({ status: 500, message: 'Internal Server Error'})
         }
+    }
+    async brokers({ request, response }){
+        try{
+            let users = await Database.from('users').where('deleted', 0).where('role', 2);
+            console.log(users);
+            for ( let i= 0; i < users.length; i++ ){
+                users[i].profile = await Profile.findBy({
+                    user_id: users[i].id,
+                    deleted: 0 
+                });
+                users[i].full_name = users[i].profile.first_name + ' '+users[i].profile.last_name;
+            };
+            return response.json({ status: 201, data: users });
+        }catch(e){
+            console.log( e )
+            return response.json({ status: 500, message: 'Internal Server Error'})
+        }
+        
     }
 }
 
