@@ -24,6 +24,17 @@ export class SearchPageComponent implements OnInit {
   ngOnInit(): void {
     this.search = this._activated.snapshot.paramMap.get('search');
     console.log(this.search)
+    this.searchService.index(this.search).subscribe( res => {
+      console.log( res )
+      if ( res.status == 201 ){
+        this.results = res.data;
+        this.users = res.data.users;
+        this.products = res.data.products;
+        this.services = res.data.services;
+        console.log(this.products)
+        console.log(this.services )
+      }
+    })
   }
   searchEvent(search:string){
     this.search = search;

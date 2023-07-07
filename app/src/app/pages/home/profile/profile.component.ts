@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CalificationService } from 'src/app/services/calification.service';
 import { CommentService } from 'src/app/services/comment.service';
+import { FollowService } from 'src/app/services/follow.service';
 import { ProductService } from 'src/app/services/product.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { UserService } from 'src/app/services/user.service';
@@ -18,13 +20,18 @@ export class ProfileComponent implements OnInit {
   public API_ENDPOINT = environment.apiUrl;
   public products;
   public profile;
+  twinService: any;
+  count_followeds: any;
+  count_followers: any;
   constructor(
     private userService: UserService,
     private productService: ProductService,
     private commentService: CommentService,
     private transactionService: TransactionService,
     private calificationService: CalificationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private followService: FollowService
     ) { 
     this.identity = JSON.parse(localStorage.getItem('identity'));
   }
@@ -112,6 +119,15 @@ export class ProfileComponent implements OnInit {
             console.log(this.sales)
           } 
         })
+      }
+    })
+    this.followService.index( this.identity.id ).subscribe( res => {
+      console.log( res )
+      if ( res.status == 201){
+        this.count_followeds = res.data.followeds.count;
+        this.count_followers = res.data.followers.count;
+        console.log(this.count_followeds)
+        console.log(this.count_followers)
       }
     })
   }
@@ -329,5 +345,33 @@ export class ProfileComponent implements OnInit {
         text: 'Algo ha salido mal, no nos ha brindado información correcta respecto a su ubicación...',
       })
     }
+  }
+  like(id){
+    this.productService.like(id).subscribe( res => {
+      console.log(res)
+      if ( res.status == 201){
+        location.reload();
+      }
+    })
+  }
+  dislike(id){
+    this.productService.dislike(id).subscribe( res => {
+      console.log(res)
+      if ( res.status == 201){
+        //location.reload();
+      }
+    })
+  }
+  share(id){}
+  twin(id){
+    let twin = {
+      to: this.identity.id,
+    }
+    this.twinService.store(twin).subscribe( res => {
+      console.log( res )
+      if ( res.status == 201){
+        this.router.navigate(['/notifications']);
+      }
+    })
   }
 }

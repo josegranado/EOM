@@ -7,12 +7,17 @@ const  {  v4 : uuidv4  }  =  require('uuid');
 const Comment = use('App/Models/Comment');
 const Profile = use('App/Models/Profile');
 const Favorite = use('App/Models/Favorite');
+const Interaction = use('App/Models/Interaction')
 class ProductController {
     async index({ request, response }){
         try{
             const products = await Database.from('products').where('deleted', 0);
             for( let i = 0; i < products.length; i++){
                 products[i].category = await Category.findBy({id: products[i].category_id, deleted: 0})
+                products[i].interactions = await Interaction.findBy({
+                    product_id: products[i].id,
+                    deleted: 0
+                })
                 products[i].user = await User.findBy({id: products[i].user_id, deleted: 0})
             }
             return response.json({ status: 201, data: products })
@@ -96,6 +101,12 @@ class ProductController {
             product.category = await Category.findBy({id: product.category_id, deleted: 0})
             product.user = await User.findBy({id: product.user_id, deleted: 0})
             product.user.profile = await Profile.findBy({ user_id: product.user.id, deleted: 0})
+            const interactions = await Database.from('interactions').where('product_id', product.id).where('deleted', 0);
+            for ( let i = 0; i < interactions.length ; i++){
+                interactions[i].user = await User.findBy({id: comments[i].user_id, deleted: 0})
+                interactions[i].user.profile = await Profile.findBy({user_id: comments[i].user_id, deleted: 0})
+            }
+            product.interactions = interactions;
             const comments = await Database.from('comments').where('product_id', product.id).where('deleted', 0);
             for ( let i = 0; i < comments.length ; i++){
                 comments[i].user = await User.findBy({id: comments[i].user_id, deleted: 0})
@@ -110,17 +121,29 @@ class ProductController {
     }
     async allByUser({ request, response, params }){
         try{
-            const products = await Database.from('products').where('user_id', params.id ).where('deleted', 0);
+            const products = await Database.from('products').where('user_id', params.id ).where('deleted', 0).orderBy('id', 'DESC');
+            let likers = [];
             for( let i = 0; i < products.length; i++){
                 products[i].category = await Category.findBy({id: products[i].category_id, deleted: 0})
                 products[i].user = await User.findBy({id: products[i].user_id, deleted: 0})
                 products[i].user.profile = await Profile.findBy({ user_id: products[i].user_id, deleted: 0})
                 let comments = await Database.from('comments').where('product_id', products[i].id).where('deleted', 0);
+                
                 for ( let y = 0; y < comments.length ; y++){
                     comments[y].user = await User.findBy({id: comments[y].user_id, deleted: 0})
                     comments[y].user.profile = await Profile.findBy({user_id: comments[y].user_id, deleted: 0})
                 }
+                let interactions = await Database.from('interactions').where('product_id', products[i].id).where('deleted', 0);
+                for ( let z = 0; z < interactions.length ; z++){
+                    
+                    interactions[z].user = await User.findBy({id: interactions[z].user_id, deleted: 0})
+                    interactions[z].user.profile = await Profile.findBy({user_id: interactions[z].user_id, deleted: 0})
+                    likers.push(interactions[z].user.id)
+                }
+                products[i].interactions = interactions;
                 products[i].comments = comments;
+                products[i].likers = likers;
+                likers = [];
             }
             return response.json({ status: 201, data: products })
         }catch(e){

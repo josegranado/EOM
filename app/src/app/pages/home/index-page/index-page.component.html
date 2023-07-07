@@ -41,7 +41,7 @@
                                 <div routerLink="/product/{{ product.uuid }}" *ngIf="product.thumbnail" class="card-img-top" style="background-position: center; background-size: cover; background-repeat: no-repeat; height:200px;background-image: url({{API_ENDPOINT + '/files/products/' + product.thumbnail}})"></div>
                                 <div class="card-body" style="">
                                     <h2 class="card-title text-center pb-2" style="font-size:12px"><strong>{{ product.title }}</strong></h2>
-                                    <h6 *ngIf="product.type == 1" class="card-subtitle text-center"><img style="height:25px;width:25px;" src="assets/images/eom-coin-transparent.png" alt="">&nbsp;{{ product.price }}</h6>
+                                    <h6 class="card-subtitle text-center"><img style="height:25px;width:25px;" src="assets/images/eom-coin-transparent.png" alt="">&nbsp;{{ product.price }}</h6>
                                     <div id="actions" class="row mt-2" style="position:absolute; bottom:0;width:100%;">
                                         <div class="col-md-3 text-center" (click)="favorite(product)">
                                             <i class="fa-regular fa-heart text-primary"></i>

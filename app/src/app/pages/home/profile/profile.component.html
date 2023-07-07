@@ -14,9 +14,8 @@
                 <rating [readonly]="true" name="calification" [max]="5" ngModel></rating> &nbsp;
                 <button class="btn btn-outline-light">Ver reputación</button>
                 <br>
-                <h5>15 publicaciones activas</h5>
-                <img src="assets/images/eom-coin-transparent.png" alt="" style="width:25px;">&nbsp;
-                <span class="btn" style="background-color:#f5f5f5;border-radius:50%;padding:10px">1550</span>&nbsp;<span class="text-white">300 Seguidores</span>&nbsp;<span class="text-white">200 Seguidos</span>
+                <h5>{{ allProducts.length }} publicaciones activas</h5>
+                <span class="text-white"><a class="text-white" href="#" style="text-decoration:none !important;">{{ count_followers  }} Seguidores</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-white"><a href="#" class="text-white" style="text-decoration:none !important;">{{ count_followeds }} Seguidos</a></span>
             </div>
             <div class="col-12 col-md-3">
                 <input (change)="uploadCover($event )" type="file" class="d-none" #cover name="cover">
@@ -25,18 +24,19 @@
         </div>
         <hr style="border-color: #FFF;">
         <div class="row">
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-6 text-right">
                 <button (click)="active = 1" class="btn text-white">Privacidad</button>
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-6 text-left">
                 <button (click)="active = 2" class="btn text-white">Mis Operaciones</button>
             </div>
-            <div class="col-12 col-md-3">
+            <!--<div class="col-12 col-md-3">
                 <button (click)="active = 3"class="btn text-white">Mi Reputación</button>
             </div>
             <div class="col-12 col-md-3">
                 <button (click)="active = 4" class="btn text-white">Ayuda</button>
-            </div>
+            </div> -->
+            
         </div>
     </div>
 </section>
@@ -56,9 +56,8 @@
                 <rating [readonly]="true" name="calification" [max]="5" ngModel></rating> &nbsp;
                 <button class="btn btn-outline-light">Ver reputación</button>
                 <br>
-                <h5>15 publicaciones activas</h5>
-                <img src="assets/images/eom-coin-transparent.png" alt="" style="width:25px;">&nbsp;
-                <span class="btn" style="background-color:#f5f5f5;border-radius:50%;padding:10px">1550</span>&nbsp;<span class="text-white">300 Seguidores</span>&nbsp;<span class="text-white">200 Seguidos</span>
+                <h5>{{ allProducts.length }} publicaciones activas</h5>
+                <span class="text-white"><a class="text-white" href="#" style="text-decoration:none !important;">{{ count_followers  }} Seguidores</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-white"><a href="#" class="text-white" style="text-decoration:none !important;">{{ count_followeds }} Seguidos</a></span>
             </div>
             <div class="col-12 col-md-3">
                 <input (change)="uploadCover($event )" type="file" class="d-none" #cover name="cover">
@@ -73,12 +72,15 @@
             <div class="col-12 col-md-3">
                 <button (click)="active = 2" class="btn text-white">Mis Operaciones</button>
             </div>
-            <div class="col-12 col-md-3">
+            <!--
+                <div class="col-12 col-md-3">
                 <button (click)="active = 3"class="btn text-white">Mi Reputación</button>
             </div>
             <div class="col-12 col-md-3">
                 <button (click)="active = 4" class="btn text-white">Ayuda</button>
-            </div>
+            
+            
+            </div>-->
         </div>
     </div>
 </section>
@@ -91,7 +93,7 @@
                 <p *ngIf="!profile?.description && !formInfo">No hay información disponible de este usuario.</p>
                 <p *ngIf="profile?.description && !formInfo">{{ profile.description }}</p>
                 <form *ngIf="formInfo">
-                    <textarea [(ngModel)]="description" (keyup)="setDescription()" (change)="setDescription();" name="description" class="form-control m-2 mb-2" style="background-color: #FFF !important;" placeholder="Texto de la introducción del perfil. 4 líneas de texto o h asta 100 caracteres"></textarea>
+                    <textarea [(ngModel)]="description" (keyup)="setDescription()" (change)="setDescription();" name="description" class="form-control m-2 mb-2" style="background-color: #FFF !important;" placeholder="Texto de la introducción del perfil. 4 líneas de texto o hasta 100 caracteres"></textarea>
                     <h6 *ngIf="length_description <= 100" class="text-secondary text-right">{{length_description}}/100</h6>
                     <h6 *ngIf="length_description > 100" class="text-danger text-right">{{length_description}}/100</h6>
                     <button (click)="formInfo = false;" class="btn text-primary w-40">Cancelar</button>
@@ -294,10 +296,11 @@
                                 <img *ngIf="product.thumbnail" [src]="apiUrl + '/files/products/' + product.thumbnail" alt="" style="width:100%;">
                                 <hr style="color:#444444">
                                 <div class="row">
-                                    <div class="btn w-23 text-primary"><i class="glyph-icon simple-icon-heart"></i> Chido</div>
-                                    <div class="btn w-23 text-primary"><i class="glyph-icon iconsminds-speach-bubbles"></i> Comentarios</div>
-                                    <div class="btn w-23 text-primary"><i class="glyph-icon simple-icon-bubble"></i> Twin</div>
-                                    <div class="btn w-25 text-primary"><i class="glyph-icon iconsminds-sharethis"></i> Compartir</div>
+                                    <button *ngIf="product.likers.indexOf(identity?.id) == -1" class="btn w-23 text-primary" (click)="like(product.id)"><i class="glyph-icon simple-icon-heart"></i> Me gusta</button>
+                                    <button *ngIf="product.likers.indexOf(identity?.id) != -1" class="btn w-23 text-primary" (click)="dislike(product.id)"><i class="glyph-icon simple-icon-heart"></i> No me gusta</button>
+                                    <button class="btn w-23 text-primary"><i class="glyph-icon iconsminds-speach-bubbles"></i> Comentarios</button>
+                                    <button class="btn w-23 text-primary" (click)="twin(product.id)"><i class="glyph-icon simple-icon-bubble"></i> Twin</button>
+                                    <button class="btn w-25 text-primary" (click)="share(product.id)"><i class="glyph-icon iconsminds-sharethis"></i> Compartir</button>
                                 </div>
                                 
                             </div>

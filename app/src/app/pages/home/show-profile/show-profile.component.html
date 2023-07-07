@@ -89,7 +89,7 @@
                     Quiero Comprar
                 </button>
                 <p class="text-center mt-5"  style="font-size:25px" *ngIf="products?.length < 1"> Este usuario no ha publicado productos...</p>
-                <div routerLink="/product/{{ product.uuid }}" *ngFor="let product of products" class="card mt-3 mb-3">
+                <div *ngFor="let product of products" class="card mt-3 mb-3">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-2">
@@ -112,10 +112,11 @@
                                 <img *ngIf="product.thumbnail" [src]="apiUrl + '/files/products/' + product.thumbnail" alt="" style="width:100%;">
                                 <hr style="color:#444444">
                                 <div class="row">
-                                    <div class="btn w-23 text-primary"><i class="glyph-icon simple-icon-heart"></i> Chido</div>
-                                    <div class="btn w-23 text-primary"><i class="glyph-icon iconsminds-speach-bubbles"></i> Comentarios</div>
-                                    <div class="btn w-23 text-primary"><i class="glyph-icon simple-icon-bubble"></i> Twin</div>
-                                    <div class="btn w-25 text-primary"><i class="glyph-icon iconsminds-sharethis"></i> Compartir</div>
+                                    <button *ngIf="product.likers.indexOf(identity?.id) == -1" class="btn w-23 text-primary" (click)="like(product.id)"><i class="glyph-icon simple-icon-heart"></i> Me gusta</button>
+                                    <button *ngIf="product.likers.indexOf(identity?.id) != -1" class="btn w-23 text-primary" (click)="dislike(product.id)"><i class="glyph-icon simple-icon-heart"></i> No me gusta</button>
+                                    <button class="btn w-23 text-primary"><i class="glyph-icon iconsminds-speach-bubbles"></i> Comentarios</button>
+                                    <button class="btn w-23 text-primary" (click)="twin(product.id)"><i class="glyph-icon simple-icon-bubble"></i> Twin</button>
+                                    <button class="btn w-25 text-primary" (click)="share(product.id)"><i class="glyph-icon iconsminds-sharethis"></i> Compartir</button>
                                 </div>
                                 
                             </div>

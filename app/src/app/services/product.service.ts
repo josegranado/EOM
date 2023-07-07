@@ -90,4 +90,16 @@ export class ProductService {
     });
     return this.httpClient.get(environment.apiUrl+'/products/'+id+'/favorites', { headers });
   }
+  like(id): Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    return this.httpClient.post(environment.apiUrl+'/products/'+id+'/interactions', {}, { headers });
+  }
+  dislike(id): Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    return this.httpClient.delete(environment.apiUrl+'/products/'+id+'/interactions', { headers });
+  }
 }

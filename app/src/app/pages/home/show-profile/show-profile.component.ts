@@ -184,4 +184,32 @@ export class ShowProfileComponent implements OnInit {
       }
     })
   }
+  like(id){
+    this.productService.like(id).subscribe( res => {
+      console.log(res)
+      if ( res.status == 201){
+        location.reload();
+      }
+    })
+  }
+  dislike(id){
+    this.productService.dislike(id).subscribe( res => {
+      console.log(res)
+      if ( res.status == 201){
+        //location.reload();
+      }
+    })
+  }
+  share(id){}
+  twin(id){
+    let twin = {
+      to: this.identity.id,
+    }
+    this.twinService.store(twin).subscribe( res => {
+      console.log( res )
+      if ( res.status == 201){
+        this.router.navigate(['/notifications']);
+      }
+    })
+  }
 }

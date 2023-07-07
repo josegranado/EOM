@@ -11,16 +11,8 @@ class SearchController {
             console.log(search)
             let users = [];
             const profiles = await Database.from('profiles')
+            .whereRaw('first_name @@ :term OR last_name @@ :term', {term: '%'+search+'%'})
             .where('deleted', 0)
-            .where(
-                'first_name',
-                'LIKE',
-                '%'+search+'%'
-            ).orWhere(
-                'last_name',
-                'LIKE',
-                '%'+search+'%'
-            )
             
             console.log(profiles)
             for( let i = 0; i < profiles.length; i++){
@@ -31,44 +23,28 @@ class SearchController {
                 user.profile = profiles[i];
                 users.push(user)
             }
-            const services = await Database.from('products')
-                .where(
-                    'title',
-                    'LIKE',
-                    '%'+search+'%'
-                ).where('deleted', 0)
-                .where('type', 2)
-            for ( let i = 0; i < services.length; i++){
-                services[i].user = await User.findBy({
-                    id: services[i].user_id,
+            let services = [];
+            let products = [];
+            const ctx = await Database.from('products')
+                .whereRaw('title @@ :term OR description @@ :term', { term: '%'+search+'%'})
+                
+            for ( let i = 0; i < ctx.length; i++){
+                ctx[i].user = await User.findBy({
+                    id: ctx[i].user_id,
                     deleted: 0
                 })
-                services[i].user.profile = await Profile.findBy({
-                    user_id: services[i].user_id,
+                ctx[i].user.profile = await Profile.findBy({
+                    user_id: ctx[i].user_id,
                     deleted: 0
                 })
+                if ( ctx[i].type === 1){
+                    products.push(ctx[i])
+                }
+                if ( ctx[i].type === 2){
+                    services.push(ctx[i])
+                }
             }
-            const products = await Database.from('products')
-                .where(
-                    'title',
-                    'LIKE',
-                    '%'+search+'%'
-                ).where(
-                    'description',
-                    'LIKE',
-                    '%'+search+'%'
-                ).where('deleted', 0)
-                .where('type', 1)
-            for ( let i = 0; i < products.length; i++){
-                products[i].user = await User.findBy({
-                    id: products[i].user_id,
-                    deleted: 0
-                })
-                products[i].user.profile = await Profile.findBy({
-                    user_id: products[i].user_id,
-                    deleted: 0
-                })
-            }
+            
             return response.json({ status: 201, data:{
                 products: products,
                 services: services,

@@ -76,8 +76,23 @@
                             <input [(ngModel)]="user.rfc" type="text" name="rfc" ngModel class="form-control form-control-register" required placeholder="RFC*">
                         </div>
                         <div class="form-group">
-                       
-                            <ng-select [(ngModel)]="user.sector" placeholder="¿A qué sector pertenece?*" ngModel required [items]="sectors" bindLabel="name" name="sector"></ng-select>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="option_sector" [(ngModel)]="user.option_sector" required value="P" >
+                                <label class="form-check-label" for="inlineRadio1">Primario</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="option_sector" [(ngModel)]="user.option_sector" required  value="I">
+                                <label class="form-check-label" for="inlineRadio2">Industrias</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="option_sector" [(ngModel)]="user.option_sector" required  value="S">
+                                <label class="form-check-label" for="inlineRadio2">Servicios</label>
+                              </div>
+                        </div>
+                        <div class="form-group">
+                            <ng-select *ngIf="user.option_sector == 'P'" [(ngModel)]="user.sector" placeholder="¿A qué sector pertenece?*" ngModel required [items]="primary" bindLabel="name" name="sector" required></ng-select>
+                            <ng-select *ngIf="user.option_sector == 'I'" [(ngModel)]="user.sector" placeholder="¿A qué sector pertenece?*" ngModel required [items]="industries" bindLabel="name" name="sector" required></ng-select>
+                            <ng-select *ngIf="user.option_sector == 'S'" [(ngModel)]="user.sector" placeholder="¿A qué sector pertenece?*" ngModel required [items]="services" bindLabel="name" name="sector" required></ng-select>
                         </div>
                         <div class="form-group">
                             
@@ -100,7 +115,7 @@
                         <h2><strong>¡El último paso!</strong></h2>
                         <br>
                         <div class="form-group">
-                            <ng-select required class="form-control" style="padding:0;" ngModel placeholder="Selecciona la categoría" ngModel required [items]="brokers" bindLabel="email" name="ubication"></ng-select>
+                            <ng-select required class="form-control" style="padding:0;" ngModel placeholder="Selecciona el nombre de tu broker a El Otro Mercado" ngModel required [items]="brokers" bindLabel="email" name="ubication"></ng-select>
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label" style="font-size:12px;">¿Qué productos o servicios buscas en El Otro Mercado?</label>

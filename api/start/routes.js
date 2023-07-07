@@ -35,6 +35,9 @@ Route.group(() => {
     Route.put(':product_id/comments', 'CommentController.update').middleware(['auth:jwt'])
     Route.delete(':product_id/comments', 'CommentController.destroy').middleware(['auth:jwt'])
     Route.put(':product_id/califications', 'CalificationController.update').middleware(['auth:jwt'])
+
+    Route.post(':productId/interactions', 'InteractionController.store').middleware(['auth:jwt'])
+    Route.delete(':productId/interactions', 'InteractionController.destroy').middleware(['auth:jwt'])
 }).prefix('products')
 Route.group(() => {
     Route.get('', 'ServiceController.index')

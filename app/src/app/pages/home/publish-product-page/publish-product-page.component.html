@@ -61,9 +61,9 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="control-label">Duración</label>&nbsp;
-                                            <button [ngClass]="{'btn-primary': duration === 5 }"(click)="setDuration(5)" class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">5 días</button>&nbsp;
-                                            <button [ngClass]="{'btn-primary': duration === 15 }"(click)="setDuration(15)"class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">15 días</button>&nbsp;
-                                            <button [ngClass]="{'btn-primary': duration === 30 }"(click)="setDuration(30)"class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">30 días</button>&nbsp;
+                                            <button type="button" [ngClass]="{'btn-primary': duration === 5 }"(click)="setDuration(5)" class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">5 días</button>&nbsp;
+                                            <button type="button" [ngClass]="{'btn-primary': duration === 15 }"(click)="setDuration(15)"class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">15 días</button>&nbsp;
+                                            <button type="button" [ngClass]="{'btn-primary': duration === 30 }"(click)="setDuration(30)"class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">30 días</button>&nbsp;
                                         </div>
                                         <div class="form-group">       
                                             <label for="" class="control-label">Ubicación</label>
@@ -162,18 +162,22 @@
                                             <ng-select placeholder="Selecciona la categoría" ngModel required [items]="categories" bindLabel="name" name="category"></ng-select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="control-label">¿Qué buscas?<br></label>&nbsp;
-                                            <input type="text" ngModel class="form-control" name="title" placeholder="¿Qué servicio buscas?" required>
+                                            <label for="" class="control-label">¿Qué servicios ofreces?<br></label>&nbsp;
+                                            <input type="text" ngModel class="form-control" name="title" placeholder="¿Qué servicios ofreces?" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="control-label">Descripción <br> </label>&nbsp;
                                             <textarea ngModel placeholder="Describe el servicio que necesitas" name="description" id="" class="form-control" required></textarea>
                                         </div>
                                         <div class="form-group">
+                                            <label for="" class="control-label">Precio</label>&nbsp;
+                                            <input name="price" type="number" class="form-control" ngModel required placeholder="Ingresa el precio del producto">
+                                        </div>
+                                        <div class="form-group">
                                             <label for="" class="control-label">Duración</label>&nbsp;
-                                            <button [ngClass]="{'btn-primary': duration === 5 }"(click)="setDuration(5)" class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">5 días</button>&nbsp;
-                                            <button [ngClass]="{'btn-primary': duration === 15 }"(click)="setDuration(15)"class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">15 días</button>&nbsp;
-                                            <button [ngClass]="{'btn-primary': duration === 30 }"(click)="setDuration(30)"class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">30 días</button>&nbsp;
+                                            <button type="button" [ngClass]="{'btn-primary': duration === 5 }" (click)="setDuration(5)" class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">5 días</button>&nbsp;
+                                            <button type="button" [ngClass]="{'btn-primary': duration === 15 }" (click)="setDuration(15)"class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">15 días</button>&nbsp;
+                                            <button type="button" [ngClass]="{'btn-primary': duration === 30 }" (click)="setDuration(30)"class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">30 días</button>&nbsp;
                                         </div>
                                         <div class="form-group">       
                                             <label for="" class="control-label">Ubicación</label>

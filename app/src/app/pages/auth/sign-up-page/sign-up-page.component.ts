@@ -9,22 +9,206 @@ import Swal from 'sweetalert2';
   styleUrls: ['./sign-up-page.component.scss']
 })
 export class SignUpPageComponent implements OnInit {
-  public sectors = [
-   {value: 1, name:"Tecnología"},
-   {value: 2, name:"Naturaleza"},
+  public primary = [
+    {value: 1, name:"Agricultura"},
+    {value: 2, name:"Ganaderia"},
+    {value: 1, name:"Pesca"},
+    {value: 2, name:"Mineria"},
+    {value: 1, name:"Otro"}
   ]
-  public sector = [];
+  public industries = [
+    {value: 1, name:"Alimentos y bebidas"},
+    {value: 2, name:"Automótriz y transporte terrestre"},
+    {value: 1, name:"Aviacion"},
+    {value: 2, name:"Comercio"},
+    {value: 1, name:"Construcción"},
+    {value: 2, name:"Diseño y manufactura de productos"},
+    {value: 1, name:"Energía, petróleo y gas"},
+    {value: 2, name:"Impresión"},
+    {value: 1, name:"Industria química"},
+    {value: 2, name:"Ganaderia"},
+    {value: 1, name:"Madera"},
+    {value: 2, name:"Metal"},
+    {value: 1, name:"Muebles"},
+    {value: 2, name:"Papel"},
+    {value: 1, name:"Tabaco"},
+    {value: 2, name:"Tecnología"},
+    {value: 1, name:"Textil"},
+    {value: 2, name:"Transporte y distribución"},
+    {value: 1, name:"Otra"},
+  ];
+  public services = [
+    {value: 1, name:"Aerocomercial"},
+    {value: 2, name:"Alimentos y bebidas"},
+    {value: 1, name:"Arquitectura, ingeniería y construcción"},
+    {value: 2, name:"Artes gráficas, impresión"},
+    {value: 1, name:"Capacitación"},
+    {value: 2, name:"Cine, Gaming y Entretenimiento"},
+    {value: 1, name:"Deportes"},
+    {value: 2, name:"Diseño"},
+    {value: 1, name:"Distribución"},
+    {value: 2, name:"E-commerce, plataformas, digitales, programación web"},
+    {value: 1, name:"Educación"},
+    {value: 2, name:"Empaque"},
+    {value: 1, name:"Gobierno"},
+    {value: 2, name:"Hotelería y turismo"},
+    {value: 1, name:"Joyería y perfumería"},
+    {value: 2, name:"Tecnología"},
+    {value: 1, name:"Marketing"},
+    {value: 2, name:"Medios de comunicación"},
+    {value: 1, name:"Moda"},
+    {value: 1, name:"Productos y servicios para el hogar"},
+    {value: 2, name:"Publicidad"},
+    {value: 1, name:"Reciclaje"},
+    {value: 2, name:"Restaurantes"},
+    {value: 1, name:"Servicios financieros"},
+    {value: 2, name:"Textil"},
+    {value: 1, name:"Otros"},
+  ];
+  public departaments = [
+    {value: 0, name: "Ventas - Comercial"},
+    {value: 0, name: "Gestor de almacén"},
+    {value: 0, name: "Marketing"},
+    {value: 0, name: "Finanzas"},
+    {value: 0, name: "Dirección General"},
+    {value: 0, name: "Operaciones"},
+    {value: 0, name: "Comprador"},
+    {value: 0, name: "Ventas - Comercial "},
+    {value: 0, name: "Ventas - Comercial "},
+    {value: 0, name: "Ventas - Comercial "},
+  ]
   public brokers;
-  public sedes = [
-    { value : 1, name: 'Cualquiera'}
+  public ocupations = [
+    { value: 1 , name: 'Abogado'},
+    { value: 2 , name: 'Actor'},
+    { value: 3 , name: 'Administrador'},
+    { value: 4 , name: 'Aduanero'},
+    { value: 5 , name: 'Aeromozo/Azafata'},
+    { value: 6 , name: 'Viajes'},
+    { value: 7 , name: 'Corredor de seguros'},
+    { value: 8 , name: 'Agricultura'},
+    { value: 9 , name: 'Obrero'},
+    { value: 10 , name: 'Ama de casa'},
+    { value: 11 , name: 'Computacion'},
+    { value: 12, name: 'Antropologo'},
+    { value: 13, name: 'Archivero'},
+    { value: 14, name: 'Armador de Barco'},
+    { value: 15, name: 'Arquitecto'},
+    { value: 16, name: 'Artesano'},
+    { value: 17, name: 'Asistente social'},
+    { value: 18, name: 'Autor Literario'},
+    { value: 19, name: 'Avicultor'},
+    { value: 20, name: 'Cientifico'},
+    { value: 21, name: 'Basurero'},
+    { value: 22, name: 'Cajero'},
+    { value: 23, name: 'Camarero'},
+    { value: 24, name: 'Cambista'},
+    { value: 25, name: 'Campesino'},
+    { value: 26, name: 'Capataz'},
+    { value: 27, name: 'Cargador'},
+    { value: 28, name: 'Carpintero'},
+    { value: 29, name: 'Cerrajero'},
+    { value: 30, name: 'Cobrador'},
+    { value: 31, name: 'Comerciante'},
+    { value: 32, name: 'Conductor'},
+    { value: 33, name: 'Conserje'},
+    { value: 34, name: 'Constructor'},
+    { value: 35, name: 'Contador'},
+    { value: 36, name: 'Confeccion de Ropa'},
+    { value: 37, name: 'Cosmetologo'},
+    { value: 38, name: 'Decorador'},
+    { value: 39, name: 'Dentista'},
+    { value: 40, name: 'Deportista'},
+    { value: 41, name: 'Distribuidor'},
+    { value: 42, name: 'Docente'},
+    { value: 43, name: 'Economista'},
+    { value: 44, name: 'Electricista'},
+    { value: 45, name: 'Empresario'},
+    { value: 46, name: 'Enfermero'},
+    { value: 47, name: 'Ensamblaodr'},
+    { value: 48, name: 'Escultor'},
+    { value: 49, name: 'Fotografo'},
+    { value: 50, name: 'Ganadero'},
+    { value: 51, name: 'Gasifitero'},
+    { value: 52, name: 'Historiador'},
+    { value: 53, name: 'Ingeniero'},
+    { value: 54, name: 'Traductor'},
+    { value: 55, name: 'Jardinero'},
+    { value: 56, name: 'Jockey'},
+    { value: 57, name: 'Joyero'},
+    { value: 58, name: 'Jubilado'},
+
+    { value: 0 , name: 'Laboratorista'},
+    { value: 0 , name: 'Liquidador'},
+    { value: 0 , name: 'Maquinista'},
+    { value: 0 , name: 'Subastador'},
+    { value: 0 , name: 'Mayorista'},
+    { value: 0 , name: 'Mecanico'},
+    { value: 0 , name: 'Medico'},
+    { value: 0 , name: 'Metalurgista'},
+    { value: 0 , name: 'Mlitar'},
+    { value: 0 , name: 'Nutricionista'},
+
+    { value: 0 , name: 'Obstetriz'},
+    { value: 0 , name: 'Organizador'},
+    { value: 0 , name: 'Panadero'},
+    { value: 0 , name: 'Paramedico'}
   ]
-  public states = [
-    {
-      value: 1, name:"Guanajuato"
-    },
-    {
-      value: 2, name:"Oaxaca"
-    }
+  public sedes: any = [
+    {value: 1, name:'Aguascalientes'},
+    {value: 2, name:'Baja California'},
+    {value: 3, name:'Baja California Sur'},
+    {value: 4, name:'Campeche'},
+    {value: 5, name:'Coahuila'},
+    {value: 6, name:'Colima'},
+    {value: 7, name:'Chiapas'},
+    {value: 8, name:'Chihuahua'},
+    {value: 9, name:'Durango'},
+    {value: 10, name:'Distrito Federal'},
+    {value: 11, name:'Guanajuato'},
+    {value: 12, name:'Guerrero'},
+    {value: 13, name:'Hidalgo'},
+    {value: 14, name:'Jalisco'},
+    {value: 15, name:'México'},
+    {value: 16, name:'Michoacán'},
+    {value: 17, name:'Morelos'},
+    {value: 18, name:'Nayarit'},
+    {value: 19, name:'Nuevo León'},
+    {value: 20, name:'Oaxaca'},
+    {value: 21, name:'Puebla'},
+    {value: 22, name:'Querétaro'},
+    {value: 23, name:'Quintana Roo'},
+    {value: 24, name:'San Luis Potosí'},
+    {value: 25, name:'Yucatán'},
+    {value: 26, name:'Zacatecas'}
+  ];
+  public states: any = [
+    {value: 1, name:'Aguascalientes'},
+    {value: 2, name:'Baja California'},
+    {value: 3, name:'Baja California Sur'},
+    {value: 4, name:'Campeche'},
+    {value: 5, name:'Coahuila'},
+    {value: 6, name:'Colima'},
+    {value: 7, name:'Chiapas'},
+    {value: 8, name:'Chihuahua'},
+    {value: 9, name:'Durango'},
+    {value: 10, name:'Distrito Federal'},
+    {value: 11, name:'Guanajuato'},
+    {value: 12, name:'Guerrero'},
+    {value: 13, name:'Hidalgo'},
+    {value: 14, name:'Jalisco'},
+    {value: 15, name:'México'},
+    {value: 16, name:'Michoacán'},
+    {value: 17, name:'Morelos'},
+    {value: 18, name:'Nayarit'},
+    {value: 19, name:'Nuevo León'},
+    {value: 20, name:'Oaxaca'},
+    {value: 21, name:'Puebla'},
+    {value: 22, name:'Querétaro'},
+    {value: 23, name:'Quintana Roo'},
+    {value: 24, name:'San Luis Potosí'},
+    {value: 25, name:'Yucatán'},
+    {value: 26, name:'Zacatecas'}
   ];
   public genders = [
     {
@@ -59,6 +243,7 @@ export class SignUpPageComponent implements OnInit {
     terms_and_privacity: true,
     confirm_password: null,
     sector: null,
+    sector_option: 'P',
     sede: null
   };
   typePassword: string = 'password';
@@ -167,9 +352,4 @@ export class SignUpPageComponent implements OnInit {
   noViewConfirmPassword(){
     this.passwordTypeConfirm = 'password'
   }
-  public departaments = [
-    {
-      value: 1, name: 'Developer'
-    }
-  ];
 }
