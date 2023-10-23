@@ -4,6 +4,7 @@ const User = use('App/Models/User');
 const Profile = use('App/Models/Profile');
 const Enterprise = use('App/Models/Enterprise')
 const Survey = use('App/Models/Survey')
+const Account = use('App/Models/Account')
 const  {  v4 : uuidv4  }  =  require('uuid');
 class UserController {
     async index({ request, response, auth }){
@@ -23,6 +24,10 @@ class UserController {
                     user_id: users[i].id,
                     deleted: 0
                 });
+                users[i].account = await Account.findBy({
+                    user_id: users[i].id,
+                    deleted: 0
+                })
             }
             if ( auth_user.role > 1 ) return response.json({ status: 401, message: 'Not authorized'})
             return response.json({ status: 201, data: users })

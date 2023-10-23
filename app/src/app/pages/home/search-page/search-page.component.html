@@ -12,11 +12,11 @@
         <div *ngIf="!users || users.length == 0" class="col-12 mt-3 mb-3"><h3>No hay resultados para mostrar</h3></div>
         <div *ngFor="let user of users" class="col-3">
             <div routerLink="/profile/{{ user.id }}"  class="card">
-                <img *ngIf="!user.profile.avatar" class="card-img-top" src="assets/images/avatar.png" alt="Card image cap">
-                <img *ngIf="user.profile.avatar" class="card-img-top" src="{{ api + '/files/avatars/' + user.profile.avatar}}" alt="Card image cap">
+                <img *ngIf="!user?.profile?.avatar" class="card-img-top" src="assets/images/avatar.png" alt="Card image cap">
+                <img *ngIf="user?.profile?.avatar" class="card-img-top" src="{{ api + '/files/avatars/' + user.profile.avatar}}" alt="Card image cap">
                 <div class="card-body">
                     <div class="card-body">
-                        <h2 class="card-title"><strong>{{ user.profile.first_name }} {{ user.profile.last_name }}</strong></h2>
+                        <h2 class="card-title"><strong>{{ user.profile?.first_name }} {{ user.profile?.last_name }}</strong></h2>
                     </div>
                 </div>
             </div>

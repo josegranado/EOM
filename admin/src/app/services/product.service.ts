@@ -22,4 +22,10 @@ export class ProductService {
     })
     return this.httpClient.get(this.api + '/admin/products/'+page, {headers})
   }
+  delete(id): Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    return this.httpClient.delete(environment.apiUrl+'/admin/product/'+id, { headers });
+  }
 }

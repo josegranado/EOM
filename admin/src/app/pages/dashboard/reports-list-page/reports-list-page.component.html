@@ -1,1 +1,71 @@
-<p>reports-list-page works!</p>
+<app-navbar></app-navbar>
+<section id="main">
+    <div class="row">
+        <div class="col-1">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-11 p-2" style="margin-top:100px;">
+            <h1><strong>Lista de reportes</strong></h1>
+            <hr>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-stripped">
+                        <thead>
+                            <th scope="col"></th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre del producto</th>
+                            <th scope="col">Tipo de reporte</th>
+                            <th scope="col">Mensaje</th>
+                            <th scope="col">Acciones</th>
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let report of reports" >
+                                <ng-container *ngIf="report.product?.deleted == 0">
+                                    <td>
+                                        <img src="{{ api + '/files/products/' + report.product.thumbnail}}" alt="" style="width:40px;">
+                                    </td>
+                                    <td> {{ report.product.id }}</td>
+                                    <td>
+                                        {{ report.product.title }}
+                                    </td>
+                                    <td>
+                                        <span *ngIf="report.type == 1">Contenido sexual</span>
+                                        <span *ngIf="report.type == 2">Contenido violento</span>
+                                        <span *ngIf="report.type == 3">Contenido de acoso</span>
+                                        <span *ngIf="report.type == 4">Contenido de suicidio o autolesiones</span>
+                                        <span *ngIf="report.type == 5">Informacion falsa</span>
+                                        <span *ngIf="report.type == 6">Spam</span>
+                                        <span *ngIf="report.type == 7">Ventas no autorizadas</span>
+                                        <span *ngIf="report.type == 8">Lenguaje que incita al odio</span>
+                                        <span *ngIf="report.type == 9">Terrorismo</span>
+                                        <span *ngIf="report.type == 10">Otro problema</span>
+
+                                    </td>
+                                    <td>
+                                        {{ report.message }}
+                                    </td>
+                                 
+                                    <td>
+                                        <button (click)="approve(report.product.id)" class="btn btn-primary">
+                                            <i class="fa-solid fa-circle-check"></i>
+                                        </button>&nbsp;
+                                        <a  target="_blank" href="http://localhost:4200/product/{{ report.product.uuid }}">
+                                            <button class="btn btn-success" routerLink="">
+                                                Ver Producto
+                                            </button>
+                                        </a>
+                                        
+                                        
+                                    </td>
+                                </ng-container>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

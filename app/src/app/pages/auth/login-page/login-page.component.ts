@@ -22,7 +22,7 @@ export class LoginPageComponent implements OnInit {
       console.log( res )
       if ( res.status == 201){
         localStorage.setItem('identity', JSON.stringify(res.data));
-        localStorage.setItem('token', res.token.token );
+        localStorage.setItem('token', 'Bearer '+ res.token.token );
         this.router.navigate(['/'])
       }else{
         Swal.fire({

@@ -11,12 +11,14 @@ import { SearchPageComponent } from './home/search-page/search-page.component';
 import { ShowProfileComponent } from './home/show-profile/show-profile.component';
 import { SingleProductPageComponent } from './home/single-product-page/single-product-page.component';
 import { TwinsPageComponent } from './home/twins-page/twins-page.component';
+import { PublishOfferComponent } from './home/publish-offer/publish-offer.component';
 
 const routes: Routes = [
   {path: '', component: IndexPageComponent},
   {path: 'login', component: LoginPageComponent},
   {path: 'sign-up', component: SignUpPageComponent},
   {path: 'publish-product', component: PublishProductPageComponent},
+  {path: 'publish-offer', component: PublishOfferComponent},
   {path: 'notifications', component: NotificationsPageComponent},
   {path: 'twins', component: TwinsPageComponent },
   {path: 'product/:uuid', component: SingleProductPageComponent},

@@ -11,7 +11,7 @@ export class FollowService {
   constructor(
     private httpClient: HttpClient
   ) { 
-    this.token = 'Bearer '+ localStorage.getItem('token');
+    this.token =  localStorage.getItem('token');
   }
   public index(user_id):Observable<any>{
     const headers = new HttpHeaders({

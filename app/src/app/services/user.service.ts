@@ -12,7 +12,7 @@ export class UserService {
   constructor(
     private httpClient: HttpClient
   ) { 
-    this.token = 'Bearer '+ localStorage.getItem('token');
+    this.token =  localStorage.getItem('token');
   }
   public show(id):Observable<any>{
     const headers = new HttpHeaders({

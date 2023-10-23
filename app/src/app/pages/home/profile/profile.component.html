@@ -12,7 +12,6 @@
                 <h1>{{ identity.profile.first_name }} {{ identity.profile.last_name }} </h1>
                 <br>
                 <rating [readonly]="true" name="calification" [max]="5" ngModel></rating> &nbsp;
-                <button class="btn btn-outline-light">Ver reputación</button>
                 <br>
                 <h5>{{ allProducts?.length }} publicaciones activas</h5>
                 <span class="text-white"><a class="text-white" href="#" style="text-decoration:none !important;">{{ count_followers  }} Seguidores</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-white"><a href="#" class="text-white" style="text-decoration:none !important;">{{ count_followeds }} Seguidos</a></span>
@@ -268,14 +267,21 @@
             <div class="col-12 col-md-1"></div>
             <div class="col-12 col-md-7 mt-5">
                 <button routerLink="/publish-product" class="btn btn-success w-48 mt-5">
-                    Quiero Vender
+                    Quiero vender
                 </button>
-                <button routerLink="/" class="btn btn-primary w-50 mt-5">
-                    Quiero Comprar
+                <button routerLink="/publish-offer" class="btn btn-primary w-50 mt-5">
+                    Quiero comprar
                 </button>
-                <div *ngFor="let product of products" class="card mt-3 mb-3">
+                
+                <div *ngFor="let product of products" class="card mt-3 mb-3">  
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row" style="position:relative;">
+                            <button (click)="options = !options" class="btn c-pointer" style="position:absolute; top:15px;right:15px; font-size:25px;z-index:99;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                            <div *ngIf="options" class="dropdown ellipsis" style="">
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" (click)="deleteProduct(product.id)">Eliminar producto</a></li>
+                                </ul>
+                            </div> 
                             <div class="col-2">
                                 <img *ngIf="!identity.profile.avatar" src="assets/images/avatar.png" alt="" style="width:100%;">
                                 <img *ngIf="identity.profile.avatar" [src]="apiUrl + '/files/avatars/' + identity.profile.avatar" alt="" style="width:100%;">

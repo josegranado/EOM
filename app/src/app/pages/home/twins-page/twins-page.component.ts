@@ -36,22 +36,24 @@ export class TwinsPageComponent implements OnInit {
   public twin = null;
   public messages;
   openTwin(id):void{
-    this.twinService.show(id).subscribe( res => {
-      console.log( res )
-      if ( res.status == 201 ){
-        this.twin = res.data;
-        this.messages = res.data.messages;
-        this.messageService.listen('message-event').subscribe( data => { 
-          this.twinService.show(id).subscribe( res => {
-            console.log( res )
-            if ( res.status == 201 ){
-              this.twin = res.data;
-              this.messages = res.data.messages;
-            }
-        })
-      })
-    }
-  })
+    
+      this.twinService.show(id).subscribe( res => {
+        console.log( res )
+        if ( res.status == 201 ){
+          this.twin = res.data;
+          this.messages = res.data.messages;
+          this.messageService.listen('message').subscribe( res =>{ 
+            this.twinService.show(id).subscribe( res => {
+              console.log( res )
+              if ( res.status == 201 ){
+                this.twin = res.data;
+                this.messages = res.data.messages;
+              }
+            }) 
+          });   
+        }
+      });
+      
   }
   public message_content = '';
   message( value ):void{
@@ -77,9 +79,7 @@ export class TwinsPageComponent implements OnInit {
       }
       this.message_content = '';
     }
-    this.messageService.emit('send-message', message );
-    this.messageService.listen('message-event').subscribe( data => { 
-      this.openTwin(this.twin.id);
-    })
+    this.messageService.emit('message', message );
+    this.openTwin(this.twin.id);
   }
 }

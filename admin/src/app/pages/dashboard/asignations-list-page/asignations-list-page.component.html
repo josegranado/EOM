@@ -1,1 +1,100 @@
-<p>asignations-list-page works!</p>
+<app-navbar></app-navbar>
+<div class="row" >
+    <div class="col-1">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-11" style="margin-top:100px;">
+        <button class="btn btn-primary" (click)="open(assignation)">Crear asignaciones</button>
+        <hr>
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="form-group">
+                    <ng-select placeholder="Filtrar por usuario" [(ngModel)]="search" [items]="users" bindLabel="email" (change)="onSearch(search)"></ng-select>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-striped" style="max-width:100%; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">ID</th>
+                            <th scope="col">UUID</th>
+                            <th scope="col">EMAIL</th>
+                            <th scope="col">MONTO</th>
+                            <th scope="col">ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                        <tr *ngFor="let tx of transactions" >
+                            <td class="text-center"><img src="assets/images/avatar.png" alt="" style="width:30px;"></td>
+                            <td class="text-center">{{ tx.id }}</td>
+                            <td>{{ tx.uuid }}</td>
+                            <td>{{ tx.user.email }}</td>
+                            <td>{{ tx.amount }}</td>
+                            <td>
+                                <!--
+                                <button (click)="is_approved(user.id)" *ngIf="user.is_approved == 0" class="btn btn-primary">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </button>&nbsp;
+                                <button class="btn btn-success">
+                                    <i class="fa-solid fa-building"></i>
+                                </button>&nbsp;
+                                <button class="btn btn-warning" >
+                                    <i class="fa-solid fa-square-poll-horizontal"></i>
+                                </button>&nbsp;
+                                <button class="btn btn-outline-primary" >
+                                    <i class="fa-solid fa-lock"></i>
+                                </button>&nbsp;
+                                <button class="btn btn-danger" >
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                                -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #assignation>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title text-center">ASIGNACIONES</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form #formAsg="ngForm" (ngSubmit)="onSubmit(formAsg.value)">
+                <div class="form-group">
+                    <label for="" class="control-label">Cantidad</label>
+                    <input type="number" name="amount" class="form-control" ngModel>
+                </div>
+                <div class="form-group">
+                    <div class="form-check w-40">
+                        <input class="form-check-input" type="radio" [(ngModel)]="type" name="type" value="P" checked>
+                        <label class="form-check-label" for="exampleRadios1">
+                          Usuario personalizado
+                        </label>
+                      </div>
+                    <div class="form-check w-50">
+                        <input class="form-check-input" type="radio" name="type" [(ngModel)]="type"  value="T">
+                        <label class="form-check-label" for="exampleRadios2">
+                          Todos los usuarios
+                        </label>
+                    </div>
+                    <div *ngIf="type == 'P'" class="form-group">
+                        <ng-select placeholder="Creditos enviar a..." ngModel [items]="users" bindLabel="email" name="toUser"></ng-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">GUARDAR</button>
+                </div>
+            </form>   
+        </div>
+    </div>
+</ng-template>

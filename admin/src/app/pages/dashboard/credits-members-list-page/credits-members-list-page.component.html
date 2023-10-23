@@ -1,1 +1,66 @@
-<p>credits-members-list-page works!</p>
+<app-navbar></app-navbar>
+<div class="row" >
+    <div class="col-1">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-11" style="margin-top:100px;">
+        <button class="btn btn-primary">Agregar Usuario</button>
+        <hr>
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="form-group">
+                    <ng-select placeholder="Filtrar por usuario" [(ngModel)]="search" [items]="users" bindLabel="email" (change)="onSearch(search)"></ng-select>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-striped" style="max-width:100%; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">ID</th>
+                            <th scope="col">NOMBRE</th>
+                            <th scope="col">APELLIDO</th>
+                            <th scope="col">EMAIL</th>
+                            <th scope="col">BALANCE</th>
+                            <th scope="col">ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                        <tr *ngFor="let user of users" >
+                            <td class="text-center"><img src="assets/images/avatar.png" alt="" style="width:30px;"></td>
+                            <td class="text-center">{{ user.id }}</td>
+                            <td>{{ user.profile?.first_name }}</td>
+                            <td>{{ user.profile?.last_name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td class="text-center">
+                                <strong>{{ user.account.balance }}</strong>
+                            </td>
+                            <td>
+                                <!--
+                                <button (click)="is_approved(user.id)" *ngIf="user.is_approved == 0" class="btn btn-primary">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </button>&nbsp;
+                                <button class="btn btn-success">
+                                    <i class="fa-solid fa-building"></i>
+                                </button>&nbsp;
+                                <button class="btn btn-warning" >
+                                    <i class="fa-solid fa-square-poll-horizontal"></i>
+                                </button>&nbsp;
+                                <button class="btn btn-outline-primary" >
+                                    <i class="fa-solid fa-lock"></i>
+                                </button>&nbsp;
+                                <button class="btn btn-danger" >
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                                -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

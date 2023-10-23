@@ -9,7 +9,7 @@ class FavoritesSchema extends Schema {
       table.increments()
       table.integer('product_id').unsigned().nullable()
       table.integer('user_id').unsigned().nullable()
-      table.integer('delelted').nullable();
+      table.integer('deleted').nullable();
       table.timestamps()
     })
   }

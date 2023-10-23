@@ -2,17 +2,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { io } from 'socket.io-client';
+import Ws from "@adonisjs/websocket-client";
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
   public token;
-  public socket = io(environment.apiUrl)
+  public socket:any = Ws(environment.socket, {
+    path: "ws"
+  })
   constructor(
     private httpClient: HttpClient
   ) { 
-    this.token = 'Bearer '+ localStorage.getItem('token');
+    this.token = localStorage.getItem('token');
+    this.socket = this.socket.connect();
+    this.socket = this.socket.subscribe("notification")
   }
   public index():Observable<any>{
     const headers = new HttpHeaders({
@@ -40,6 +44,7 @@ export class NotificationService {
   }
   listen(eventName: string):Observable<any>
   {
+    
     return new Observable((Subscriber) => {
       this.socket.on(eventName, (data) =>{
         Subscriber.next(data)
@@ -48,7 +53,6 @@ export class NotificationService {
   }
   emit(eventName:string, data:any)
   {
-    console.log(data)
     this.socket.emit(eventName, data)
   }
 }

@@ -9,7 +9,7 @@ export class AccountService {
   public token;
   public apiUrl = environment.apiUrl
   constructor(private http: HttpClient) {
-    this.token = 'Bearer '+ localStorage.getItem('token');
+    this.token = localStorage.getItem('token');
   }
   index():Observable<any>{
     const headers = new HttpHeaders({

@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
           console.log(( res ))
           if ( res.status == 201){
             this.notifications = res.count;
-            this.notificationService.listen('notification-event').subscribe( data => {
+            this.notificationService.listen('notification').subscribe( data => {
               this.notificationService.index().subscribe( res => {
                 console.log(( res ))
                 if ( res.status == 201){
@@ -56,4 +56,5 @@ export class HeaderComponent implements OnInit {
     this.searchEvent.emit(values.search);
     this.router.navigate(['/search/'+values.search ]);
   }
+  public secondary = true;
 }

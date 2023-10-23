@@ -1,0 +1,264 @@
+<eom-header></eom-header>
+<section id="product-page" style="margin-top:130px;">
+    <div class="jumbotron bg-primary text-white" style="height:300px">
+        <div class="row d-flex- align-items-center justify-content-center">
+            <div class="col-2">
+                <img src="assets/images/eom-coin-transparent.png" alt="" style="width:100%">
+            </div>
+            <div class="col-10">
+                <h1>El único lugar donde <BR> puedes <strong>comprar sin dinero.</strong></h1>
+            </div>
+        </div>
+    </div>
+    <
+    <main style="padding:50px">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 filters">
+                    <app-sidebar-universe></app-sidebar-universe>
+                </div>
+                <div class="col-12 col-md-1"></div>
+                <div class="col-12 col-md-7" style="clear:both;">
+                    <div class="row">
+                        <button (click)="showForm('P')" class="btn btn-success pl-5 pr-5 btn-block" style="width:375px!important;">¿Qué producto quieres comprar?</button>
+                        <div class="mx-auto"></div>
+                        <button (click)="showForm('S')" class="btn btn-primary pl-5 pr-5 btn-block" style="width:375px!important;">¿Qué servicio quieres comprar?</button>
+                    </div>
+                    <br>
+                    <div *ngIf="productF" class="row">
+                    <div class="col-12">
+                        <div class="card w-100" style="border-radius:0 !important;">
+                            <div class="card-body">
+                                <h2 class="card-title">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-2">
+                                            <img src="assets/images/avatar.png" alt="" style="max-width:100px; height:100px;">
+                                        </div>
+                                        <div class="col-10">{{ identity.profile?.first_name }}, <span class="text-success">¿Qué quieres comprar?</span></div>
+                                    </div>
+                                </h2>
+                                    <hr>
+                                    <form #newProduct="ngForm" (ngSubmit)="onSubmit(newProduct.value, 'P')">
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Categoría</label>&nbsp;
+                                            <ng-select placeholder="Selecciona la categoría" ngModel required [items]="categories" bindLabel="name" name="category"></ng-select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Nombre<br></label>&nbsp;
+                                            <input type="text" ngModel class="form-control" name="title" placeholder="Nombre del producto" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Descripción <br> </label>&nbsp;
+                                            <textarea ngModel placeholder="Describe el producto" name="description" id="" class="form-control" required></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Uso</label>&nbsp;
+                                            <ng-select ngModel placeholder="Selecciona la categoría" required [items]="options_used" bindLabel="name" name="used"></ng-select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Precio</label>&nbsp;
+                                            <input (change)="onInputChange();" name="price" type="number" class="form-control" [(ngModel)]="price" required placeholder="Ingresa el precio del producto">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Duración</label>&nbsp;
+                                            <button type="button" [ngClass]="{'btn-primary': duration === 5 }"(click)="setDuration(5)" class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">5 días</button>&nbsp;
+                                            <button type="button" [ngClass]="{'btn-primary': duration === 15 }"(click)="setDuration(15)"class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">15 días</button>&nbsp;
+                                            <button type="button" [ngClass]="{'btn-primary': duration === 30 }"(click)="setDuration(30)"class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">30 días</button>&nbsp;
+                                        </div>
+                                        <div class="form-group">       
+                                            <label for="" class="control-label">Ubicación</label>
+                                            <ng-select placeholder="Selecciona tu ubicación" ngModel required [items]="states" bindLabel="name" name="ubication"></ng-select>
+                                        </div>
+                                        <div class="form-group mt-2 mb-2" style="padding:0;margin:0">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div id="upload-form" *ngFor="let i of [1, 2,3,4, 5, 6, 7, 8 , 9 , 10]" style="padding:0;width:20%;cursor:pointer;">
+                                                        <input #upload type="file" class="d-none" (change)="onThumbnailSelected($event, i)" required>
+                                                        <div (click)="upload.click() " *ngIf="i === 1 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[0] || 'assets/images/0.jpg'}});">
+                                                            <div class="card-body">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                <span class="text-white" style="position:absolute; bottom:5px;left:0; right:0"><i class="fa-sharp fa-solid fa-circle text-primary">&nbsp;</i><strong>Principal</strong></span>
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 2" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[1] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                                            <div class="card-body text-center" style="position:relative; text-center">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 3 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[2] || 'assets/images/0.jpg'}}); background-position: center; width: 100%; max-width:100%;height:125px; background-size: cover ;">
+                                                            <div class="card-body">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 4" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[3] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                                            <div class="card-body text-center" style="position:relative;">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 5 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[4] || 'assets/images/0.jpg'}}); background-position: center; width: 100%; max-width:100%;height:125px; background-size: cover ;">
+                                                            <div class="card-body">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 6" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[5] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                                            <div class="card-body text-center" style="position:relative; text-center">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 7 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[6] || 'assets/images/0.jpg'}}); background-position: center; width: 100%; max-width:100%;height:125px; background-size: cover ;">
+                                                            <div class="card-body">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 8" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[7] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                                            <div class="card-body text-center" style="position:relative; text-center">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 9" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[8] || 'assets/images/0.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                                            <div class="card-body text-center" style="position:relative; text-center">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 10" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[9] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                                            <div class="card-body text-center" style="position:relative; text-center;">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-success" [disabled]="newProduct.invalid">PUBLICAR PRODUCTO</button>
+                                        </div>
+                                    </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div *ngIf="serviceF" class="row">
+                        <div class="col-12">
+                            <div class="card w-100 mt-3" style="margin:0;">
+                                <div class="card-body">
+                                    <h2 class="card-title">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-2">
+                                                <img src="assets/images/avatar.png" alt="" style="max-width:100px; height:100px;">
+                                            </div>
+                                            <div class="col-10">{{ identity.profile?.first_name }}, <span class="text-success">¿Qué servicio ofreces?</span></div>
+                                        </div>
+                                    </h2>
+                                    <form #addService="ngForm" (ngSubmit)="onSubmit(addService.value, 'S')">
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Categoría</label>&nbsp;
+                                            <ng-select placeholder="Selecciona la categoría" ngModel required [items]="categories" bindLabel="name" name="category"></ng-select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Nombre<br></label>&nbsp;
+                                            <input type="text" ngModel class="form-control" name="title" placeholder="Nombre del servicio" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Descripción <br> </label>&nbsp;
+                                            <textarea ngModel placeholder="Describe el servicio que ofreces" name="description" id="" class="form-control" required></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Precio</label>&nbsp;
+                                            <input (change)="onInputChange();" name="price" type="number" class="form-control" [(ngModel)]="price" required placeholder="Ingresa el precio del producto">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Duración</label>&nbsp;
+                                            <button type="button" [ngClass]="{'btn-primary': duration === 5 }" (click)="setDuration(5)" class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">5 días</button>&nbsp;
+                                            <button type="button" [ngClass]="{'btn-primary': duration === 15 }" (click)="setDuration(15)"class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">15 días</button>&nbsp;
+                                            <button type="button" [ngClass]="{'btn-primary': duration === 30 }" (click)="setDuration(30)"class="btn btn-outline-primary pl-4 pr-4 pt-2 pb-2" style="border-radius:30px !important;">30 días</button>&nbsp;
+                                        </div>
+                                        <div class="form-group">       
+                                            <label for="" class="control-label">Ubicación</label>
+                                            <ng-select placeholder="Selecciona tu ubicación" ngModel required [items]="states" bindLabel="name" name="ubication"></ng-select>
+                                        </div>
+                                        <div class="form-group mt-2 mb-2" style="padding:0;margin:0">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div id="upload-form" *ngFor="let i of [1, 2,3,4, 5, 6, 7, 8 , 9 , 10]" style="padding:0;width:20%;cursor:pointer;">
+                                                        <input #upload type="file" class="d-none" (change)="onThumbnailSelected($event, i)" required>
+                                                        <div (click)="upload.click() " *ngIf="i === 1 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[0] || 'assets/images/0.jpg'}});">
+                                                            <div class="card-body">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                <span class="text-white" style="position:absolute; bottom:5px;left:0; right:0"><i class="fa-sharp fa-solid fa-circle text-primary">&nbsp;</i><strong>Principal</strong></span>
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 2" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[1] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                                            <div class="card-body text-center" style="position:relative; text-center">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 3 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[2] || 'assets/images/0.jpg'}}); background-position: center; width: 100%; max-width:100%;height:125px; background-size: cover ;">
+                                                            <div class="card-body">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 4" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[3] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                                            <div class="card-body text-center" style="position:relative;">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 5 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[4] || 'assets/images/0.jpg'}}); background-position: center; width: 100%; max-width:100%;height:125px; background-size: cover ;">
+                                                            <div class="card-body">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 6" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[5] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                                            <div class="card-body text-center" style="position:relative; text-center">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 7 " class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[6] || 'assets/images/0.jpg'}}); background-position: center; width: 100%; max-width:100%;height:125px; background-size: cover ;">
+                                                            <div class="card-body">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 8" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[7] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                                            <div class="card-body text-center" style="position:relative; text-center">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 9" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[8] || 'assets/images/0.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                                            <div class="card-body text-center" style="position:relative; text-center">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div (click)="upload.click() " *ngIf="i === 10" class="card" style="border-radius:0;padding:0; background-image: url({{filesSelected[9] || 'assets/images/1.jpg'}}); width: 100%; max-width:100%;height:125px;">
+                                                            <div class="card-body text-center" style="position:relative; text-center;">
+                                                                <button class="btn text-white" style="position:absolute; top:0; right:0;"><i (click)="clear(i)" class="fa-solid fa-circle-xmark"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-success" [disabled]="addService.invalid">PUBLICAR SERVICIO</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</section>

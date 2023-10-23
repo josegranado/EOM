@@ -20,7 +20,6 @@
                 <br>
                 <div class="row mt-1">
                     <div class="col-12">
-                        <button class="btn btn-outline-light">Ver reputación</button>&nbsp;
                     <button *ngIf="identity?.id != identityStorage?.id && followers?.indexOf(identityStorage?.id) == -1" (click)="follow()" class="btn btn-success">Seguir</button>&nbsp;
                     <button *ngIf="identity?.id != identityStorage?.id && followers?.indexOf(identityStorage?.id) != -1" (click)="unfollow()" class="btn btn-outline-light">Dejar de Seguir</button>&nbsp;
                     <button *ngIf="identity?.id != identityStorage?.id" (click)="openTwin();" class="btn btn-primary">Twin</button>&nbsp;
@@ -63,9 +62,9 @@
     <div id="papers" class="container">
         <div class="row">
             <div class="col-12 col-md-4 p-4 mb-5">
-                <h4 class="text-secondary mt-5 mb-4">Información</h4>
-                <p> {{ description }}</p>
-                <hr style="border-color:#CCCCCC">
+                <h4 *ngIf="description" class="text-secondary mt-5 mb-4">Información</h4>
+                <p *ngIf="description"> {{ description }}</p>
+                <hr *ngIf="description" style="border-color:#CCCCCC">
                 <h5 *ngIf="profile?.state && profile?.city" class="text-primary mt-4 mb-4"><i class="iconsminds-map-marker-2"></i> {{ city }}, {{ state.name }}</h5>
                 <hr style="border-color:#CCCCCC">
                 <h6 *ngIf="papers" class="mt-3 mb-3" style="color:#444444">Papelito habla</h6>
@@ -82,16 +81,16 @@
             </div>
             <div class="col-12 col-md-1"></div>
             <div class="col-12 col-md-7 mt-5">
-                <button routerLink="/publish-product" class="btn btn-success w-48 mt-5">
-                    Quiero Vender
-                </button>
-                <button routerLink="/publish-product" class="btn btn-primary w-50 mt-5">
-                    Quiero Comprar
-                </button>
                 <p class="text-center mt-5"  style="font-size:25px" *ngIf="products?.length < 1"> Este usuario no ha publicado productos...</p>
-                <div *ngFor="let product of products" class="card mt-3 mb-3">
+                <div *ngFor="let product of products" class="product card mt-3 mb-3">
                     <div class="card-body">
                         <div class="row">
+                            <button (click)="options = !options" class="btn c-pointer" style="position:absolute; top:15px;right:15px; font-size:25px;z-index:99;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                            <div *ngIf="options" class="dropdown ellipsis" style="">
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" (click)="open(report, product); options = false">Reportar producto</a></li>
+                                </ul>
+                            </div> 
                             <div class="col-2">
                                 <img *ngIf="!identity.profile.avatar" src="assets/images/avatar.png" alt="" style="width:100%;">
                                 <img *ngIf="identity.profile.avatar" [src]="apiUrl + '/files/avatars/' + identity.profile.avatar" alt="" style="width:100%;">
@@ -105,8 +104,8 @@
                         </div>
                         <hr style="border-color:#CCCCCC">
                         <div class="row">
-                            <div class="col-12">
-                                <h2 style="color:#444444">{{ product.tile}}</h2>
+                            <div class="col-12" style="position: relative;">
+                                <h2 style="color:#444444">{{ product.title}}</h2>
                                 <p style="color:#444444">{{ product.description }}</p>
                                 <img *ngIf="!product.thumbnail" src="assets/images/product.png" alt="" style="width:100%;">
                                 <img *ngIf="product.thumbnail" [src]="apiUrl + '/files/products/' + product.thumbnail" alt="" style="width:100%;">
@@ -168,3 +167,86 @@
         </div>
     </div>
 </section>
+<ng-template #report>
+    <div class="modal-content" style="z-index:99999 !important;">
+        <div class="modal-header">
+            <h4 class="modal-title text-center">Reportar publicacion</h4>
+            <button type="button" class="close pull-right btn text-darken" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true" style="font-size:40px;">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form #formReport="ngForm" (ngSubmit)="onSubmitReport(product.id, formReport.value )">
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" ngModel value="1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Contenido sexual
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" ngModel value="2">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Contenido violento
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" ngModel value="3">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Contenido de acoso
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" ngModel value="4">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Contenido de suicidio o autolesiones
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" ngModel value="5">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Informacion Falsa
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" ngModel value="6">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Spam
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" ngModel value="7">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Ventas no autorizadas
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" ngModel value="8">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Lenguaje que incita al odio
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" ngModel value="9">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Terrorismo
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" ngModel value="10">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Otro problema
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="control-label">Mensaje</label>
+                    <textarea class="form-control" name="message" id="" ngModel required placeholder="Informacion adicional"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" >Reportar publicacion</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>

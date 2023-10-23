@@ -48,9 +48,12 @@
                                         <div class="container">
                                             Usuarios registrados
                                             <br>
-                                            <span>739</span>
+                                            <h3 class="text-primary">{{ users?.length }}</h3>
                                             <br>
-                                            <button class="btn btn-outline-primary">Descargar balance</button>
+                                            <a href="{{apiUrl}}/files/pdfs/registrados.pdf" target="_blank">
+                                                <button class="btn btn-outline-primary">Descargar balance</button>
+                                            </a>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -64,9 +67,12 @@
                                         <div class="container">
                                             Usuarios confirmados
                                             <br>
-                                            <span>412</span>
+                                            <h3 class="text-primary">{{ confirmados?.length }}</h3>
                                             <br>
-                                            <button class="btn btn-outline-primary">Descargar balance</button>
+                                            <a href="{{apiUrl}}/files/pdfs/aprobados.pdf" target="_blank">
+                                                <button class="btn btn-outline-primary">Descargar balance</button>
+                                            </a>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -81,9 +87,10 @@
                                         <div class="container">
                                             Usuarios inactivos
                                             <br>
-                                            <span>125</span>
+                                            <h3 class="text-primary">{{ eliminados?.length }}</h3>
                                             <br>
-                                            <button class="btn btn-outline-primary">Descargar balance</button>
+                                            <a href="{{apiUrl}}/files/pdfs/eliminados.pdf" target="_blank"><button class="btn btn-outline-primary">Descargar balance</button></a>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -104,6 +111,63 @@
                         </ul>
                         <hr>
                         <div class="row">
+                            <div class="col-12 col-md-4">
+                                <div class="row">
+                                    <div class="col-4 text-center d-flex align-items-center justify-content-center">
+                                        <i class="fa-solid fa-store text-primary"></i>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="container">
+                                            <h5 class="text-secondary">Productos y servicios</h5>
+                                            <h3 class="text-primary">{{ products?.length }}</h3>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="row">
+                                    <div class="col-4 d-flex align-items-center justify-content-center">
+                                        <i class="fa-solid fa-box-open text-primary"></i>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="container">
+                                            <h5 class="text-secondary">Productos</h5>
+                                            <h3 class="text-primary">{{ productos?.length }}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="row">
+                                    <div class="col-4 d-flex align-items-center justify-content-center">
+                                        <i class="fa-solid fa-bell-concierge text-primary"></i>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="container">
+                                            <h5 class="text-secondary">Servicios </h5>
+                                            <h3 class="text-primary">{{ servicios?.length }}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="balance" class="col-12 position-relative mt-2 mb-2">
+                <div class="card" style="max-width: 100%; width:100%;">
+                    <div class="card-body">
+                        <h2 class="card-title"><h2>Balance general</h2></h2>
+                        <ul class="options">
+                            <li>Última semana</li>
+                            <li>Última mes</li>
+                            <li>Última Definir </li>
+                        </ul>
+                        <hr>
+                        <div class="row">
                             <div id="sales" class="col-12 col-md-4">
                                 <div class="row">
                                     <div class="col-4 text-center d-flex align-items-center justify-content-center">
@@ -111,8 +175,8 @@
                                     </div>
                                     <div class="col-8">
                                         <div class="container">
-                                            <h5 class="text-secondary">Ventas</h5>
-                                            <h3 class="text-primary">739</h3>
+                                            <h5 class="text-secondary">Creditos circulando</h5>
+                                            <h3 class="text-primary">{{ total_credits }}</h3>
                                             
                                         </div>
                                     </div>
@@ -125,8 +189,8 @@
                                     </div>
                                     <div class="col-8">
                                         <div class="container">
-                                            <h5 class="text-secondary">Ventas</h5>
-                                            <h3 class="text-primary">412</h3>
+                                            <h5 class="text-secondary">Compra y ventas</h5>
+                                            <h3 class="text-primary">{{ transactions?.length }}</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +204,7 @@
                                     <div class="col-8">
                                         <div class="container">
                                             <h5 class="text-secondary">Reportes </h5>
-                                            <h3 class="text-danger">739</h3>
+                                            <h3 class="text-primary">420</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -150,6 +214,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://api.elotromercado.com'
+  apiUrl: 'http://127.0.0.1:3333',
+  socket: 'ws://127.0.0.1:3333'
 };
 
 /*

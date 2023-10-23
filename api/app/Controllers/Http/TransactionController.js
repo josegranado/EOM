@@ -93,6 +93,48 @@ class TransactionController {
     }
     async store({request, response, auth, params }){
         try{
+            const { saler_id, amount, quanty, product_id } = request.all();
+            const auth_user = await auth.getUser();
+            const product = await Product.findBy({
+                id: product_id,
+                deleted: 0
+            });
+            let buyer_account;
+            let saler_account;
+            let buyer;
+            let seller;
+            if ( product.type < 3){
+                buyer_account = await Account.findBy({
+                    user_id: auth_user.id,
+                    deleted: 0
+                })
+                buyer = await User.findBy({
+                    id: buyer_account.user_id
+                })
+                saler_account = await Account.findBy({
+                    id: saler_id,
+                    deleted: 0
+                })
+                seller = await User.findBy({
+                    id: saler_id
+                })
+            }else{
+                buyer_account = await Account.findBy({
+                    id: saler_id,
+                    deleted: 0
+                })
+                buyer = await User.findBy({
+                    id: saler_id
+                })
+                saler_account = await Account.findBy({
+                    user_id: auth_user.id,
+                    deleted: 0
+                }) 
+                seller = await User.findBy({
+                    id: buyer_account.user_id
+                })
+            }
+            
             var transport = nodemailer.createTransport({
                 host: "sandbox.smtp.mailtrap.io",
                 port: 2525,
@@ -101,20 +143,7 @@ class TransactionController {
                   pass: "920de5c7c733dc"
                 }
               });
-            const auth_user = await auth.getUser();
-            const buyer_account = await Account.findBy({
-                user_id: auth_user.id,
-                deleted: 0
-            })
-            const { saler_id, amount, quanty, product_id } = request.all();
-            const seller = await User.findBy({
-                id: saler_id,
-                deleted: 0
-            })
-            const product = await Product.findBy({
-                id: product_id,
-                deleted: 0
-            });
+            
             if ( buyer_account.balance > amount ){
                 const transaction = new Transaction();
                 transaction.buyer_id = auth_user.id;
@@ -124,16 +153,18 @@ class TransactionController {
                 transaction.deleted = 0;
                 transaction.product_id = product_id;
                 transaction.state = 1;
+                transaction.type = 1;
                 transaction.uuid = uuidv4();
                 await transaction.save();
                 const calification = new Calification();
                 calification.product_id = product_id;
-                calification.buyer_id = auth_user.id;
-                calification.saler_id = product.user_id;
+                calification.buyer_id = buyer_account.user_id;
+                calification.saler_id = saler_account.user_id;
                 calification.deleted = 0;
                 await calification.save();
                 buyer_account.balance = buyer_account.balance - transaction.amount;
                 await buyer_account.save();
+                /*
                 let html = `\${<!DOCTYPE html>
                     <html lang="en">
                     <head>
@@ -185,7 +216,8 @@ class TransactionController {
                     }
                     
                 })
-                return response.json({ status: 201, message: 'Transaction Saved Successfully', data: buyer_account})
+                */
+                return response.json({ status: 201, message: 'Transaction Saved Successfully'})
             }
             else{
                 return response.json({ status: 201, message: 'Insufficient Funds'})

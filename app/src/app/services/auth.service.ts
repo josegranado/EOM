@@ -9,7 +9,7 @@ export class AuthService {
   public identity:any;
   public token:any;
   constructor(private httpClient: HttpClient) {
-    this.token = 'Bearer '+ localStorage.getItem('token');
+    this.token = localStorage.getItem('token');
 
   }
   getBrokers():Observable<any>{

@@ -20,8 +20,9 @@ Route.post('login', 'AuthController.login');
 Route.post('register', 'AuthController.register');
 Route.get('loginByToken', 'AuthController.loginByToken').middleware(['auth:jwt']);
 Route.get('brokers', 'AuthController.brokers');
-
-
+Route.group(() => {
+    Route.get('', 'DashboardController.index')
+}).prefix('dashboard');
 Route.group(() => {
     Route.get('', 'ProductController.index')
     Route.get('favorites', 'ProductController.allFavoritesByUser')
@@ -30,6 +31,7 @@ Route.group(() => {
     Route.get(':id', 'ProductController.show')
     Route.put(':id', 'ProductController.update').middleware(['auth:jwt'])
     Route.delete(':id', 'ProductController.destroy').middleware(['auth:jwt'])
+    Route.post(':id/report', 'ReportController.store')
     Route.get(':id/favorites', 'ProductController.store_favorite').middleware(['auth:jwt'])
     Route.post(':product_id/comments', 'CommentController.store').middleware(['auth:jwt'])
     Route.put(':product_id/comments', 'CommentController.update').middleware(['auth:jwt'])
@@ -109,7 +111,8 @@ Route.group(() => {
     Route.put('members/:id', 'AdminUserController.update').middleware(['auth:jwt'])
     Route.delete('members/:id', 'AdminUserController.destroy').middleware(['auth:jwt'])
     Route.post('members/:id', 'AdminUserController.undestroy').middleware(['auth:jwt'])
-
+    Route.post('transactions/asignations', 'AdminTransactionController.store_asignation').middleware(['auth:jwt'])
+    Route.get('transactions/asignations/:page', 'AdminTransactionController.asignations').middleware(['auth:jwt'])
     Route.get('transactions/:page', 'AdminTransactionController.index').middleware(['auth:jwt'])
     Route.get('transaction/:id', 'AdminTransactionController.show').middleware(['auth:jwt'])
     Route.post('transaction', 'AdminTransactionController.store').middleware(['auth:jwt'])
@@ -123,6 +126,7 @@ Route.group(() => {
     Route.put('product/:id', 'AdminProductController.update').middleware(['auth:jwt'])
     Route.delete('product/:id', 'AdminProductController.destroy').middleware(['auth:jwt'])
     Route.post('product/:id', 'AdminProductController.undestroy').middleware(['auth:jwt'])
+    Route.get('reports', 'AdminReportController.index').middleware(['auth:jwt'])
 }).prefix('admin');
 Route.group(() => {
     Route.post('', 'SearchController.index').middleware(['auth:jwt'])

@@ -22,7 +22,7 @@
                     <div class="row">
                         <button (click)="showForm('P')" class="btn btn-success pl-5 pr-5 btn-block" style="width:375px!important;">¿Qué producto quieres vender?</button>
                         <div class="mx-auto"></div>
-                        <button (click)="showForm('S')" class="btn btn-primary pl-5 pr-5 btn-block" style="width:375px!important;">¿Qué servicio quieres ofrecer?</button>
+                        <button (click)="showForm('S')" class="btn btn-primary pl-5 pr-5 btn-block" style="width:375px!important;">¿Qué servicio quieres vender?</button>
                     </div>
                     <br>
                     <div *ngIf="productF" class="row">
@@ -57,7 +57,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="control-label">Precio</label>&nbsp;
-                                            <input name="price" type="number" class="form-control" ngModel required placeholder="Ingresa el precio del producto">
+                                            <input (change)="onInputChange();" name="price" type="number" class="form-control" [(ngModel)]="price" required placeholder="Ingresa el precio del producto">
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="control-label">Duración</label>&nbsp;
@@ -153,7 +153,7 @@
                                             <div class="col-2">
                                                 <img src="assets/images/avatar.png" alt="" style="max-width:100px; height:100px;">
                                             </div>
-                                            <div class="col-10">{{ identity.profile?.first_name }}, <span class="text-success">¿Qué estás buscando?</span></div>
+                                            <div class="col-10">{{ identity.profile?.first_name }}, <span class="text-success">¿Qué servicio ofreces?</span></div>
                                         </div>
                                     </h2>
                                     <form #addService="ngForm" (ngSubmit)="onSubmit(addService.value, 'S')">
@@ -162,16 +162,16 @@
                                             <ng-select placeholder="Selecciona la categoría" ngModel required [items]="categories" bindLabel="name" name="category"></ng-select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="control-label">¿Qué servicios ofreces?<br></label>&nbsp;
-                                            <input type="text" ngModel class="form-control" name="title" placeholder="¿Qué servicios ofreces?" required>
+                                            <label for="" class="control-label">Nombre<br></label>&nbsp;
+                                            <input type="text" ngModel class="form-control" name="title" placeholder="Nombre del servicio" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="control-label">Descripción <br> </label>&nbsp;
-                                            <textarea ngModel placeholder="Describe el servicio que necesitas" name="description" id="" class="form-control" required></textarea>
+                                            <textarea ngModel placeholder="Describe el servicio que ofreces" name="description" id="" class="form-control" required></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="control-label">Precio</label>&nbsp;
-                                            <input name="price" type="number" class="form-control" ngModel required placeholder="Ingresa el precio del producto">
+                                            <input (change)="onInputChange();" name="price" type="number" class="form-control" [(ngModel)]="price" required placeholder="Ingresa el precio del producto">
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="control-label">Duración</label>&nbsp;

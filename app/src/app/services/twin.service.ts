@@ -2,17 +2,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { io } from 'socket.io-client';
+import Ws from "@adonisjs/websocket-client";
 @Injectable({
   providedIn: 'root'
 })
 export class TwinService {
   public token;
-  public socket = io(environment.apiUrl)
+  public socket:any = Ws(environment.socket, {
+    path: "ws"
+  })
+  chat: any;
   constructor(
     private httpClient: HttpClient
   ) { 
-    this.token = 'Bearer '+ localStorage.getItem('token');
+    this.token = localStorage.getItem('token');
   }
   public index():Observable<any>{
     const headers = new HttpHeaders({
@@ -48,7 +51,8 @@ export class TwinService {
   }
   emit(eventName:string, data:any)
   {
-    console.log(data)
-    this.socket.emit(eventName, data)
+    this.socket.connect();
+    this.chat = this.socket.subscribe("chat")
+    this.chat.emit(eventName, data)
   }
 }

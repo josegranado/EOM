@@ -40,12 +40,13 @@ class AdminUserController {
         try{
             const auth_user = await auth.getUser();
             if ( auth_user.role > 1 ) return response.json({ status: 401, message: 'Unathourize Access'})
-            const { username, email, password, terms, notifications, terms_and_privacity, offers } = request.all();
+            console.log( request.all())
+            const { role, username, email, password, terms, notifications, terms_and_privacity, offers } = request.all();
             const user = new User();
-            user.username = username;
+            user.username = email.split('@')[0];
             user.email = email
-            user.role = 3
-            user.is_approved = 0;
+            user.role = role
+            user.is_approved = 1;
             user.type = 2;
             user.deleted = 0;
             user.password = password;
@@ -64,7 +65,6 @@ class AdminUserController {
             profile.phone_local_number = phone_local_number;
             profile.deleted = 0;
             profile.user_id = user.id;
-            profile.state = state;
             profile.birthday = birthday;
             profile.gender = gender;
             await profile.save();
@@ -80,15 +80,15 @@ class AdminUserController {
             return response.json({ status: 500, message: 'Internal Server Error'})
         }
     }
-    async update({ request, response, auth}){
+    async update({ request, response, auth, params}){
         try{
             const auth_user = await auth.getUser();
             if ( auth_user.role > 1 ) return response.json({ status: 401, message: 'Unathourize Access'})
             const user = await User.findBy({ id: params.id, deleted: 0 })
-            user.profile = await Profile.findBy({ user_id: user.id, deleted: 0})
-            user.account = await Account.findBy({ user_id: user.id, deleted: 0})
-            user.enterprise = await Enterprise.findBy({ user_id: user.id, deleted: 0})
-            user.survey = await Survey.findBy({ user_id: user.id, deleted: 0})
+            const profile = await Profile.findBy({ user_id: user.id, deleted: 0})
+            const account = await Account.findBy({ user_id: user.id, deleted: 0})
+            const enterprise = await Enterprise.findBy({ user_id: user.id, deleted: 0})
+            const survey = await Survey.findBy({ user_id: user.id, deleted: 0})
             const { username, email, password, terms, notifications, terms_and_privacity, offers, role, is_approved } = request.all();
             const { first_name, last_name, ocupation, phone_number, phone_local_number, birthday, gender } = request.all();
             const { balance } = request.all();
@@ -103,12 +103,16 @@ class AdminUserController {
             user.terms_and_privacity = terms_and_privacity;
             user.offers = offers;
             await user.save();
-            profile.first_name = first_name;
-            profile.last_name = last_name;
+            if ( first_name ){
+                profile.first_name = first_name;
+            }
+            if ( last_name ){
+                profile.last_name = last_name;
+            }
+            
             profile.ocupation = ocupation;
             profile.phone_number = phone_number;
             profile.phone_local_number = phone_local_number;
-            profile.state = state;
             profile.birthday = birthday;
             profile.gender = gender;
             await profile.save();
@@ -132,11 +136,9 @@ class AdminUserController {
             const survey = await Survey.findBy({ user_id: user.id, deleted: 0})
             profile.deleted = 1;
             account.deleted = 1,
-            enterprise.deleted = 1;
-            survey.deleted = 1;
+            //enterprise.deleted = 1;
+            //survey.deleted = 1;
             user.deleted = 1;
-            await survey.save();
-            await enterprise.save();
             await account.save();
             await profile.save();
             await user.save();

@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProfileComponent } from './home/profile/profile.component';
 import { RatingModule } from 'ngx-bootstrap/rating';
+import { ModalModule } from 'ngx-bootstrap/modal'
 import { SidebarUniverseComponent } from './components/sidebar-universe/sidebar-universe.component';
 import { NotificationsPageComponent } from './home/notifications-page/notifications-page.component';
 import { SingleProductPageComponent } from './home/single-product-page/single-product-page.component';
@@ -23,6 +24,7 @@ import { ShowProfileComponent } from './home/show-profile/show-profile.component
 import { FavoritesPageComponent } from './home/favorites-page/favorites-page.component';
 import { TwinsPageComponent } from './home/twins-page/twins-page.component';
 import { SearchPageComponent } from './home/search-page/search-page.component';
+import { PublishOfferComponent } from './home/publish-offer/publish-offer.component';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -40,7 +42,8 @@ import { SearchPageComponent } from './home/search-page/search-page.component';
     ShowProfileComponent,
     FavoritesPageComponent,
     TwinsPageComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    PublishOfferComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +53,8 @@ import { SearchPageComponent } from './home/search-page/search-page.component';
     HttpClientModule,
     NgSelectModule,
     RatingModule.forRoot(),
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    ModalModule.forRoot()
   ]
 })
 export class PagesModule { }

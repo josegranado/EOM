@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { AccountService } from 'src/app/services/account.service';
 import { ProductService } from 'src/app/services/product.service';
+import { TwinService } from 'src/app/services/twin.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -16,7 +19,9 @@ export class IndexPageComponent implements OnInit {
   public API_ENDPOINT = environment.apiUrl;
   constructor(
     private productService: ProductService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private router: Router,
+    private twinService: TwinService
     ) { 
     this.identity =  JSON.parse(localStorage.getItem('identity') as string);
   }
@@ -41,7 +46,7 @@ export class IndexPageComponent implements OnInit {
     this.productService.favorite(product.id).subscribe( res => {
       console.log( res )
       if ( res.status == 201 ){
-        location.reload();
+        this.router.navigate(['/favorites'])
       }
     })
   }
@@ -67,6 +72,35 @@ export class IndexPageComponent implements OnInit {
     if ( filter.type ){
       this.products = this.products.filter( product => product.type == filter.type )
     }
+  }
+  like(id){
+    this.productService.like(id).subscribe( res => {
+      console.log(res)
+      if ( res.status == 201){
+        location.reload();
+      }
+    })
+  }
+  dislike(id){
+    this.productService.dislike(id).subscribe( res => {
+      console.log(res)
+      if ( res.status == 201){
+        location.reload();
+      }
+    })
+  }
+  share(id){}
+  twin(id){
+    let twin = {
+      from: this.identity.id,
+      to: id
+    }
+    this.twinService.store(twin).subscribe( res => {
+      console.log( res )
+      if ( res.status == 201){
+        this.router.navigate(['/twins']);
+      }
+    })
   }
   
 }

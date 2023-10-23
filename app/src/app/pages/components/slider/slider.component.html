@@ -32,10 +32,14 @@
                   </div>
               </div>
             </div>
-            <div class="bg-primary pl-4 pr-4 pt-2 pb-2 text-white" style="border-radius:30px;position:absolute; top:7px; right:7px;">
+            <div *ngIf="product.type < 3" class="bg-primary pl-4 pr-4 pt-2 pb-2 text-white" style="border-radius:30px;position:absolute; top:7px; right:7px;">
               <span *ngIf="product.type == 1"><i class="fa-solid fa-shop"></i>&nbsp;PRODUCTO</span>
               <span *ngIf="product.type == 2"><i class="fa-solid fa-bell-concierge"></i>&nbsp;SERVICIO</span>
           </div>
+          <div *ngIf="product.type > 2"class="bg-success pl-4 pr-4 pt-2 pb-2 text-white" style="border-radius:30px;position:absolute; top:7px; right:7px;">
+            <span *ngIf="product.type == 3"><i class="fa-solid fa-shop"></i>&nbsp;PRODUCTO</span>
+            <span *ngIf="product.type == 4"><i class="fa-solid fa-bell-concierge"></i>&nbsp;SERVICIO</span>
+        </div>
         </div>
     </ng-template>
   </swiper>

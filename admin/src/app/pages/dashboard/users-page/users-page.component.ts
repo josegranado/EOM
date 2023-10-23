@@ -12,7 +12,7 @@ export class UsersPageComponent implements OnInit {
   public modalRef: BsModalRef;
   constructor(
     private userService: UserService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
   ) { }
 
   ngOnInit(): void {

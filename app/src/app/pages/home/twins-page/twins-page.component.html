@@ -7,9 +7,6 @@
                 <li class="list-group-item text-center">
                     <strong>Twins</strong>
                 </li>
-                <li *ngIf="twinsData.length === 0" class="list-group-item text-center">
-                    No hay twins disponibles...
-                </li>
                 <li *ngFor="let twin of twinsData" class="list-group-item"  (click)="openTwin(twin.id);">
                     <div *ngIf="identity.id == twin.from.id" class="container">
                         <img *ngIf="!twin.to.profile.avatar" src="assets/images/avatar.png" alt="" style="width:40px;">

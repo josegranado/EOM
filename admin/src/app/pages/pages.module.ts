@@ -30,6 +30,7 @@ import { CreditsEomListPageComponent } from './dashboard/credits-eom-list-page/c
 import { CreditsMembersListPageComponent } from './dashboard/credits-members-list-page/credits-members-list-page.component';
 import { AsignationsListPageComponent } from './dashboard/asignations-list-page/asignations-list-page.component';
 import { ReportsListPageComponent } from './dashboard/reports-list-page/reports-list-page.component';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -60,6 +61,7 @@ import { ReportsListPageComponent } from './dashboard/reports-list-page/reports-
     CommonModule,
     PagesRoutingModule,
     HttpClientModule,
+    RouterModule,
     FormsModule,
     NgSelectModule,
     BsDropdownModule,

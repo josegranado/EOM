@@ -31,6 +31,21 @@
                                     <td> <span *ngIf="user.is_approved == 1">Sí.</span>
                                         <span *ngIf="user.is_approved == 0">No.</span></td>
                                     <td>
+                                        <button (click)="is_approved(user.id)" *ngIf="user.is_approved == 0" class="btn btn-primary">
+                                            <i class="fa-solid fa-circle-check"></i>
+                                        </button>&nbsp;
+                                        <button class="btn btn-success" (click)="open(showEnterprise, user) ">
+                                            <i class="fa-solid fa-building"></i>
+                                        </button>&nbsp;
+                                        <button class="btn btn-warning" (click)="open(showSurvey, user) ">
+                                            <i class="fa-solid fa-square-poll-horizontal"></i>
+                                        </button>&nbsp;
+                                        <button class="btn btn-outline-primary" (click)="open(changePassword, user)">
+                                            <i class="fa-solid fa-lock"></i>
+                                        </button>&nbsp;
+                                        <button class="btn btn-danger" (click)="open(deleteRecord, user)">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
                                         <button (click)="is_approved(user.id)" *ngIf="user.is_approved == 0" class="btn btn-primary">APROBAR REGISTRO</button>&nbsp;
                                         <button class="btn btn-success" (click)="openModal(showEnterprise, user) "> VER EMPRESA</button>&nbsp;
                                         <button class="btn btn-warning" (click)="openModal(showSurvey, user) ">VER ENCUESTA</button>&nbsp;
@@ -114,6 +129,23 @@
                 </div>
                 
             </form>  
+        </div>
+    </div>
+</ng-template>
+<ng-template #deleteRecord>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title text-center">Eliminar pre-registro</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Estas seguro?</p>
+        <div class="container-buttons">
+            <button class="btn bg-white btn-lg btn-shadow pull-right" (click)="modalRef.hide();">CANCELAR</button>
+            <button class="btn btn-danger pull-right btn-shadow" (click)="delete(user)">ELIMINAR</button>
+        </div>
         </div>
     </div>
 </ng-template>

@@ -275,7 +275,6 @@ class AuthController {
                     user_id: users[i].id,
                     deleted: 0 
                 });
-                users[i].full_name = users[i].profile.first_name + ' '+users[i].profile.last_name;
             };
             return response.json({ status: 201, data: users });
         }catch(e){

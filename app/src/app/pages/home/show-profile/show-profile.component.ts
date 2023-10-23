@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CommentService } from 'src/app/services/comment.service';
 import { FollowService } from 'src/app/services/follow.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -22,6 +23,7 @@ export class ShowProfileComponent implements OnInit {
   city: any;
   state: any;
   description: any;
+  public modalRef: BsModalRef;
   constructor(
     private userService: UserService,
     private productService: ProductService,
@@ -30,7 +32,8 @@ export class ShowProfileComponent implements OnInit {
     private twinService: TwinService,
     private router: Router,
     private notificationService: NotificationService,
-    private followService: FollowService
+    private followService: FollowService,
+    private modalService: BsModalService
     ) { 
       this.identityStorage = JSON.parse(localStorage.getItem('identity') as string)
   }
@@ -49,6 +52,7 @@ export class ShowProfileComponent implements OnInit {
   public follows;
   public followers; 
   public allProducts;
+  public options = false;
   filterEvent(filter){
     console.log(filter)
     this.products = this.allProducts;
@@ -211,5 +215,19 @@ export class ShowProfileComponent implements OnInit {
         this.router.navigate(['/notifications']);
       }
     })
+  }
+  onSubmitReport(id, values){
+    console.log(values);
+    this.productService.report(this.product.id, values).subscribe( res =>{
+      console.log( res )
+      if ( res.status == 201){
+        //location.reload();
+      }
+    })
+  }
+  public product;
+  open(modal, product){
+    this.product = product;
+    this.modalRef = this.modalService.show(modal);
   }
 }

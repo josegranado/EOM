@@ -9,6 +9,7 @@
     top: 18px;
     right:25px;
 }
+
 #users .options li{
     display: inline-block;
     margin:5px; 
@@ -18,7 +19,7 @@
 }
 /*
 */
-#posts .options{
+#posts .options, #balance .options{
     list-style: none;
     margin:0;
     padding:0;
@@ -26,10 +27,13 @@
     top: 18px;
     right:25px;
 }
-#posts .options li{
+#posts .options li, #balance .options li, #users .options li{
     display: inline-block;
     margin:5px; 
 }
-#posts i{
+#posts i, #balance i{
     font-size: 56px;
+}
+#users .options li:hover, #post .options li:hover, #balance .options li:hover{
+    cursor: pointer !important;
 }

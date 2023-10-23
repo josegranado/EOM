@@ -373,5 +373,15 @@ export class ProfileComponent implements OnInit {
         this.router.navigate(['/notifications']);
       }
     })
+    
+  }
+  public options = false;
+  deleteProduct(id){
+    this.productService.delete(id).subscribe( res =>{
+      console.log( res )
+      if ( res.status == 201){
+        location.reload();
+      }
+    })
   }
 }

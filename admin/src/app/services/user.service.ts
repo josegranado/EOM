@@ -26,4 +26,28 @@ export class UserService {
     });
     return this.httpClient.get(environment.apiUrl+'/users/'+id, { headers })
   }
+  brokers():Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    return this.httpClient.get(environment.apiUrl+'/brokers', { headers })
+  }
+  update(id, user ):Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    return this.httpClient.put(environment.apiUrl+'/admin/members/'+id, user, { headers })
+  }
+  delete(id):Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    return this.httpClient.delete(environment.apiUrl+'/admin/members/'+id, { headers })
+  }
+  store(user):Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    return this.httpClient.post(environment.apiUrl+'/admin/members/',user, { headers })
+  }
 }

@@ -229,6 +229,23 @@ class ProductController {
             return response.json({ status: 500, message: 'Internal Server Error'})
         }
     }
+    async destroy({ request, response, auth, params }){
+        try{
+            const id = params.id;
+            const auth_user = await auth.getUser()
+            const product = await Product.findBy({
+                id: id,
+                user_id: auth_user.id
+            })
+            if ( !product ) return response.json({ status: 401, message: 'Unauthorized Access'});
+            product.deleted = 1;
+            await product.save();
+            return response.json({ status: 201, message: 'Post deleted successfully'})
+        }catch(e){
+            console.log( e )
+            return response.json({ status: 500, message: 'Internal Server Error'})
+        }
+    }
 }
 
 module.exports = ProductController

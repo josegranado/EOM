@@ -11,7 +11,7 @@ export class TransactionService {
   constructor(
     private httpClient: HttpClient
   ) { 
-    this.token = 'Bearer '+ localStorage.getItem('token');
+    this.token =  localStorage.getItem('token');
   }
   public index():Observable<any>{
     const headers = new HttpHeaders({

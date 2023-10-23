@@ -26,8 +26,10 @@
                 <div class="col-12 col-md-7" style="clear:both;">
                     <button *ngIf="identity" routerLink="/publish-product" class="btn btn-success pl-5 pr-5">Publicar Producto</button>
                     
-                    <button class="btn text-secondary" style="float:right;border-radius:50% !important" (click)="list = true; grid = false;"><i class="simple-icon-list"></i></button>  
-                    <button class="btn btn-primary" style="float:right;border-radius:50% !important"><i (click)="list = false; grid = true" class="simple-icon-grid"></i></button>              
+                    <button *ngIf="!list" class="btn text-secondary" style="float:right;border-radius:50% !important" (click)="list = true; grid = false;"><i class="simple-icon-list"></i></button>  
+                    <button *ngIf="grid" class="btn btn-primary" style="float:right;border-radius:50% !important"><i (click)="list = false; grid = true" class="simple-icon-grid"></i></button>   
+                    <button *ngIf="list" class="btn text-secondary" style="float:right;border-radius:50% !important" (click)="list = false; grid = true;"><i  class="simple-icon-grid"></i></button>  
+                    <button *ngIf="list" class="btn btn-primary" style="float:right;border-radius:50% !important" (click)="list = true; grid = false"><i class="simple-icon-list"></i></button>              
                     <hr>
                     <br>
                     <h2><strong>Lista de favoritos</strong></h2>

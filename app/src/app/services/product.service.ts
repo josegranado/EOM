@@ -12,7 +12,7 @@ export class ProductService {
   constructor(
     private httpClient: HttpClient
   ) { 
-    this.token = 'Bearer '+ localStorage.getItem('token');
+    this.token = localStorage.getItem('token');
   }
   allByUser(id): Observable<any>{
     const headers = new HttpHeaders({
@@ -21,10 +21,7 @@ export class ProductService {
     return this.httpClient.get(environment.apiUrl+'/users/'+id+'/products', { headers })
   }
   index():Observable<any>{
-    const headers = new HttpHeaders({
-      'Authorization': this.token
-    });
-    return this.httpClient.get(environment.apiUrl+'/products', { headers })
+    return this.httpClient.get(environment.apiUrl+'/products', { })
   }
   store(product:any, files: File[]): Observable<any>{
     const headers = new HttpHeaders({
@@ -101,5 +98,17 @@ export class ProductService {
       'Authorization': this.token
     });
     return this.httpClient.delete(environment.apiUrl+'/products/'+id+'/interactions', { headers });
+  }
+  delete(id): Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    return this.httpClient.delete(environment.apiUrl+'/products/'+id, { headers });
+  }
+  report(id, report): Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': this.token
+    });
+    return this.httpClient.post(environment.apiUrl+'/products/'+id+'/report', report, { headers });
   }
 }

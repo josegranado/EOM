@@ -1,14 +1,20 @@
-#main-header, #main-header nav{
-    height: 80px;
+#main-header{
+    height: 105px;
     padding:0;
     background-color:#FFF;
     position:fixed;
     width: 100%; 
     max-width: 100%;
-    top:0;
-    z-index: 999999;
+    top:-25px;
+    z-index: 999;
 }
-
+.btn:hover{
+    cursor:pointer !important;
+}
+i{
+    color:#FFF;
+    font-size:20px;
+}
 #logo{
     max-width: 100%;
 }
@@ -20,8 +26,8 @@
     position:fixed;
     max-width: 100%;
     width: 100%;
-    top: 80px;
-    z-index: 9999;
+    top: 70px;
+    z-index: 9;
     box-shadow: -1px 2px 14px -4px rgba(0,0,0,0.75);
     -webkit-box-shadow: -1px 2px 14px -4px rgba(0,0,0,0.75);
     -moz-box-shadow: -1px 2px 14px -4px rgba(0,0,0,0.75);

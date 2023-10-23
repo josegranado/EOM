@@ -30,7 +30,11 @@ export class LoginPageComponent implements OnInit {
           localStorage.setItem('token', 'Bearer ' + res.token.token );
           this.router.navigate(['/dashboard'])
         }else{
-          window.location.href = <string> 'https://eom.tk'
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Algo ha salido mal, tal vez los datos no concuerdan con nuestros registros...',
+          })
         } 
       }else{
         Swal.fire({

@@ -159,4 +159,10 @@ export class PublishProductPageComponent implements OnInit {
       this.filesSelected[i-1] = 'assets/images/0.jpg';
     }
   }
+  public price;
+  onInputChange(){
+    if ( this.price < 0){
+      this.price = '';
+    }
+  }
 }
